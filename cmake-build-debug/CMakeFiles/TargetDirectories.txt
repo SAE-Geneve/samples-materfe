@@ -1,0 +1,12 @@
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/shader_target.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/data_target.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/Common.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/3D_scene.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/double_texture_triangle.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/empty_polygon.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/empty_square.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/empty_star.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/full_square.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/full_star.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/rebuild_cache.dir

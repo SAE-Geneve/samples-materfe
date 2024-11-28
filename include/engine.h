@@ -1,7 +1,7 @@
 #pragma once
 #include "scene.h"
 
-namespace gpr5300
+namespace gpr
 {
 
 class Engine
@@ -17,4 +17,4 @@ private:
     SDL_GLContext glRenderContext_{};
 };
     
-} // namespace gpr5300
+} // namespace gpr

@@ -1,0 +1,141 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Samples_OpenGL",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "3D_scene::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-3D_scene-Release-94f3225868cf4a382eb5.json",
+					"name" : "3D_scene",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Common::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Common-Release-8066b8bc3db6b73ee88e.json",
+					"name" : "Common",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "data_target::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-data_target-Release-299447291a926e0324b4.json",
+					"name" : "data_target",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "double_texture_triangle::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-double_texture_triangle-Release-79bd8bb8f8966c3112bc.json",
+					"name" : "double_texture_triangle",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "empty_polygon::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-empty_polygon-Release-3499ec9f6ebedfd95582.json",
+					"name" : "empty_polygon",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "empty_square::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-empty_square-Release-c7b3eb394cef7d8634f3.json",
+					"name" : "empty_square",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "empty_star::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-empty_star-Release-7c46d2ad9f04da2c4ca7.json",
+					"name" : "empty_star",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "full_square::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-full_square-Release-2ea82d6a2cd73384d348.json",
+					"name" : "full_square",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "full_star::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-full_star-Release-469f6c7c493de8cc45e2.json",
+					"name" : "full_star",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "shader_target::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-shader_target-Release-b741a41a16005135653a.json",
+					"name" : "shader_target",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release",
+		"source" : "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

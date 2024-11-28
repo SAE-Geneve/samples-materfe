@@ -9,7 +9,7 @@
 #include <cassert>
 #include <chrono>
 
-namespace gpr5300
+namespace gpr
 {
     Engine::Engine(Scene* scene) : scene_(scene)
     {
@@ -70,7 +70,7 @@ namespace gpr5300
 
             //Generate new ImGui frame
             ImGui_ImplOpenGL3_NewFrame();
-            ImGui_ImplSDL2_NewFrame(window_);
+            ImGui_ImplSDL2_NewFrame();
             ImGui::NewFrame();
 
             scene_->DrawImGui();
@@ -99,7 +99,7 @@ namespace gpr5300
 
         SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-        constexpr auto windowSize = glm::ivec2(1280,720);
+        constexpr auto windowSize = glm::ivec2(1200,800);
         window_ = SDL_CreateWindow(
             "GPR5300",
             SDL_WINDOWPOS_UNDEFINED,
@@ -147,4 +147,4 @@ namespace gpr5300
         SDL_DestroyWindow(window_);
         SDL_Quit();
     }
-} // namespace gpr5300
+} // namespace gpr

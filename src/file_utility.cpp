@@ -1,7 +1,7 @@
 #include "file_utility.h"
 #include <fstream>
 
-namespace gpr5300
+namespace gpr
 {
 std::string LoadFile(std::string_view path)
 {
@@ -16,4 +16,4 @@ std::string LoadFile(std::string_view path)
         std::istreambuf_iterator<char>());
     return content;
 }
-} // namespace gpr5300
+} // namespace gpr
