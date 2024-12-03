@@ -22,15 +22,15 @@ namespace gpr
         GLuint program_ = 0;
         GLuint vao_ = 0;
         unsigned int texture[2] = {0, 0};
+
+        void SetAndBindTextures() const;
     };
 
     void Triangle::Begin()
     {
-        //load textures
-        TextureManager texture_manager;
-        texture[0] = texture_manager.Load("data/texture/box.jpg");
+        texture[0] = TextureManager::Load("data/texture/box.jpg");
         //texture[1] = texture_manager.Load("data/texture/brickwall.jpg");
-        texture[1] = texture_manager.Load("data/texture/ennemy_01.png");
+        texture[1] = TextureManager::Load("data/texture/ennemy_01.png");
 
         //Load shaders
         const auto vertexContent = LoadFile("data/shaders/hello_triangle/triangle.vert");
@@ -90,6 +90,13 @@ namespace gpr
         //Draw program
         glUseProgram(program_);
 
+        SetAndBindTextures();
+
+        glBindVertexArray(vao_);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
+
+    void Triangle::SetAndBindTextures() const {
         glUniform1i(glGetUniformLocation(program_, "ourTexture1"), 0);
         glUniform1i(glGetUniformLocation(program_, "ourTexture2"), 1);
 
@@ -98,9 +105,6 @@ namespace gpr
 
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture[1]);
-
-        glBindVertexArray(vao_);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 }
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)

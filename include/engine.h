@@ -7,7 +7,7 @@ namespace gpr
 class Engine
 {
 public:
-    Engine(Scene* scene);
+    explicit Engine(Scene* scene);
     void Run();
 private:
     void Begin();

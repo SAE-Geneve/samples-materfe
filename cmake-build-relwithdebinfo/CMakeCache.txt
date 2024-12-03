@@ -300,6 +300,9 @@ Z_VCPKG_PWSH_PATH:FILEPATH=Z_VCPKG_PWSH_PATH-NOTFOUND
 // triplet
 _VCPKG_INSTALLED_DIR:PATH=C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/vcpkg_installed
 
+//The directory containing a CMake configuration file for assimp.
+assimp_DIR:PATH=C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/vcpkg_installed/x64-windows/share/assimp
+
 //The directory containing a CMake configuration file for glm.
 glm_DIR:PATH=C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/vcpkg_installed/x64-windows/share/glm
 

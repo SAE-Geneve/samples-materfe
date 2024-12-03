@@ -109,3 +109,104 @@ Abi: 1a785843e2069be5d742e9ba72fc7b868b8557aa08d9313745018cc2cfe766d6
 Description: public domain header-only libraries
 Status: install ok installed
 
+Package: zlib
+Version: 1.3.1
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 157c314068f30bd6bdb6ac3c9d249cfe71333d5edb5e2a43fee507477eca521b
+Description: A compression library
+Status: install ok installed
+
+Package: utfcpp
+Version: 4.0.5
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c1b7a00743d2a168d29b6641c6e813c9082c6f681707f70c3203538c2edc5152
+Description: UTF-8 with C++ in a Portable Way
+Status: install ok installed
+
+Package: rapidjson
+Version: 2023-07-17
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7b1b46748cead3313e980947fdce857158fb1b510594d4dd9e845784534523ee
+Description: A fast JSON parser/generator for C++ with both SAX/DOM style API <http://rapidjson.org/>
+Status: install ok installed
+
+Package: pugixml
+Version: 1.14
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a7c5204a968b69d6b1eadfb65fd6fd1fe8f0d040eb5fab58d6f311b7e8ed8725
+Description: Light-weight, simple and fast XML parser for C++ with XPath support
+Status: install ok installed
+
+Package: polyclipping
+Version: 6.4.2
+Port-Version: 12
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d8c03a849a1ad966f803d57dbb847f9881eb2c1bb12237234e538fe471cf921a
+Description: The Clipper library performs clipping and offsetting for both lines and polygons. All four boolean clipping operations are supported - intersection, union, difference and exclusive-or. Polygons can be of any shape including self-intersecting polygons.
+Status: install ok installed
+
+Package: vcpkg-cmake-get-vars
+Version: 2024-09-22
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: bdea5e0128ce8b93881d8f7cdb9c45c4e11ff7e109a3159353358b43652895ea
+Status: install ok installed
+
+Package: minizip
+Version: 1.3.1
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config, vcpkg-cmake-get-vars, zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a894fd2e5511b1623cf5cc222f602351c2ea27ef7a49e1a569da717052c6bb53
+Description: Minizip zip file manipulation library
+Status: install ok installed
+
+Package: kubazip
+Version: 0.2.6
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dbf6ec7eb347bcef7d2b834c567a4781da172bfd168cfe214c7b9364bf8f5c16
+Description: A portable, simple zip library written in C
+Status: install ok installed
+
+Package: jhasse-poly2tri
+Version: 2023-12-27
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 52d754dc4a300886c44fc4b13b17d5239108359847287decaa6fc158a85684b8
+Description: Sweep-line algorithm for constrained Delaunay triangulation
+Status: install ok installed
+
+Package: draco
+Version: 1.5.7
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 90ff2ad506cf006ab25be196df0b0f6b3a11cedb179f1edf328183766d9e1edf
+Description: A library for compressing and decompressing 3D geometric meshes and point clouds. It is intended to improve the storage and transmission of 3D graphics.
+Status: install ok installed
+
+Package: assimp
+Version: 5.4.3
+Depends: draco, jhasse-poly2tri, kubazip, minizip, polyclipping, pugixml, rapidjson, stb, utfcpp, vcpkg-cmake, vcpkg-cmake-config, zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7946704b2af19e622ebc3633d62a8f374cca838314b86c8737bfa7b3dae8120a
+Description: The Open Asset import library
+Status: install ok installed
+

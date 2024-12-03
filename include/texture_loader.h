@@ -8,13 +8,44 @@
 #include <string_view>
 
 
-class TextureManager {
-
-public :
-
+namespace TextureManager {
     unsigned int Load(const char* path);
 };
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#include "load3D/mesh.h"
+
+#include <vector>
+#include <string>
+
+class Model
+{
+public:
+    explicit Model(std::string& path)
+    {
+        loadModel(path);
+    }
+    Model() = default;
+
+    void Draw(GLuint &shader);
+private:
+    // model data
+    std::vector<Mesh> meshes{};
+    std::string directory{};
+    std::vector<Texture> textures_loaded{};
+
+
+
+
+    void loadModel(std::string& path);
+    void processNode(aiNode *node, const aiScene *scene);
+    Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+    std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type,
+                                              const char* typeName);
+};
 
 
 #endif //SAMPLES_OPENGL_TEXTURE_LOADER_H
