@@ -5,8 +5,10 @@
 #include "camera.h"
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <iostream>
+
 Camera::Camera() {
-    position_ = glm::vec3(0.0f, 0.0f, 0.0f);
+    position_ = glm::vec3(0.0f, 0.0f, -10.0f);
     follow_ = glm::vec3(0.0f, 0.0f, 0.0f);
     ResetDirection();
 
@@ -33,7 +35,7 @@ void Camera::ResetDirection() {
 void Camera::SetFollowTo (const glm::vec3 &target) {
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
     view_ = glm::lookAt(position_,
-                        target,
+                        position_ + camera_front_,
                        up);
 }
 
@@ -43,4 +45,52 @@ void Camera::SetPositionTo(const glm::vec3 &target) {
 
 glm::mat4 Camera::view() const {
     return view_;
+}
+
+void Camera::Move(const Camera_Movement direction, const float dt) {
+    float speed = camera_speed_ * dt;
+    if(is_sprinting_)
+    {
+        speed *= 6.0f;
+    }
+
+    switch (direction) {
+        case FORWARD:
+            position_ += speed * camera_front_;
+            break;
+        case BACKWARD:
+            position_ -= speed * camera_front_;
+            break;
+        case LEFT:
+            position_ -= glm::normalize(glm::cross(camera_front_, camera_up_)) * speed;
+            break;
+        case RIGHT:
+            position_ += glm::normalize(glm::cross(camera_front_, camera_up_)) * speed;
+            break;
+        case UP:
+            position_ += up_axis_ * speed;
+            break;
+        case DOWN:
+            position_ -= up_axis_ * speed;
+            break;
+        default:
+            break;
+    }
+    view_ = glm::lookAt(position_, position_ + camera_front_, camera_up_);
+}
+
+void Camera::Update(const int x_yaw, const int y_pitch)
+{
+    yaw_ += static_cast<float>(x_yaw) * sensitivity_;
+    pitch_ -= static_cast<float>(y_pitch) * sensitivity_;
+    if(pitch_ > 89.0f)
+        pitch_ =  89.0f;
+    if(pitch_ < -89.0f)
+        pitch_ = -89.0f;
+    reverse_direction_.x = cos(glm::radians(yaw_)) * cos(glm::radians(pitch_));
+    reverse_direction_.y = sin(glm::radians(pitch_));
+    reverse_direction_.z = sin(glm::radians(yaw_)) * cos(glm::radians(pitch_));
+    camera_front_ = glm::normalize(reverse_direction_);
+
+    view_ = glm::lookAt(position_, position_ + camera_front_, camera_up_);
 }

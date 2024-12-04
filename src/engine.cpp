@@ -57,12 +57,32 @@ namespace gpr
                     }
                     break;
                 }
+                    case SDL_KEYDOWN:
+                        if (event.key.keysym.sym == SDLK_ESCAPE)
+                        {
+                            isOpen = false;
+                        }
+                        break;
+                    case SDL_MOUSEBUTTONDOWN:
+                        if (event.button.button == SDL_BUTTON_LEFT)
+                        {
+                            SDL_ShowCursor(SDL_DISABLE);
+                            SDL_SetRelativeMouseMode(SDL_TRUE);
+                        }
+                        break;
+                    case SDL_MOUSEBUTTONUP:
+                        if (event.button.button == SDL_BUTTON_LEFT)
+                        {
+                            SDL_ShowCursor(SDL_ENABLE);
+                            SDL_SetRelativeMouseMode(SDL_FALSE);
+                        }
+                        break;
                 default:
                     break;
                 }
-                scene_->OnEvent(event);
                 ImGui_ImplSDL2_ProcessEvent(&event);
             }
+            scene_->OnEvent(event, dt.count());
             glClearColor(0, 0, 0, 0);
             glClear(GL_COLOR_BUFFER_BIT);
 

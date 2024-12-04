@@ -7,15 +7,16 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
-#include <sstream>
-#include <iostream>
-#include <array>
-
 #include "engine.h"
-#include "file_utility.h"
 #include "scene.h"
 #include "texture_loader.h"
 #include "camera.h"
+#include "open_gl_data_structure/vao.h"
+#include "file_utility.h"
+
+#include <sstream>
+#include <iostream>
+#include <array>
 
 namespace gpr {
     class ThreeDScene final : public Scene {
@@ -25,6 +26,8 @@ namespace gpr {
         void End() override;
 
         void Update(float dt) override;
+
+        void OnEvent(const SDL_Event& event, float dt) override;
 
     private:
         float elapsed_time_ = 0.0f;
@@ -39,11 +42,9 @@ namespace gpr {
         GLuint program_ = 0;
         GLuint program_light_ = 0;
         GLuint program_model_ = 0;
-        GLuint vao_ = 0;
-        Camera camera_;
-        Model model_;
-
-        void SetCameraAndPerspective();
+        VAO vao_;
+        Camera* camera_ = nullptr;
+        Model* model_ = nullptr;
 
         void SetAndBindTextures() const;
 
@@ -53,12 +54,55 @@ namespace gpr {
 
         void SetUniformsProgram(const glm::vec3 &lightPos) const;
 
-        void SetUniformsProgramLight(const glm::vec3 &lightPos);
+        void SetUniformsProgramLight(const glm::vec3 &lightPos) const;
 
         static void DrawLightProgram();
 
         void SetAndDrawModel();
     };
+
+    void ThreeDScene::OnEvent(const SDL_Event& event, const float dt)
+    {
+        // Get keyboard state
+        const Uint8* state = SDL_GetKeyboardState(nullptr);
+
+        // Camera controls
+        if (state[SDL_SCANCODE_W])
+        {
+            camera_->Move(FORWARD, dt);
+        }
+        if (state[SDL_SCANCODE_S])
+        {
+            camera_->Move(BACKWARD, dt);
+        }
+        if (state[SDL_SCANCODE_A])
+        {
+            camera_->Move(LEFT, dt);
+        }
+        if (state[SDL_SCANCODE_D])
+        {
+            camera_->Move(RIGHT, dt);
+        }
+        if (state[SDL_SCANCODE_SPACE])
+        {
+            camera_->Move(UP, dt);
+        }
+        if (state[SDL_SCANCODE_LCTRL])
+        {
+            camera_->Move(DOWN, dt);
+        }
+        if (state[SDL_SCANCODE_LSHIFT])
+        {
+            camera_->is_sprinting_ = !camera_->is_sprinting_;
+        }
+
+        int mouseX, mouseY;
+        const Uint32 mouseState = SDL_GetRelativeMouseState(&mouseX, &mouseY);
+        if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT))
+        {
+            camera_->Update(mouseX, mouseY);
+        }
+    }
 
     void ThreeDScene::SetTheCubes() {
         for (std::size_t i = 0; i < all_cubes_.size(); i++) {
@@ -173,37 +217,59 @@ namespace gpr {
             std::cerr << "Error while linking shader program for model\n";
         }
         //Empty vao
-        glCreateVertexArrays(1, &vao_);
+       vao_.Create();
 
         std::string n = "data/texture/3D/backpack/backpack.obj";
-        model_ = Model(n);
+        model_ = new Model(n);
+        camera_ = new Camera;
     }
 
     void ThreeDScene::End() {
         //Unload program/pipeline
         glDeleteProgram(program_);
+        glDeleteProgram(program_light_);
+        glDeleteProgram(program_model_);
 
         glDeleteShader(vertexShader_);
         glDeleteShader(fragmentShader_);
 
-        glDeleteVertexArrays(1, &vao_);
+        glDeleteShader(lightVertexShader_);
+        glDeleteShader(fragmentLightShader_);
+
+        glDeleteShader(modelVertexShader_);
+        glDeleteShader(fragmentModelShader_);
+
+        vao_.Delete();
     }
 
     void ThreeDScene::Update(float dt) {
         glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
+        glm::mat4 projection;
+        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 2000.0f);
 
         elapsed_time_ += dt;
         //Draw program -> cubes
         glUseProgram(program_);
 
+        int viewLocP = glGetUniformLocation(program_, "view");
+        glUniformMatrix4fv(viewLocP, 1, GL_FALSE, glm::value_ptr(camera_->view()));
+
+        int projectionLocP = glGetUniformLocation(program_, "projection");
+        glUniformMatrix4fv(projectionLocP, 1, GL_FALSE, glm::value_ptr(projection));
+
         SetUniformsProgram(lightPos);
         SetAndBindTextures();
-        SetCameraAndPerspective();
         SetAndDrawMultipleCubes();
 
         //Draw program -> light
         glUseProgram(program_light_);
+
+        int viewLoc = glGetUniformLocation(program_light_, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->view()));
+
+        int projectionLoc = glGetUniformLocation(program_light_, "projection");
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         SetUniformsProgramLight(lightPos);
         DrawLightProgram();
@@ -211,64 +277,38 @@ namespace gpr {
         //draw programme -> 3D model
         glUseProgram(program_model_);
 
+        int viewLocM = glGetUniformLocation(program_model_, "view");
+        glUniformMatrix4fv(viewLocM, 1, GL_FALSE, glm::value_ptr(camera_->view()));
+
+        int projectionLocM = glGetUniformLocation(program_model_, "projection");
+        glUniformMatrix4fv(projectionLocM, 1, GL_FALSE, glm::value_ptr(projection));
+
         SetAndDrawModel();
     }
 
     void ThreeDScene::SetAndDrawModel() {
-        const float radius = 10.0f;
-        float camX = sin(elapsed_time_) * radius;
-        float camZ = cos(elapsed_time_) * radius;
-
-        camera_.SetPositionTo(glm::vec3(camX, 0.0f, camZ));
-        //camera_.SetPositionTo(glm::vec3(0.0f, 0.0f, -10.0f));
-        camera_.SetFollowTo(glm::vec3(0.0f, 0.0f, 0.0f));
-
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 2000.0f);
-
-        int viewLoc = glGetUniformLocation(program_model_, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_.view()));
-
-        int projectionLoc = glGetUniformLocation(program_model_, "projection");
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
         // render the loaded model
+        glEnable(GL_TEXTURE1);
         auto model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));    // it's a bit too big for our scene, so scale it down
         int modelLoc = glGetUniformLocation(program_model_, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        model_.Draw(program_model_);
+        model_->Draw(program_model_);
     }
 
     void ThreeDScene::DrawLightProgram() {
-        unsigned int lightVAO;
-        glGenVertexArrays(1, &lightVAO);
-        glBindVertexArray(lightVAO);
+        VAO light_vao;
+        light_vao.Create();
+        light_vao.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 
-    void ThreeDScene::SetUniformsProgramLight(const glm::vec3 &lightPos) {
+    void ThreeDScene::SetUniformsProgramLight(const glm::vec3 &lightPos) const {
         glm::mat4 model{};
         model = glm::mat4(1.0f);
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f));
-
-        const float radius = 10.0f;
-        float camX = sin(elapsed_time_) * radius;
-        float camZ = cos(elapsed_time_) * radius;
-
-        camera_.SetPositionTo(glm::vec3(camX, 0.0f, camZ));
-        camera_.SetFollowTo(glm::vec3(0.0f, 0.0f, 0.0f));
-
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 2000.0f);
-
-        int viewLoc = glGetUniformLocation(program_light_, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_.view()));
-
-        int projectionLoc = glGetUniformLocation(program_light_, "projection");
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         int modelLoc = glGetUniformLocation(program_light_, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -288,8 +328,8 @@ namespace gpr {
 
         glUniform3f(glGetUniformLocation(program_, "lightColor"), 1.0f, 1.0f, 1.0f);
         glUniform3f(glGetUniformLocation(program_, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-        glUniform3f(glGetUniformLocation(program_, "viewPos"), camera_.position_.x, camera_.position_.y,
-                    camera_.position_.z);
+        glUniform3f(glGetUniformLocation(program_, "viewPos"), camera_->position_.x, camera_->position_.y,
+                    camera_->position_.z);
     }
 
     void ThreeDScene::SetAndBindTextures() const {
@@ -307,28 +347,8 @@ namespace gpr {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void ThreeDScene::SetCameraAndPerspective() {
-
-        const float radius = 10.0f;
-        float camX = sin(elapsed_time_) * radius;
-        float camZ = cos(elapsed_time_) * radius;
-
-        camera_.SetPositionTo(glm::vec3(camX, 0.0f, camZ));
-        //camera_.SetPositionTo(glm::vec3(0.0f, 0.0f, -10.0f));
-        camera_.SetFollowTo(glm::vec3(0.0f, 0.0f, 0.0f));
-
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 2000.0f);
-
-        int viewLoc = glGetUniformLocation(program_, "view");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_.view()));
-
-        int projectionLoc = glGetUniformLocation(program_, "projection");
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-    }
-
     void ThreeDScene::SetAndDrawMultipleCubes() const {
-        glBindVertexArray(vao_);
+        vao_.Bind();
         for (std::size_t i = 0; i < all_cubes_.size(); i++) {
             //set matrix model
             auto model = glm::mat4(1.0f);

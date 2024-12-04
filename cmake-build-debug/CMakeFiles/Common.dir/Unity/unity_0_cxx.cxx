@@ -13,5 +13,14 @@
 #include "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/src/model.cpp"
 
 /* NOLINTNEXTLINE(bugprone-suspicious-include) */
+#include "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/src/open_gl_data_structure/ebo.cpp"
+
+/* NOLINTNEXTLINE(bugprone-suspicious-include) */
+#include "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/src/open_gl_data_structure/vao.cpp"
+
+/* NOLINTNEXTLINE(bugprone-suspicious-include) */
+#include "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/src/open_gl_data_structure/vbo.cpp"
+
+/* NOLINTNEXTLINE(bugprone-suspicious-include) */
 #include "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/src/texture_loader.cpp"
 
