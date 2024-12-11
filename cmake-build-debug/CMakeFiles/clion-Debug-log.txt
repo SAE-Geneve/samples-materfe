@@ -50,6 +50,6 @@ imgui provides CMake targets:
   target_link_libraries(main PRIVATE imgui::imgui)
 
 -- Running vcpkg install - done
--- Configuring done (5.8s)
+-- Configuring done (11.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug

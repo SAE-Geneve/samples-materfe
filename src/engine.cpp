@@ -121,7 +121,7 @@ namespace gpr
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
         constexpr auto windowSize = glm::ivec2(1200,800);
         window_ = SDL_CreateWindow(
-            "GPR5300",
+            "window for samples BOY",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             windowSize.x,

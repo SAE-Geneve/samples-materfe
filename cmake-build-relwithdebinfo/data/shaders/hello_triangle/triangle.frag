@@ -15,6 +15,6 @@ void main()
     vec4 tex1Color = texture(ourTexture1, texCoord);
     vec4 tex2Color = texture(ourTexture2, texCoord);
 
-    // Example: Blend the two textures (50% each)
+    // Example: Blend the two textures_ (50% each)
     outColor = mix(tex1Color, tex2Color, 0.5);
 }

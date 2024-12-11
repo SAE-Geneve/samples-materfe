@@ -44,7 +44,7 @@ cmake_ninja_workdir = C$:\Users\Mat\special_repo\git-hub_classroom_compute_graph
 #############################################
 # Utility command for shader_target
 
-build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
+build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
 
 
 #############################################
@@ -381,7 +381,7 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 #############################################
 # Phony custom command for CMakeFiles\shader_target
 
-build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target: phony data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
+build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target: phony data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
 
 
 #############################################
@@ -435,6 +435,24 @@ build data\shaders\3D_scene\model.frag | ${cmake_ninja_workdir}data\shaders\3D_s
 build data\shaders\3D_scene\model.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\model.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\model.vert
   COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/model.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.vert"
   DESC = Generating data/shaders/3D_scene/model.vert
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\quad.frag
+
+build data\shaders\3D_scene\quad.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\quad.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\quad.frag
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/quad.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.frag"
+  DESC = Generating data/shaders/3D_scene/quad.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\quad.vert
+
+build data\shaders\3D_scene\quad.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\quad.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\quad.vert
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/quad.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.vert"
+  DESC = Generating data/shaders/3D_scene/quad.vert
   restat = 1
 
 

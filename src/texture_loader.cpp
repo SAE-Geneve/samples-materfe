@@ -75,7 +75,7 @@ unsigned int TextureFromFile(const char *path, const std::string &directory) {
 
 
 void Model::Draw(GLuint &shader) {
-    stbi_set_flip_vertically_on_load(true);
+    //stbi_set_flip_vertically_on_load(true);
     for (auto &_: meshes) {
         _.Draw(shader);
     }
@@ -103,7 +103,7 @@ void Model::loadModel(std::string &path) {
 void Model::processNode(aiNode *node, const aiScene *scene) {
     // process each mesh located at the current node
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        // the node object only contains indices to index the actual objects in the scene.
+        // the node object only contains indices_ to index the actual objects in the scene.
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(processMesh(mesh, scene));
@@ -121,7 +121,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    // walk through each of the mesh's vertices
+    // walk through each of the mesh's vertices_
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex{};
@@ -164,11 +164,11 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
 
         vertices.push_back(vertex);
     }
-    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
+    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices_.
     for(unsigned int i = 0; i < mesh->mNumFaces; i++)
     {
         aiFace face = mesh->mFaces[i];
-        // retrieve all indices of the face and store them in the indices vector
+        // retrieve all indices_ of the face and store them in the indices_ vector
         for(unsigned int j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
     }
@@ -222,7 +222,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
-            textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unecessarilily load duplicate textures.
+            textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unecessarilily load duplicate textures_.
         }
     }
     return textures;

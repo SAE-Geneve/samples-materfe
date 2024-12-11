@@ -19,7 +19,7 @@ public:
     //create the vao
     void Create();
 
-    //bind the VAO
+    //bind the VAO_
     void Bind() const;
 
     //delete
