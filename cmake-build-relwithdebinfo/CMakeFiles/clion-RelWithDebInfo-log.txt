@@ -1,5 +1,6 @@
 "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=RelWithDebInfo "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja -S C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe -B C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-relwithdebinfo
 -- Running vcpkg install
+waiting to take filesystem lock on C:\vcpkg\vcpkg\.vcpkg-root...
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
@@ -49,6 +50,6 @@ imgui provides CMake targets:
   target_link_libraries(main PRIVATE imgui::imgui)
 
 -- Running vcpkg install - done
--- Configuring done (5.5s)
+-- Configuring done (11.8s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo

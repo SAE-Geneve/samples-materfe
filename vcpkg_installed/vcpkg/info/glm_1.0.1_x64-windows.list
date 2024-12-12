@@ -392,8 +392,8 @@ x64-windows/include/glm/gtx/std_based_type.hpp
 x64-windows/include/glm/gtx/std_based_type.inl
 x64-windows/include/glm/gtx/string_cast.hpp
 x64-windows/include/glm/gtx/string_cast.inl
-x64-windows/include/glm/gtx/texture.hpp
-x64-windows/include/glm/gtx/texture.inl
+x64-windows/include/glm/gtx/texture_.hpp
+x64-windows/include/glm/gtx/texture_.inl
 x64-windows/include/glm/gtx/transform.hpp
 x64-windows/include/glm/gtx/transform.inl
 x64-windows/include/glm/gtx/transform2.hpp

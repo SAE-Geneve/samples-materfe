@@ -4,14 +4,6 @@
 
 #ifndef SAMPLES_OPENGL_TEXTURE_LOADER_H
 #define SAMPLES_OPENGL_TEXTURE_LOADER_H
-
-#include <string_view>
-
-
-namespace TextureManager {
-    unsigned int Load(const char* path);
-};
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -20,6 +12,13 @@ namespace TextureManager {
 
 #include <vector>
 #include <string>
+#include <string_view>
+
+
+namespace TextureManager {
+    unsigned int Load(const char* path);
+    unsigned int loadCubemap(std::vector<std::string> faces);
+};
 
 class Model
 {

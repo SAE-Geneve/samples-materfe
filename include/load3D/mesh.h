@@ -66,7 +66,6 @@ public:
     {
         unsigned int diffuseNr = 1;
         unsigned int specularNr = 1;
-        unsigned int normalNr = 1;
         for(unsigned int i = 0; i < textures_.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
@@ -77,8 +76,6 @@ public:
                 number = std::to_string(diffuseNr++);
             else if(name == "texture_specular")
                 number = std::to_string(specularNr++);
-            else if(name == "texture_normal")
-                number = std::to_string(normalNr++); // transfer unsigned int to string
 
             glUniform1i(glGetUniformLocation(shader, ("material." + name).append(number).c_str()),
                         static_cast<GLint>(i));

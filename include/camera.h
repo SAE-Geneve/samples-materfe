@@ -52,7 +52,6 @@ public:
     [[nodiscard]] glm::mat4 view() const;
 };
 
-
 struct Plane {
     glm::vec3 normal = {0.f, 1.f, 0.f}; // unit vector
     float distance = 0.f;        // Distance with origin
@@ -69,6 +68,7 @@ struct Plane {
 };
 
 struct Frustum {
+private:
     Plane topFace;
     Plane bottomFace;
 

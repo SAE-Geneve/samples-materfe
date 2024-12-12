@@ -34,6 +34,11 @@ namespace gpr {
         float elapsed_time_ = 0.0f;
         unsigned int texture[2] = {0, 0};
         std::array<glm::vec3, 10> all_cubes_{};
+        //unsigned int diffuse_map_ = -1;
+
+        glm::vec3 pointLightPositions = glm::vec3(0.7f, 0.2f, 2.0f);
+        glm::vec3 light_position_ = glm::vec3(1.2f, 1.0f, 2.0f);
+        glm::vec3 light_colour_ = glm::vec3(1.0f, 1.0f, 1.0f);
 
         GLuint vertexShader_ = 0;
         GLuint lightVertexShader_ = 0;
@@ -292,8 +297,7 @@ namespace gpr {
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER,
                                   render_buffer_); // now actually attach it
         //check of done correctly + release memory
-        if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        {
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
             std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -330,15 +334,12 @@ namespace gpr {
 
     void ThreeDScene::Update(float dt) {
 
-       // first pass
-        glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_);
         glEnable(GL_DEPTH_TEST);
-        glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
         const float aspect = 1200.0f / 800.0f; //see in the engine.Begin() -> window size
-        const float zNear = 0.1f;
+        const float zNear = 0.01f;
         const float zFar = 100.0f;
         const float fovY = std::numbers::pi_v<float> / 2;
 
@@ -350,7 +351,8 @@ namespace gpr {
 
         glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
         glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 2000.0f);
+        projection = glm::perspective(fovY, aspect, zNear, zFar);
+
 
         elapsed_time_ += dt;
         //Draw program -> cubes
@@ -372,19 +374,29 @@ namespace gpr {
         glUseProgram(program_model_);
 
         SetView(projection, program_model_);
-        SetAndDrawModel();
 
-        //draw program -> quad for buffers
-        glUseProgram(program_quad_);
+        //Directional light (sun)
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.ambient"), 0.05f, 0.05f, 0.05f);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.diffuse"), 0.4f, 0.4f, 0.4f);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.specular"), 0.5f, 0.5f, 0.5f);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-        //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        glDisable(GL_DEPTH_TEST);
-        glClear(GL_COLOR_BUFFER_BIT);
+        //Material
+        glUniform1f(glGetUniformLocation(program_model_, "material.shininess"), 32.0f);
 
-        quad_vao_.Bind();
-        glBindTexture(GL_TEXTURE_2D, image_frame_buffer_);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        vao_.Bind();
+
+        //Draw model
+        //glUniform1i(glGetUniformLocation(program_model_, "material.diffuse"), 0);
+        glActiveTexture(GL_TEXTURE0);
+        auto model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(2.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));    // it's a bit too big for our scene, so scale it down
+        glUniformMatrix4fv(glGetUniformLocation(program_model_, "model"),
+                           1, GL_FALSE, glm::value_ptr(model));
+        model_->Draw(program_);
     }
 
     void ThreeDScene::SetView(const glm::mat4 &projection, GLuint &program) const {
