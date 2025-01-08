@@ -11,4 +11,5 @@ void main()
 {
     //vec4 col = texture(screenTexture, TexCoords);
     FragColor = vec4(texture(screenTexture, TexCoords));
+    //for inverse -> 1.0 - text
 }

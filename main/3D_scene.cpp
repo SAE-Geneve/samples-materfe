@@ -34,7 +34,6 @@ namespace gpr {
         float elapsed_time_ = 0.0f;
         unsigned int texture[2] = {0, 0};
         std::array<glm::vec3, 10> all_cubes_{};
-        //unsigned int diffuse_map_ = -1;
 
         glm::vec3 pointLightPositions = glm::vec3(0.7f, 0.2f, 2.0f);
         glm::vec3 light_position_ = glm::vec3(1.2f, 1.0f, 2.0f);
@@ -359,8 +358,8 @@ namespace gpr {
         glUseProgram(program_);
 
         SetView(projection, program_);
-        SetUniformsProgram(lightPos);
         SetAndBindTextures();
+        SetUniformsProgram(lightPos);
         SetAndDrawMultipleCubes();
 
         //Draw program -> light
@@ -376,10 +375,10 @@ namespace gpr {
         SetView(projection, program_model_);
 
         //Directional light (sun)
-        glUniform3f(glGetUniformLocation(program_model_, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
-        glUniform3f(glGetUniformLocation(program_model_, "dirLight.ambient"), 0.05f, 0.05f, 0.05f);
-        glUniform3f(glGetUniformLocation(program_model_, "dirLight.diffuse"), 0.4f, 0.4f, 0.4f);
-        glUniform3f(glGetUniformLocation(program_model_, "dirLight.specular"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.direction"), lightPos.x,lightPos.y, lightPos.z);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.ambient"), 0.2f, 0.2f, 0.2f);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(program_model_, "dirLight.specular"), 1.0f, 1.0f, 1.0f);
 
         //Material
         glUniform1f(glGetUniformLocation(program_model_, "material.shininess"), 32.0f);

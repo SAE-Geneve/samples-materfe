@@ -4,7 +4,7 @@ waiting to take filesystem lock on C:\vcpkg\vcpkg\.vcpkg-root...
 Detecting compiler hash for triplet x64-windows...
 Compiler found: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe
 All requested packages are currently installed.
-Total install time: 300 ns
+Total install time: 400 ns
 The package stb provides CMake targets:
 
     find_package(Stb REQUIRED)
@@ -50,6 +50,6 @@ imgui provides CMake targets:
   target_link_libraries(main PRIVATE imgui::imgui)
 
 -- Running vcpkg install - done
--- Configuring done (8.9s)
+-- Configuring done (5.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release
