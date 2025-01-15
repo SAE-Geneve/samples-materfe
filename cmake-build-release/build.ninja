@@ -44,7 +44,7 @@ cmake_ninja_workdir = C$:\Users\Mat\special_repo\git-hub_classroom_compute_graph
 #############################################
 # Utility command for shader_target
 
-build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
+build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\debug_quad.frag data\shaders\3D_scene\debug_quad.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\shadow_mapping.frag data\shaders\3D_scene\shadow_mapping.vert data\shaders\3D_scene\shadow_mapping_depth.frag data\shaders\3D_scene\shadow_mapping_depth.vert data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
 
 
 #############################################
@@ -430,6 +430,44 @@ build normal_mapping.exe: CXX_EXECUTABLE_LINKER__normal_mapping_Release CMakeFil
   TARGET_IMPLIB = normal_mapping.lib
   TARGET_PDB = normal_mapping.pdb
 
+# =============================================================================
+# Object build statements for EXECUTABLE target shadow_mapping
+
+
+#############################################
+# Order-only phony target for shadow_mapping
+
+build cmake_object_order_depends_target_shadow_mapping: phony || cmake_object_order_depends_target_Common
+
+build CMakeFiles\shadow_mapping.dir\main\shadow_mapping.cpp.obj: CXX_COMPILER__shadow_mapping_unscanned_Release C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\main\shadow_mapping.cpp || cmake_object_order_depends_target_shadow_mapping
+  DEFINES = -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -std:c++20 -MD /arch:AVX2 /Oi /GL /fp:fast
+  INCLUDES = -IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release\vcpkg_installed\x64-windows\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release\vcpkg_installed\x64-windows\include\SDL2 -external:W0
+  OBJECT_DIR = CMakeFiles\shadow_mapping.dir
+  OBJECT_FILE_DIR = CMakeFiles\shadow_mapping.dir\main
+  TARGET_COMPILE_PDB = CMakeFiles\shadow_mapping.dir\
+  TARGET_PDB = shadow_mapping.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target shadow_mapping
+
+
+#############################################
+# Link the executable shadow_mapping.exe
+
+build shadow_mapping.exe: CXX_EXECUTABLE_LINKER__shadow_mapping_Release CMakeFiles\shadow_mapping.dir\main\shadow_mapping.cpp.obj | Common.lib vcpkg_installed\x64-windows\lib\glew32.lib vcpkg_installed\x64-windows\lib\glm.lib vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib vcpkg_installed\x64-windows\lib\imgui.lib vcpkg_installed\x64-windows\lib\SDL2.lib vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib || Common.lib
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
+  LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\shadow_mapping.dir
+  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/shadow_mapping.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\shadow_mapping.dir\
+  TARGET_FILE = shadow_mapping.exe
+  TARGET_IMPLIB = shadow_mapping.lib
+  TARGET_PDB = shadow_mapping.pdb
+
 
 #############################################
 # Utility command for edit_cache
@@ -457,7 +495,7 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 #############################################
 # Phony custom command for CMakeFiles\shader_target
 
-build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target: phony data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
+build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target: phony data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\debug_quad.frag data\shaders\3D_scene\debug_quad.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\shadow_mapping.frag data\shaders\3D_scene\shadow_mapping.vert data\shaders\3D_scene\shadow_mapping_depth.frag data\shaders\3D_scene\shadow_mapping_depth.vert data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
 
 
 #############################################
@@ -493,6 +531,24 @@ build data\shaders\3D_scene\cube.frag | ${cmake_ninja_workdir}data\shaders\3D_sc
 build data\shaders\3D_scene\cube.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\cube.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\cube.vert
   COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/cube.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.vert"
   DESC = Generating data/shaders/3D_scene/cube.vert
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\debug_quad.frag
+
+build data\shaders\3D_scene\debug_quad.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\debug_quad.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\debug_quad.frag
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/debug_quad.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.frag"
+  DESC = Generating data/shaders/3D_scene/debug_quad.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\debug_quad.vert
+
+build data\shaders\3D_scene\debug_quad.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\debug_quad.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\debug_quad.vert
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/debug_quad.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.vert"
+  DESC = Generating data/shaders/3D_scene/debug_quad.vert
   restat = 1
 
 
@@ -601,6 +657,42 @@ build data\shaders\3D_scene\shader_bloom.vert | ${cmake_ninja_workdir}data\shade
 build data\shaders\3D_scene\shader_light_bloom.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shader_light_bloom.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shader_light_bloom.frag
   COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_light_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_light_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_light_bloom.frag"
   DESC = Generating data/shaders/3D_scene/shader_light_bloom.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\shadow_mapping.frag
+
+build data\shaders\3D_scene\shadow_mapping.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping.frag
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.frag"
+  DESC = Generating data/shaders/3D_scene/shadow_mapping.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\shadow_mapping.vert
+
+build data\shaders\3D_scene\shadow_mapping.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping.vert
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.vert"
+  DESC = Generating data/shaders/3D_scene/shadow_mapping.vert
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\shadow_mapping_depth.frag
+
+build data\shaders\3D_scene\shadow_mapping_depth.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping_depth.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping_depth.frag
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping_depth.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.frag"
+  DESC = Generating data/shaders/3D_scene/shadow_mapping_depth.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\shadow_mapping_depth.vert
+
+build data\shaders\3D_scene\shadow_mapping_depth.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping_depth.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping_depth.vert
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping_depth.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.vert"
+  DESC = Generating data/shaders/3D_scene/shadow_mapping_depth.vert
   restat = 1
 
 
@@ -866,6 +958,8 @@ build full_star: phony full_star.exe
 
 build normal_mapping: phony normal_mapping.exe
 
+build shadow_mapping: phony shadow_mapping.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -874,7 +968,7 @@ build normal_mapping: phony normal_mapping.exe
 #############################################
 # Folder: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release
 
-build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe full_square.exe full_star.exe normal_mapping.exe
+build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe full_square.exe full_star.exe normal_mapping.exe shadow_mapping.exe
 
 # =============================================================================
 # Built-in targets
