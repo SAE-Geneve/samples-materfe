@@ -9,7 +9,7 @@
 
 #include "engine.h"
 #include "scene.h"
-#include "texture_loader.h"
+#include "load3D/texture_loader.h"
 #include "camera.h"
 #include "open_gl_data_structure/vao.h"
 #include "file_utility.h"

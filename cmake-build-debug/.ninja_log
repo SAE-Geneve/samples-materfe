@@ -1,5 +1,4 @@
 # ninja log v6
-10	649	7539007687027628	CMakeFiles/hello_triangle.dir/main/hello_triangle.cpp.obj	3fd38673e9db5081
 1707	1771	7544222208577612	Common.lib	9afe692079ae732a
 31	107	7544222192168525	data/shaders/hello_triangle/triangle.vert	d076734cb2444d57
 108	1707	7544222192585052	CMakeFiles/Common.dir/Unity/unity_0_cxx.cxx.obj	8c0da60bdb188049
@@ -10,7 +9,6 @@
 649	1173	7539007693412881	hello_triangle.exe	e7d535effbc80903
 9	17	7538176196233545	clean	808cc43b64b982b1
 239	1548	7544158452801302	CMakeFiles/empty_square.dir/main/empty_square.cpp.obj	694c7d817032f31e
-112	1130	7544222192625042	CMakeFiles/colorful_triangle.dir/main/colorful_triangle.cpp.obj	e7f3750562d01345
 1784	2707	7544222209349170	empty_square.exe	cb03250cfdfd58fb
 16	107	7539018972311238	data/shaders/squares/empty_square.vert	1c91111fc0109af2
 16	107	7539018972311238	C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/shaders/squares/empty_square.vert	1c91111fc0109af2

@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/egl-registry-x64-windows-2024-01-25-5aa8a79d-df82-4d59-9c7f-89718469f827",
-  "name": "egl-registry:x64-windows@2024-01-25 7262ca87d75cd1a706ba1d4a04e5416780814239b0dc47f5f390aa746e59578f",
+  "documentNamespace": "https://spdx.org/spdxdocs/egl-registry-x64-windows-2024-01-25-5e5b588e-58b1-42bc-9e27-e7772d20e77b",
+  "name": "egl-registry:x64-windows@2024-01-25 135a72cb3c795a31887781b25867ef9ec299d3a390efe695606e39a93fad2bb8",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-2024-11-12-eb492805e92a2c14a230f5c3deb3e89f6771c321"
+      "Tool: vcpkg-2025-01-11-0f310537c75015100d200eb71b137f6376aad510"
     ],
-    "created": "2024-11-20T14:32:01Z"
+    "created": "2025-01-16T10:50:42Z"
   },
   "relationships": [
     {
@@ -69,7 +69,7 @@
     {
       "name": "egl-registry:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "7262ca87d75cd1a706ba1d4a04e5416780814239b0dc47f5f390aa746e59578f",
+      "versionInfo": "135a72cb3c795a31887781b25867ef9ec299d3a390efe695606e39a93fad2bb8",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -77,7 +77,7 @@
       "comment": "This is a binary package built by vcpkg."
     },
     {
-      "SPDXID": "SPDXRef-resource-1",
+      "SPDXID": "SPDXRef-resource-0",
       "name": "KhronosGroup/EGL-Registry",
       "downloadLocation": "git+https://github.com/KhronosGroup/EGL-Registry@7db3005d4c2cb439f129a0adc931f3274f9019e6",
       "licenseConcluded": "NOASSERTION",

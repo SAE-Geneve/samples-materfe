@@ -5,7 +5,7 @@
 #include "engine.h"
 #include "file_utility.h"
 #include "scene.h"
-#include "texture_loader.h"
+#include "load3D/texture_loader.h"
 
 namespace gpr
 

@@ -7,6 +7,7 @@ C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmak
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/empty_polygon.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/empty_square.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/empty_star.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/final_scene_for_somative.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/full_square.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/full_star.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/normal_mapping.dir

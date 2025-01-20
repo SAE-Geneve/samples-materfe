@@ -4,7 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "stb_image.h"
-#include "texture_loader.h"
+#include "load3D/texture_loader.h"
 #include <iostream>
 
 
@@ -62,12 +62,9 @@ unsigned int TextureManager::loadCubemap(std::vector<std::string> faces)
     return textureID;
 }
 
-
-
-
-
-
-unsigned int TextureFromFile(const char *path, const std::string &directory) {
+//MODEL part ----------------------------------------------------------------------------------------------------------
+static unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma)
+{
     std::string filename = std::string(path);
     filename = directory + '/' + filename;
 
@@ -76,20 +73,18 @@ unsigned int TextureFromFile(const char *path, const std::string &directory) {
 
     int width, height, nrComponents;
     unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-    if (data) {
-        GLenum format;
+    if (data)
+    {
+        GLenum format = 0;
         if (nrComponents == 1)
             format = GL_RED;
         else if (nrComponents == 3)
             format = GL_RGB;
         else if (nrComponents == 4)
             format = GL_RGBA;
-        else
-            format = GL_RGB;
 
         glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(format), width, height, 0,
-                     format, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(format), width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -98,7 +93,9 @@ unsigned int TextureFromFile(const char *path, const std::string &directory) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         stbi_image_free(data);
-    } else {
+    }
+    else
+    {
         std::cout << "Texture failed to load at path: " << path << std::endl;
         stbi_image_free(data);
     }
@@ -106,54 +103,48 @@ unsigned int TextureFromFile(const char *path, const std::string &directory) {
     return textureID;
 }
 
-void Model::Draw(GLuint &shader) {
-    //stbi_set_flip_vertically_on_load(true);
-    for (auto &_: meshes) {
-        _.Draw(shader);
-    }
-}
-
-void Model::loadModel(std::string &path) {
+void Model::loadModel(const std::string &path) {
+    stbi_set_flip_vertically_on_load(true);
     // read file via ASSIMP
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(path,
-                                             aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs |
-                                             aiProcess_CalcTangentSpace);
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+    aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     // check for errors
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
+    if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
     {
         std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << "\n";
         return;
     }
     // retrieve the directory path of the filepath
-    directory = path.substr(0, path.find_last_of('/'));
+    directory_ = path.substr(0, path.find_last_of('/'));
 
     // process ASSIMP's root node recursively
-    processNode(scene->mRootNode, scene);
+    ProcessNode(scene->mRootNode, scene);
 }
 
-void Model::processNode(aiNode *node, const aiScene *scene) {
+void Model::ProcessNode(aiNode *node, const aiScene *scene) {
     // process each mesh located at the current node
-    for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        // the node object only contains indices_ to index the actual objects in the scene.
+    for(unsigned int i = 0; i < node->mNumMeshes; i++)
+    {
+        // the node object only contains indices to index the actual objects in the scene.
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-        aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
+        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+        meshes_.push_back(ProcessMesh(mesh, scene));
     }
     // after we've processed all the meshes (if any) we then recursively process each of the children nodes
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        processNode(node->mChildren[i], scene);
+    for(unsigned int i = 0; i < node->mNumChildren; i++)
+    {
+        ProcessNode(node->mChildren[i], scene);
     }
-
 }
 
-Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
+Mesh Model::ProcessMesh(aiMesh *mesh, const aiScene *scene) {
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    // walk through each of the mesh's vertices_
+    // walk through each of the mesh's vertices
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex{};
@@ -196,11 +187,11 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
 
         vertices.push_back(vertex);
     }
-    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices_.
+    // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
     for(unsigned int i = 0; i < mesh->mNumFaces; i++)
     {
         aiFace face = mesh->mFaces[i];
-        // retrieve all indices_ of the face and store them in the indices_ vector
+        // retrieve all indices of the face and store them in the indices vector
         for(unsigned int j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
     }
@@ -230,7 +221,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
     return {vertices, indices, textures};
 }
 
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, const char* typeName) {
+std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, const std::string &typeName) {
     std::vector<Texture> textures;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
@@ -238,11 +229,11 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
         mat->GetTexture(type, i, &str);
         // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
         bool skip = false;
-        for(const auto& _ : textures_loaded)
+        for(auto & j : textures_loaded_)
         {
-            if(std::strcmp(_.path.data(), str.C_Str()) == 0)
+            if(std::strcmp(j.path.data(), str.C_Str()) == 0)
             {
-                textures.push_back(_);
+                textures.push_back(j);
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                 break;
             }
@@ -250,11 +241,11 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
         if(!skip)
         {   // if texture hasn't been loaded already, load it
             Texture texture;
-            texture.id = TextureFromFile(str.C_Str(), this->directory);
+            texture.id = TextureFromFile(str.C_Str(), this->directory_);
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
-            textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unecessarilily load duplicate textures_.
+            textures_loaded_.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
         }
     }
     return textures;

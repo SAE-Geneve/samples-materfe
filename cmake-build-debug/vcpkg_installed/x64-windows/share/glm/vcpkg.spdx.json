@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/glm-x64-windows-1.0.1#3-a5c08d6c-6eb0-458f-ab01-134a06071b50",
-  "name": "glm:x64-windows@1.0.1#3 d1d5c8b741e20b4341a93243f61138adb0c3085d0950a9cda8068a8daebd60b9",
+  "documentNamespace": "https://spdx.org/spdxdocs/glm-x64-windows-1.0.1#3-fa275a03-4661-408d-a926-10479226535d",
+  "name": "glm:x64-windows@1.0.1#3 3b58ac871ed1475e9bc5a25042ff8fa2e2dff58d7131d8ae8caf3e812bd491c3",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-2024-11-12-eb492805e92a2c14a230f5c3deb3e89f6771c321"
+      "Tool: vcpkg-2025-01-11-0f310537c75015100d200eb71b137f6376aad510"
     ],
-    "created": "2024-11-20T14:32:43Z"
+    "created": "2025-01-16T15:22:13Z"
   },
   "relationships": [
     {
@@ -79,7 +79,7 @@
     {
       "name": "glm:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "d1d5c8b741e20b4341a93243f61138adb0c3085d0950a9cda8068a8daebd60b9",
+      "versionInfo": "3b58ac871ed1475e9bc5a25042ff8fa2e2dff58d7131d8ae8caf3e812bd491c3",
       "downloadLocation": "NONE",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
@@ -87,7 +87,7 @@
       "comment": "This is a binary package built by vcpkg."
     },
     {
-      "SPDXID": "SPDXRef-resource-1",
+      "SPDXID": "SPDXRef-resource-0",
       "name": "g-truc/glm",
       "downloadLocation": "git+https://github.com/g-truc/glm@1.0.1",
       "licenseConcluded": "NOASSERTION",

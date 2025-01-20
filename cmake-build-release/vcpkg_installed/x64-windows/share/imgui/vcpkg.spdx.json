@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/imgui-x64-windows-1.91.0-9e7a94d5-408e-4ad6-a902-93d841ecfd30",
-  "name": "imgui:x64-windows@1.91.0 6c8fb916fe558e5ca8ccb09996d862001de2409cd048febd0c1ec31ff56227cc",
+  "documentNamespace": "https://spdx.org/spdxdocs/imgui-x64-windows-1.91.6-82189289-ceac-433f-a6e0-29d8adfcafb6",
+  "name": "imgui:x64-windows@1.91.6 a0515b46436d8658d16c179ccdf1ab11dd95863c78e07a37f880a2aea5040099",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-2024-11-12-eb492805e92a2c14a230f5c3deb3e89f6771c321"
+      "Tool: vcpkg-2025-01-11-0f310537c75015100d200eb71b137f6376aad510"
     ],
-    "created": "2024-11-20T14:33:19Z"
+    "created": "2025-01-16T15:23:00Z"
   },
   "relationships": [
     {
@@ -67,7 +67,7 @@
     {
       "name": "imgui",
       "SPDXID": "SPDXRef-port",
-      "versionInfo": "1.91.0",
+      "versionInfo": "1.91.6",
       "downloadLocation": "NOASSERTION",
       "homepage": "https://github.com/ocornut/imgui",
       "licenseConcluded": "MIT",
@@ -79,7 +79,7 @@
     {
       "name": "imgui:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "6c8fb916fe558e5ca8ccb09996d862001de2409cd048febd0c1ec31ff56227cc",
+      "versionInfo": "a0515b46436d8658d16c179ccdf1ab11dd95863c78e07a37f880a2aea5040099",
       "downloadLocation": "NONE",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
@@ -87,21 +87,49 @@
       "comment": "This is a binary package built by vcpkg."
     },
     {
-      "SPDXID": "SPDXRef-resource-1",
+      "SPDXID": "SPDXRef-resource-0",
       "name": "ocornut/imgui",
-      "downloadLocation": "git+https://github.com/ocornut/imgui@v1.91.0-docking",
+      "downloadLocation": "git+https://github.com/ocornut/imgui@v1.91.6-docking",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
       "copyrightText": "NOASSERTION",
       "checksums": [
         {
           "algorithm": "SHA512",
-          "checksumValue": "07492ef56d0518b1a941d8da6ccb1cfe9a8253db3057f2875a033b144047065f43240e0cb8f4ef5d3cad76ccd84fd26fc673c673f4a484d10d2c8545ec286bdb"
+          "checksumValue": "5d1849867475c24dea51254bde945e919938b4fa2aac218e35a9371d3f48d8fc486ac4e459e9a0c3d36526f18972ac3ac292581aa831ca54efb3d640c6e156b1"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "ocornut/imgui",
+      "downloadLocation": "git+https://github.com/ocornut/imgui@v1.91.6",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "eef35ba9f7e39ddeff3e2df0eef77d3cd8602115cb42a6fad274aecf4d5e6922c43ea4fab37908729df00a3d3e69c5000b21b46b23ed18891fb899e6b9807feb"
         }
       ]
     },
     {
       "SPDXID": "SPDXRef-resource-2",
+      "name": "ocornut/imgui_test_engine",
+      "downloadLocation": "git+https://github.com/ocornut/imgui_test_engine@v1.91.6",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "b18d64732629f01eb4153c7f7dbc2184d7ad1d63d0dc1b4f42120209c673f20ebc202bf7bc6ab27ae1a23a9437d40cc9f77c3e100e0e6de3ed6eb0087c41b7a4"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-resource-3",
       "name": "imgui_fonts_droid_sans.h",
       "packageFileName": "imgui_fonts_droid_sans.h",
       "downloadLocation": "https://raw.githubusercontent.com/libigl/libigl-imgui/c3efb9b62780f55f9bba34561f79a3087e057fc0/imgui_fonts_droid_sans.h",
@@ -147,7 +175,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "47fc9936947d8f74a9306d675ae4f21d18b9e10888c5e9f496730103112a6824"
+          "checksumValue": "f1cc094ecf8d7cf9ff2e4a5e9bf55b03ac9e9f36c17b28e1ef0046d91cbdc338"
         }
       ],
       "licenseConcluded": "NOASSERTION",
@@ -159,7 +187,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "974888ad49da62ba57d28069f9f82d8db7c02a02266f9d28291a40aa380a3ae1"
+          "checksumValue": "788ea44b040b0a18e7e14bfdedd2976d7c8bc43de0f622eb08bd42c149716a28"
         }
       ],
       "licenseConcluded": "NOASSERTION",

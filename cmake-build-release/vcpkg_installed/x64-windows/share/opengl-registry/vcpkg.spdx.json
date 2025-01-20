@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/opengl-registry-x64-windows-2024-02-10#1-a8b8a0a9-2b9f-4766-b128-5689aa3b5c51",
-  "name": "opengl-registry:x64-windows@2024-02-10#1 4c630b5ef0937641a7f33269e1c5cb5f96272e628ca1f96bc85ce7acdadeffaf",
+  "documentNamespace": "https://spdx.org/spdxdocs/opengl-registry-x64-windows-2024-02-10#1-47378014-4d0a-48bb-bc59-24f1b2131c4d",
+  "name": "opengl-registry:x64-windows@2024-02-10#1 539dbbabce5367e271b8eee34f7eb352ee12e543f084635b4568f665b9a5d31e",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-2024-11-12-eb492805e92a2c14a230f5c3deb3e89f6771c321"
+      "Tool: vcpkg-2025-01-11-0f310537c75015100d200eb71b137f6376aad510"
     ],
-    "created": "2024-11-20T14:32:05Z"
+    "created": "2025-01-16T10:50:46Z"
   },
   "relationships": [
     {
@@ -69,7 +69,7 @@
     {
       "name": "opengl-registry:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "4c630b5ef0937641a7f33269e1c5cb5f96272e628ca1f96bc85ce7acdadeffaf",
+      "versionInfo": "539dbbabce5367e271b8eee34f7eb352ee12e543f084635b4568f665b9a5d31e",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -77,7 +77,7 @@
       "comment": "This is a binary package built by vcpkg."
     },
     {
-      "SPDXID": "SPDXRef-resource-1",
+      "SPDXID": "SPDXRef-resource-0",
       "name": "KhronosGroup/OpenGL-Registry",
       "downloadLocation": "git+https://github.com/KhronosGroup/OpenGL-Registry@3530768138c5ba3dfbb2c43c830493f632f7ea33",
       "licenseConcluded": "NOASSERTION",

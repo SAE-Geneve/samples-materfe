@@ -50,7 +50,7 @@ build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_s
 #############################################
 # Utility command for data_target
 
-build data_target: phony CMakeFiles\data_target data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
+build data_target: phony CMakeFiles\data_target data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Common
@@ -119,7 +119,7 @@ build 3D_scene.exe: CXX_EXECUTABLE_LINKER__3D_scene_Release CMakeFiles\3D_scene.
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\3D_scene.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/3D_scene.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/3D_scene.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\3D_scene.dir\
   TARGET_FILE = 3D_scene.exe
@@ -157,7 +157,7 @@ build cubemap.exe: CXX_EXECUTABLE_LINKER__cubemap_Release CMakeFiles\cubemap.dir
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\cubemap.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/cubemap.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/cubemap.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\cubemap.dir\
   TARGET_FILE = cubemap.exe
@@ -195,7 +195,7 @@ build double_texture_triangle.exe: CXX_EXECUTABLE_LINKER__double_texture_triangl
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\double_texture_triangle.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/double_texture_triangle.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/double_texture_triangle.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\double_texture_triangle.dir\
   TARGET_FILE = double_texture_triangle.exe
@@ -233,7 +233,7 @@ build empty_polygon.exe: CXX_EXECUTABLE_LINKER__empty_polygon_Release CMakeFiles
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\empty_polygon.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/empty_polygon.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/empty_polygon.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\empty_polygon.dir\
   TARGET_FILE = empty_polygon.exe
@@ -271,7 +271,7 @@ build empty_square.exe: CXX_EXECUTABLE_LINKER__empty_square_Release CMakeFiles\e
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\empty_square.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/empty_square.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/empty_square.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\empty_square.dir\
   TARGET_FILE = empty_square.exe
@@ -309,12 +309,50 @@ build empty_star.exe: CXX_EXECUTABLE_LINKER__empty_star_Release CMakeFiles\empty
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\empty_star.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/empty_star.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/empty_star.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\empty_star.dir\
   TARGET_FILE = empty_star.exe
   TARGET_IMPLIB = empty_star.lib
   TARGET_PDB = empty_star.pdb
+
+# =============================================================================
+# Object build statements for EXECUTABLE target final_scene_for_somative
+
+
+#############################################
+# Order-only phony target for final_scene_for_somative
+
+build cmake_object_order_depends_target_final_scene_for_somative: phony || cmake_object_order_depends_target_Common
+
+build CMakeFiles\final_scene_for_somative.dir\main\final_scene_for_somative.cpp.obj: CXX_COMPILER__final_scene_for_somative_unscanned_Release C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\main\final_scene_for_somative.cpp || cmake_object_order_depends_target_final_scene_for_somative
+  DEFINES = -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -std:c++20 -MD /arch:AVX2 /Oi /GL /fp:fast
+  INCLUDES = -IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release\vcpkg_installed\x64-windows\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release\vcpkg_installed\x64-windows\include\SDL2 -external:W0
+  OBJECT_DIR = CMakeFiles\final_scene_for_somative.dir
+  OBJECT_FILE_DIR = CMakeFiles\final_scene_for_somative.dir\main
+  TARGET_COMPILE_PDB = CMakeFiles\final_scene_for_somative.dir\
+  TARGET_PDB = final_scene_for_somative.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target final_scene_for_somative
+
+
+#############################################
+# Link the executable final_scene_for_somative.exe
+
+build final_scene_for_somative.exe: CXX_EXECUTABLE_LINKER__final_scene_for_somative_Release CMakeFiles\final_scene_for_somative.dir\main\final_scene_for_somative.cpp.obj | Common.lib vcpkg_installed\x64-windows\lib\glew32.lib vcpkg_installed\x64-windows\lib\glm.lib vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib vcpkg_installed\x64-windows\lib\imgui.lib vcpkg_installed\x64-windows\lib\SDL2.lib vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib || Common.lib
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
+  LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\final_scene_for_somative.dir
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/final_scene_for_somative.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\final_scene_for_somative.dir\
+  TARGET_FILE = final_scene_for_somative.exe
+  TARGET_IMPLIB = final_scene_for_somative.lib
+  TARGET_PDB = final_scene_for_somative.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target full_square
@@ -347,7 +385,7 @@ build full_square.exe: CXX_EXECUTABLE_LINKER__full_square_Release CMakeFiles\ful
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\full_square.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/full_square.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/full_square.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\full_square.dir\
   TARGET_FILE = full_square.exe
@@ -385,7 +423,7 @@ build full_star.exe: CXX_EXECUTABLE_LINKER__full_star_Release CMakeFiles\full_st
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\full_star.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/full_star.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/full_star.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\full_star.dir\
   TARGET_FILE = full_star.exe
@@ -423,7 +461,7 @@ build normal_mapping.exe: CXX_EXECUTABLE_LINKER__normal_mapping_Release CMakeFil
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\normal_mapping.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/normal_mapping.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/normal_mapping.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\normal_mapping.dir\
   TARGET_FILE = normal_mapping.exe
@@ -461,7 +499,7 @@ build shadow_mapping.exe: CXX_EXECUTABLE_LINKER__shadow_mapping_Release CMakeFil
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\lib\glew32.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\lib\glm.lib  vcpkg_installed\x64-windows\lib\manual-link\SDL2main.lib  shell32.lib  vcpkg_installed\x64-windows\lib\imgui.lib  vcpkg_installed\x64-windows\lib\SDL2.lib  vcpkg_installed\x64-windows\lib\assimp-vc143-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\shadow_mapping.dir
-  POST_BUILD = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/shadow_mapping.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/shadow_mapping.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/vcpkg_installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\shadow_mapping.dir\
   TARGET_FILE = shadow_mapping.exe
@@ -473,7 +511,7 @@ build shadow_mapping.exe: CXX_EXECUTABLE_LINKER__shadow_mapping_Release CMakeFil
 # Utility command for edit_cache
 
 build CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -484,7 +522,7 @@ build edit_cache: phony CMakeFiles\edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe -BC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe -BC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -502,7 +540,7 @@ build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target:
 # Custom command for data\shaders\3D_scene\blur_shader.frag
 
 build data\shaders\3D_scene\blur_shader.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\blur_shader.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\blur_shader.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/blur_shader.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/blur_shader.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.frag"
   DESC = Generating data/shaders/3D_scene/blur_shader.frag
   restat = 1
 
@@ -511,7 +549,7 @@ build data\shaders\3D_scene\blur_shader.frag | ${cmake_ninja_workdir}data\shader
 # Custom command for data\shaders\3D_scene\blur_shader.vert
 
 build data\shaders\3D_scene\blur_shader.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\blur_shader.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\blur_shader.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/blur_shader.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/blur_shader.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/blur_shader.vert"
   DESC = Generating data/shaders/3D_scene/blur_shader.vert
   restat = 1
 
@@ -520,7 +558,7 @@ build data\shaders\3D_scene\blur_shader.vert | ${cmake_ninja_workdir}data\shader
 # Custom command for data\shaders\3D_scene\cube.frag
 
 build data\shaders\3D_scene\cube.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\cube.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\cube.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/cube.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/cube.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.frag"
   DESC = Generating data/shaders/3D_scene/cube.frag
   restat = 1
 
@@ -529,7 +567,7 @@ build data\shaders\3D_scene\cube.frag | ${cmake_ninja_workdir}data\shaders\3D_sc
 # Custom command for data\shaders\3D_scene\cube.vert
 
 build data\shaders\3D_scene\cube.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\cube.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\cube.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/cube.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/cube.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/cube.vert"
   DESC = Generating data/shaders/3D_scene/cube.vert
   restat = 1
 
@@ -538,7 +576,7 @@ build data\shaders\3D_scene\cube.vert | ${cmake_ninja_workdir}data\shaders\3D_sc
 # Custom command for data\shaders\3D_scene\debug_quad.frag
 
 build data\shaders\3D_scene\debug_quad.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\debug_quad.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\debug_quad.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/debug_quad.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/debug_quad.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.frag"
   DESC = Generating data/shaders/3D_scene/debug_quad.frag
   restat = 1
 
@@ -547,7 +585,7 @@ build data\shaders\3D_scene\debug_quad.frag | ${cmake_ninja_workdir}data\shaders
 # Custom command for data\shaders\3D_scene\debug_quad.vert
 
 build data\shaders\3D_scene\debug_quad.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\debug_quad.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\debug_quad.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/debug_quad.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/debug_quad.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/debug_quad.vert"
   DESC = Generating data/shaders/3D_scene/debug_quad.vert
   restat = 1
 
@@ -556,7 +594,7 @@ build data\shaders\3D_scene\debug_quad.vert | ${cmake_ninja_workdir}data\shaders
 # Custom command for data\shaders\3D_scene\final_bloom.frag
 
 build data\shaders\3D_scene\final_bloom.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\final_bloom.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\final_bloom.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/final_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/final_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/final_bloom.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/final_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/final_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/final_bloom.frag"
   DESC = Generating data/shaders/3D_scene/final_bloom.frag
   restat = 1
 
@@ -565,7 +603,7 @@ build data\shaders\3D_scene\final_bloom.frag | ${cmake_ninja_workdir}data\shader
 # Custom command for data\shaders\3D_scene\light.frag
 
 build data\shaders\3D_scene\light.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\light.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\light.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/light.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/light.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.frag"
   DESC = Generating data/shaders/3D_scene/light.frag
   restat = 1
 
@@ -574,7 +612,7 @@ build data\shaders\3D_scene\light.frag | ${cmake_ninja_workdir}data\shaders\3D_s
 # Custom command for data\shaders\3D_scene\light.vert
 
 build data\shaders\3D_scene\light.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\light.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\light.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/light.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/light.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/light.vert"
   DESC = Generating data/shaders/3D_scene/light.vert
   restat = 1
 
@@ -583,7 +621,7 @@ build data\shaders\3D_scene\light.vert | ${cmake_ninja_workdir}data\shaders\3D_s
 # Custom command for data\shaders\3D_scene\model.frag
 
 build data\shaders\3D_scene\model.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\model.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\model.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/model.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/model.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.frag"
   DESC = Generating data/shaders/3D_scene/model.frag
   restat = 1
 
@@ -592,7 +630,7 @@ build data\shaders\3D_scene\model.frag | ${cmake_ninja_workdir}data\shaders\3D_s
 # Custom command for data\shaders\3D_scene\model.vert
 
 build data\shaders\3D_scene\model.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\model.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\model.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/model.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/model.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/model.vert"
   DESC = Generating data/shaders/3D_scene/model.vert
   restat = 1
 
@@ -601,7 +639,7 @@ build data\shaders\3D_scene\model.vert | ${cmake_ninja_workdir}data\shaders\3D_s
 # Custom command for data\shaders\3D_scene\normal_mapping.frag
 
 build data\shaders\3D_scene\normal_mapping.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\normal_mapping.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\normal_mapping.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/normal_mapping.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/normal_mapping.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.frag"
   DESC = Generating data/shaders/3D_scene/normal_mapping.frag
   restat = 1
 
@@ -610,7 +648,7 @@ build data\shaders\3D_scene\normal_mapping.frag | ${cmake_ninja_workdir}data\sha
 # Custom command for data\shaders\3D_scene\normal_mapping.vert
 
 build data\shaders\3D_scene\normal_mapping.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\normal_mapping.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\normal_mapping.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/normal_mapping.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/normal_mapping.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/normal_mapping.vert"
   DESC = Generating data/shaders/3D_scene/normal_mapping.vert
   restat = 1
 
@@ -619,7 +657,7 @@ build data\shaders\3D_scene\normal_mapping.vert | ${cmake_ninja_workdir}data\sha
 # Custom command for data\shaders\3D_scene\quad.frag
 
 build data\shaders\3D_scene\quad.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\quad.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\quad.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/quad.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/quad.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.frag"
   DESC = Generating data/shaders/3D_scene/quad.frag
   restat = 1
 
@@ -628,7 +666,7 @@ build data\shaders\3D_scene\quad.frag | ${cmake_ninja_workdir}data\shaders\3D_sc
 # Custom command for data\shaders\3D_scene\quad.vert
 
 build data\shaders\3D_scene\quad.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\quad.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\quad.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/quad.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/quad.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/quad.vert"
   DESC = Generating data/shaders/3D_scene/quad.vert
   restat = 1
 
@@ -637,7 +675,7 @@ build data\shaders\3D_scene\quad.vert | ${cmake_ninja_workdir}data\shaders\3D_sc
 # Custom command for data\shaders\3D_scene\shader_bloom.frag
 
 build data\shaders\3D_scene\shader_bloom.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shader_bloom.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shader_bloom.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.frag"
   DESC = Generating data/shaders/3D_scene/shader_bloom.frag
   restat = 1
 
@@ -646,7 +684,7 @@ build data\shaders\3D_scene\shader_bloom.frag | ${cmake_ninja_workdir}data\shade
 # Custom command for data\shaders\3D_scene\shader_bloom.vert
 
 build data\shaders\3D_scene\shader_bloom.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\shader_bloom.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shader_bloom.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_bloom.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_bloom.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_bloom.vert"
   DESC = Generating data/shaders/3D_scene/shader_bloom.vert
   restat = 1
 
@@ -655,7 +693,7 @@ build data\shaders\3D_scene\shader_bloom.vert | ${cmake_ninja_workdir}data\shade
 # Custom command for data\shaders\3D_scene\shader_light_bloom.frag
 
 build data\shaders\3D_scene\shader_light_bloom.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shader_light_bloom.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shader_light_bloom.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_light_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_light_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_light_bloom.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_light_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shader_light_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shader_light_bloom.frag"
   DESC = Generating data/shaders/3D_scene/shader_light_bloom.frag
   restat = 1
 
@@ -664,7 +702,7 @@ build data\shaders\3D_scene\shader_light_bloom.frag | ${cmake_ninja_workdir}data
 # Custom command for data\shaders\3D_scene\shadow_mapping.frag
 
 build data\shaders\3D_scene\shadow_mapping.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.frag"
   DESC = Generating data/shaders/3D_scene/shadow_mapping.frag
   restat = 1
 
@@ -673,7 +711,7 @@ build data\shaders\3D_scene\shadow_mapping.frag | ${cmake_ninja_workdir}data\sha
 # Custom command for data\shaders\3D_scene\shadow_mapping.vert
 
 build data\shaders\3D_scene\shadow_mapping.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping.vert"
   DESC = Generating data/shaders/3D_scene/shadow_mapping.vert
   restat = 1
 
@@ -682,7 +720,7 @@ build data\shaders\3D_scene\shadow_mapping.vert | ${cmake_ninja_workdir}data\sha
 # Custom command for data\shaders\3D_scene\shadow_mapping_depth.frag
 
 build data\shaders\3D_scene\shadow_mapping_depth.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping_depth.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping_depth.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping_depth.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping_depth.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.frag"
   DESC = Generating data/shaders/3D_scene/shadow_mapping_depth.frag
   restat = 1
 
@@ -691,7 +729,7 @@ build data\shaders\3D_scene\shadow_mapping_depth.frag | ${cmake_ninja_workdir}da
 # Custom command for data\shaders\3D_scene\shadow_mapping_depth.vert
 
 build data\shaders\3D_scene\shadow_mapping_depth.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\shadow_mapping_depth.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\shadow_mapping_depth.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping_depth.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/shadow_mapping_depth.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/shadow_mapping_depth.vert"
   DESC = Generating data/shaders/3D_scene/shadow_mapping_depth.vert
   restat = 1
 
@@ -700,7 +738,7 @@ build data\shaders\3D_scene\shadow_mapping_depth.vert | ${cmake_ninja_workdir}da
 # Custom command for data\shaders\3D_scene\skybox.frag
 
 build data\shaders\3D_scene\skybox.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\skybox.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\skybox.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/skybox.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/skybox.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.frag"
   DESC = Generating data/shaders/3D_scene/skybox.frag
   restat = 1
 
@@ -709,7 +747,7 @@ build data\shaders\3D_scene\skybox.frag | ${cmake_ninja_workdir}data\shaders\3D_
 # Custom command for data\shaders\3D_scene\skybox.vert
 
 build data\shaders\3D_scene\skybox.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\skybox.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\skybox.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/skybox.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/3D_scene/skybox.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/skybox.vert"
   DESC = Generating data/shaders/3D_scene/skybox.vert
   restat = 1
 
@@ -718,7 +756,7 @@ build data\shaders\3D_scene\skybox.vert | ${cmake_ninja_workdir}data\shaders\3D_
 # Custom command for data\shaders\hello_triangle\triangle.frag
 
 build data\shaders\hello_triangle\triangle.frag | ${cmake_ninja_workdir}data\shaders\hello_triangle\triangle.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\hello_triangle\triangle.frag
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/hello_triangle/triangle.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.frag"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/hello_triangle/triangle.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.frag"
   DESC = Generating data/shaders/hello_triangle/triangle.frag
   restat = 1
 
@@ -727,7 +765,7 @@ build data\shaders\hello_triangle\triangle.frag | ${cmake_ninja_workdir}data\sha
 # Custom command for data\shaders\hello_triangle\triangle.vert
 
 build data\shaders\hello_triangle\triangle.vert | ${cmake_ninja_workdir}data\shaders\hello_triangle\triangle.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\hello_triangle\triangle.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/hello_triangle/triangle.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/hello_triangle/triangle.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/hello_triangle/triangle.vert"
   DESC = Generating data/shaders/hello_triangle/triangle.vert
   restat = 1
 
@@ -736,7 +774,7 @@ build data\shaders\hello_triangle\triangle.vert | ${cmake_ninja_workdir}data\sha
 # Custom command for data\shaders\polygon\empty_polygon.vert
 
 build data\shaders\polygon\empty_polygon.vert | ${cmake_ninja_workdir}data\shaders\polygon\empty_polygon.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\polygon\empty_polygon.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/polygon/empty_polygon.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/polygon/empty_polygon.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/polygon/empty_polygon.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/polygon/empty_polygon.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/polygon/empty_polygon.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/polygon/empty_polygon.vert"
   DESC = Generating data/shaders/polygon/empty_polygon.vert
   restat = 1
 
@@ -745,7 +783,7 @@ build data\shaders\polygon\empty_polygon.vert | ${cmake_ninja_workdir}data\shade
 # Custom command for data\shaders\squares\empty_square.vert
 
 build data\shaders\squares\empty_square.vert | ${cmake_ninja_workdir}data\shaders\squares\empty_square.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\squares\empty_square.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/empty_square.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/squares/empty_square.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/empty_square.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/empty_square.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/squares/empty_square.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/empty_square.vert"
   DESC = Generating data/shaders/squares/empty_square.vert
   restat = 1
 
@@ -754,7 +792,7 @@ build data\shaders\squares\empty_square.vert | ${cmake_ninja_workdir}data\shader
 # Custom command for data\shaders\squares\full_square.vert
 
 build data\shaders\squares\full_square.vert | ${cmake_ninja_workdir}data\shaders\squares\full_square.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\squares\full_square.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/full_square.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/squares/full_square.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/full_square.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/full_square.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/squares/full_square.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/squares/full_square.vert"
   DESC = Generating data/shaders/squares/full_square.vert
   restat = 1
 
@@ -763,7 +801,7 @@ build data\shaders\squares\full_square.vert | ${cmake_ninja_workdir}data\shaders
 # Custom command for data\shaders\star\empty_star.vert
 
 build data\shaders\star\empty_star.vert | ${cmake_ninja_workdir}data\shaders\star\empty_star.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\star\empty_star.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/empty_star.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/star/empty_star.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/empty_star.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/empty_star.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/star/empty_star.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/empty_star.vert"
   DESC = Generating data/shaders/star/empty_star.vert
   restat = 1
 
@@ -772,7 +810,7 @@ build data\shaders\star\empty_star.vert | ${cmake_ninja_workdir}data\shaders\sta
 # Custom command for data\shaders\star\full_star.vert
 
 build data\shaders\star\full_star.vert | ${cmake_ninja_workdir}data\shaders\star\full_star.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\star\full_star.vert
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/full_star.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/star/full_star.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/full_star.vert"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/full_star.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/shaders/star/full_star.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/star/full_star.vert"
   DESC = Generating data/shaders/star/full_star.vert
   restat = 1
 
@@ -780,14 +818,14 @@ build data\shaders\star\full_star.vert | ${cmake_ninja_workdir}data\shaders\star
 #############################################
 # Phony custom command for CMakeFiles\data_target
 
-build CMakeFiles\data_target | ${cmake_ninja_workdir}CMakeFiles\data_target: phony data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
+build CMakeFiles\data_target | ${cmake_ninja_workdir}CMakeFiles\data_target: phony data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
 
 
 #############################################
 # Custom command for data\texture\2D\box.jpg
 
 build data\texture\2D\box.jpg | ${cmake_ninja_workdir}data\texture\2D\box.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\2D\box.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/box.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/box.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/box.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/box.jpg"
   DESC = Generating data/texture/2D/box.jpg
   restat = 1
 
@@ -796,7 +834,7 @@ build data\texture\2D\box.jpg | ${cmake_ninja_workdir}data\texture\2D\box.jpg: C
 # Custom command for data\texture\2D\brickwall.jpg
 
 build data\texture\2D\brickwall.jpg | ${cmake_ninja_workdir}data\texture\2D\brickwall.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\2D\brickwall.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/brickwall.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/brickwall.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/brickwall.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/brickwall.jpg"
   DESC = Generating data/texture/2D/brickwall.jpg
   restat = 1
 
@@ -805,7 +843,7 @@ build data\texture\2D\brickwall.jpg | ${cmake_ninja_workdir}data\texture\2D\bric
 # Custom command for data\texture\2D\brickwall_normal.jpg
 
 build data\texture\2D\brickwall_normal.jpg | ${cmake_ninja_workdir}data\texture\2D\brickwall_normal.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\2D\brickwall_normal.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/brickwall_normal.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/brickwall_normal.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/brickwall_normal.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/brickwall_normal.jpg"
   DESC = Generating data/texture/2D/brickwall_normal.jpg
   restat = 1
 
@@ -814,8 +852,35 @@ build data\texture\2D\brickwall_normal.jpg | ${cmake_ninja_workdir}data\texture\
 # Custom command for data\texture\2D\ennemy_01.png
 
 build data\texture\2D\ennemy_01.png | ${cmake_ninja_workdir}data\texture\2D\ennemy_01.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\2D\ennemy_01.png
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/ennemy_01.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/ennemy_01.png"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/2D/ennemy_01.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/2D/ennemy_01.png"
   DESC = Generating data/texture/2D/ennemy_01.png
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\ROCK\LowPolyRockPack.mtl
+
+build data\texture\3D\ROCK\LowPolyRockPack.mtl | ${cmake_ninja_workdir}data\texture\3D\ROCK\LowPolyRockPack.mtl: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\ROCK\LowPolyRockPack.mtl
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/ROCK/LowPolyRockPack.mtl C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/ROCK/LowPolyRockPack.mtl"
+  DESC = Generating data/texture/3D/ROCK/LowPolyRockPack.mtl
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\ROCK\LowPolyRockPack.obj
+
+build data\texture\3D\ROCK\LowPolyRockPack.obj | ${cmake_ninja_workdir}data\texture\3D\ROCK\LowPolyRockPack.obj: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\ROCK\LowPolyRockPack.obj
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/ROCK/LowPolyRockPack.obj C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/ROCK/LowPolyRockPack.obj"
+  DESC = Generating data/texture/3D/ROCK/LowPolyRockPack.obj
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\ROCK\diffuse.jpg
+
+build data\texture\3D\ROCK\diffuse.jpg | ${cmake_ninja_workdir}data\texture\3D\ROCK\diffuse.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\ROCK\diffuse.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/ROCK/diffuse.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/ROCK/diffuse.jpg"
+  DESC = Generating data/texture/3D/ROCK/diffuse.jpg
   restat = 1
 
 
@@ -823,7 +888,7 @@ build data\texture\2D\ennemy_01.png | ${cmake_ninja_workdir}data\texture\2D\enne
 # Custom command for data\texture\3D\backpack\ao.jpg
 
 build data\texture\3D\backpack\ao.jpg | ${cmake_ninja_workdir}data\texture\3D\backpack\ao.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\ao.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/ao.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/ao.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/ao.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/ao.jpg"
   DESC = Generating data/texture/3D/backpack/ao.jpg
   restat = 1
 
@@ -832,7 +897,7 @@ build data\texture\3D\backpack\ao.jpg | ${cmake_ninja_workdir}data\texture\3D\ba
 # Custom command for data\texture\3D\backpack\backpack.mtl
 
 build data\texture\3D\backpack\backpack.mtl | ${cmake_ninja_workdir}data\texture\3D\backpack\backpack.mtl: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\backpack.mtl
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/backpack.mtl C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/backpack.mtl"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/backpack.mtl C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/backpack.mtl"
   DESC = Generating data/texture/3D/backpack/backpack.mtl
   restat = 1
 
@@ -841,7 +906,7 @@ build data\texture\3D\backpack\backpack.mtl | ${cmake_ninja_workdir}data\texture
 # Custom command for data\texture\3D\backpack\backpack.obj
 
 build data\texture\3D\backpack\backpack.obj | ${cmake_ninja_workdir}data\texture\3D\backpack\backpack.obj: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\backpack.obj
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/backpack.obj C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/backpack.obj"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/backpack.obj C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/backpack.obj"
   DESC = Generating data/texture/3D/backpack/backpack.obj
   restat = 1
 
@@ -850,7 +915,7 @@ build data\texture\3D\backpack\backpack.obj | ${cmake_ninja_workdir}data\texture
 # Custom command for data\texture\3D\backpack\diffuse.jpg
 
 build data\texture\3D\backpack\diffuse.jpg | ${cmake_ninja_workdir}data\texture\3D\backpack\diffuse.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\diffuse.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/diffuse.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/diffuse.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/diffuse.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/diffuse.jpg"
   DESC = Generating data/texture/3D/backpack/diffuse.jpg
   restat = 1
 
@@ -859,7 +924,7 @@ build data\texture\3D\backpack\diffuse.jpg | ${cmake_ninja_workdir}data\texture\
 # Custom command for data\texture\3D\backpack\normal.png
 
 build data\texture\3D\backpack\normal.png | ${cmake_ninja_workdir}data\texture\3D\backpack\normal.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\normal.png
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/normal.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/normal.png"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/normal.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/normal.png"
   DESC = Generating data/texture/3D/backpack/normal.png
   restat = 1
 
@@ -868,7 +933,7 @@ build data\texture\3D\backpack\normal.png | ${cmake_ninja_workdir}data\texture\3
 # Custom command for data\texture\3D\backpack\roughness.jpg
 
 build data\texture\3D\backpack\roughness.jpg | ${cmake_ninja_workdir}data\texture\3D\backpack\roughness.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\roughness.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/roughness.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/roughness.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/roughness.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/roughness.jpg"
   DESC = Generating data/texture/3D/backpack/roughness.jpg
   restat = 1
 
@@ -877,7 +942,7 @@ build data\texture\3D\backpack\roughness.jpg | ${cmake_ninja_workdir}data\textur
 # Custom command for data\texture\3D\backpack\specular.jpg
 
 build data\texture\3D\backpack\specular.jpg | ${cmake_ninja_workdir}data\texture\3D\backpack\specular.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\specular.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/specular.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/specular.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/specular.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/backpack/specular.jpg"
   DESC = Generating data/texture/3D/backpack/specular.jpg
   restat = 1
 
@@ -886,7 +951,7 @@ build data\texture\3D\backpack\specular.jpg | ${cmake_ninja_workdir}data\texture
 # Custom command for data\texture\3D\skybox\back.jpg
 
 build data\texture\3D\skybox\back.jpg | ${cmake_ninja_workdir}data\texture\3D\skybox\back.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\skybox\back.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/back.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/back.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/back.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/back.jpg"
   DESC = Generating data/texture/3D/skybox/back.jpg
   restat = 1
 
@@ -895,7 +960,7 @@ build data\texture\3D\skybox\back.jpg | ${cmake_ninja_workdir}data\texture\3D\sk
 # Custom command for data\texture\3D\skybox\bottom.jpg
 
 build data\texture\3D\skybox\bottom.jpg | ${cmake_ninja_workdir}data\texture\3D\skybox\bottom.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\skybox\bottom.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/bottom.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/bottom.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/bottom.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/bottom.jpg"
   DESC = Generating data/texture/3D/skybox/bottom.jpg
   restat = 1
 
@@ -904,7 +969,7 @@ build data\texture\3D\skybox\bottom.jpg | ${cmake_ninja_workdir}data\texture\3D\
 # Custom command for data\texture\3D\skybox\front.jpg
 
 build data\texture\3D\skybox\front.jpg | ${cmake_ninja_workdir}data\texture\3D\skybox\front.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\skybox\front.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/front.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/front.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/front.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/front.jpg"
   DESC = Generating data/texture/3D/skybox/front.jpg
   restat = 1
 
@@ -913,7 +978,7 @@ build data\texture\3D\skybox\front.jpg | ${cmake_ninja_workdir}data\texture\3D\s
 # Custom command for data\texture\3D\skybox\left.jpg
 
 build data\texture\3D\skybox\left.jpg | ${cmake_ninja_workdir}data\texture\3D\skybox\left.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\skybox\left.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/left.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/left.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/left.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/left.jpg"
   DESC = Generating data/texture/3D/skybox/left.jpg
   restat = 1
 
@@ -922,7 +987,7 @@ build data\texture\3D\skybox\left.jpg | ${cmake_ninja_workdir}data\texture\3D\sk
 # Custom command for data\texture\3D\skybox\right.jpg
 
 build data\texture\3D\skybox\right.jpg | ${cmake_ninja_workdir}data\texture\3D\skybox\right.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\skybox\right.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/right.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/right.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/right.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/right.jpg"
   DESC = Generating data/texture/3D/skybox/right.jpg
   restat = 1
 
@@ -931,7 +996,7 @@ build data\texture\3D\skybox\right.jpg | ${cmake_ninja_workdir}data\texture\3D\s
 # Custom command for data\texture\3D\skybox\top.jpg
 
 build data\texture\3D\skybox\top.jpg | ${cmake_ninja_workdir}data\texture\3D\skybox\top.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\skybox\top.jpg
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/top.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/top.jpg"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-release && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/skybox/top.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/data/texture/3D/skybox/top.jpg"
   DESC = Generating data/texture/3D/skybox/top.jpg
   restat = 1
 
@@ -952,6 +1017,8 @@ build empty_square: phony empty_square.exe
 
 build empty_star: phony empty_star.exe
 
+build final_scene_for_somative: phony final_scene_for_somative.exe
+
 build full_square: phony full_square.exe
 
 build full_star: phony full_star.exe
@@ -968,7 +1035,7 @@ build shadow_mapping: phony shadow_mapping.exe
 #############################################
 # Folder: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release
 
-build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe full_square.exe full_star.exe normal_mapping.exe shadow_mapping.exe
+build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe final_scene_for_somative.exe full_square.exe full_star.exe normal_mapping.exe shadow_mapping.exe
 
 # =============================================================================
 # Built-in targets
