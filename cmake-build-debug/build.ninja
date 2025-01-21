@@ -50,7 +50,7 @@ build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_s
 #############################################
 # Utility command for data_target
 
-build data_target: phony CMakeFiles\data_target data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
+build data_target: phony CMakeFiles\data_target data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\cube_map\negx.jpg data\texture\3D\cube_map\negy.jpg data\texture\3D\cube_map\negz.jpg data\texture\3D\cube_map\posx.jpg data\texture\3D\cube_map\posy.jpg data\texture\3D\cube_map\posz.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Common
@@ -818,7 +818,7 @@ build data\shaders\star\full_star.vert | ${cmake_ninja_workdir}data\shaders\star
 #############################################
 # Phony custom command for CMakeFiles\data_target
 
-build CMakeFiles\data_target | ${cmake_ninja_workdir}CMakeFiles\data_target: phony data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
+build CMakeFiles\data_target | ${cmake_ninja_workdir}CMakeFiles\data_target: phony data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\cube_map\negx.jpg data\texture\3D\cube_map\negy.jpg data\texture\3D\cube_map\negz.jpg data\texture\3D\cube_map\posx.jpg data\texture\3D\cube_map\posy.jpg data\texture\3D\cube_map\posz.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
 
 
 #############################################
@@ -944,6 +944,60 @@ build data\texture\3D\backpack\roughness.jpg | ${cmake_ninja_workdir}data\textur
 build data\texture\3D\backpack\specular.jpg | ${cmake_ninja_workdir}data\texture\3D\backpack\specular.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\backpack\specular.jpg
   COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/backpack/specular.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/backpack/specular.jpg"
   DESC = Generating data/texture/3D/backpack/specular.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\cube_map\negx.jpg
+
+build data\texture\3D\cube_map\negx.jpg | ${cmake_ninja_workdir}data\texture\3D\cube_map\negx.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\cube_map\negx.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/cube_map/negx.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/cube_map/negx.jpg"
+  DESC = Generating data/texture/3D/cube_map/negx.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\cube_map\negy.jpg
+
+build data\texture\3D\cube_map\negy.jpg | ${cmake_ninja_workdir}data\texture\3D\cube_map\negy.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\cube_map\negy.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/cube_map/negy.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/cube_map/negy.jpg"
+  DESC = Generating data/texture/3D/cube_map/negy.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\cube_map\negz.jpg
+
+build data\texture\3D\cube_map\negz.jpg | ${cmake_ninja_workdir}data\texture\3D\cube_map\negz.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\cube_map\negz.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/cube_map/negz.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/cube_map/negz.jpg"
+  DESC = Generating data/texture/3D/cube_map/negz.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\cube_map\posx.jpg
+
+build data\texture\3D\cube_map\posx.jpg | ${cmake_ninja_workdir}data\texture\3D\cube_map\posx.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\cube_map\posx.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/cube_map/posx.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/cube_map/posx.jpg"
+  DESC = Generating data/texture/3D/cube_map/posx.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\cube_map\posy.jpg
+
+build data\texture\3D\cube_map\posy.jpg | ${cmake_ninja_workdir}data\texture\3D\cube_map\posy.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\cube_map\posy.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/cube_map/posy.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/cube_map/posy.jpg"
+  DESC = Generating data/texture/3D/cube_map/posy.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\cube_map\posz.jpg
+
+build data\texture\3D\cube_map\posz.jpg | ${cmake_ninja_workdir}data\texture\3D\cube_map\posz.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\cube_map\posz.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/cube_map/posz.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/cube_map/posz.jpg"
+  DESC = Generating data/texture/3D/cube_map/posz.jpg
   restat = 1
 
 
