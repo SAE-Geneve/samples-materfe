@@ -44,7 +44,7 @@ cmake_ninja_workdir = C$:\Users\Mat\special_repo\git-hub_classroom_compute_graph
 #############################################
 # Utility command for shader_target
 
-build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\debug_quad.frag data\shaders\3D_scene\debug_quad.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\shadow_mapping.frag data\shaders\3D_scene\shadow_mapping.vert data\shaders\3D_scene\shadow_mapping_depth.frag data\shaders\3D_scene\shadow_mapping_depth.vert data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
+build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\debug_quad.frag data\shaders\3D_scene\debug_quad.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\gamma_correction\gamma_correction.frag data\shaders\3D_scene\gamma_correction\gamma_correction.vert data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\shadow_mapping.frag data\shaders\3D_scene\shadow_mapping.vert data\shaders\3D_scene\shadow_mapping_depth.frag data\shaders\3D_scene\shadow_mapping_depth.vert data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
 
 
 #############################################
@@ -431,6 +431,44 @@ build full_star.exe: CXX_EXECUTABLE_LINKER__full_star_Debug CMakeFiles\full_star
   TARGET_PDB = full_star.pdb
 
 # =============================================================================
+# Object build statements for EXECUTABLE target gamma_correction_sample
+
+
+#############################################
+# Order-only phony target for gamma_correction_sample
+
+build cmake_object_order_depends_target_gamma_correction_sample: phony || cmake_object_order_depends_target_Common
+
+build CMakeFiles\gamma_correction_sample.dir\main\gamma_correction_sample.cpp.obj: CXX_COMPILER__gamma_correction_sample_unscanned_Debug C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\main\gamma_correction_sample.cpp || cmake_object_order_depends_target_gamma_correction_sample
+  DEFINES = -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /arch:AVX2 /Oi /GL /fp:fast
+  INCLUDES = -IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug\vcpkg_installed\x64-windows\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug\vcpkg_installed\x64-windows\include\SDL2 -external:W0
+  OBJECT_DIR = CMakeFiles\gamma_correction_sample.dir
+  OBJECT_FILE_DIR = CMakeFiles\gamma_correction_sample.dir\main
+  TARGET_COMPILE_PDB = CMakeFiles\gamma_correction_sample.dir\
+  TARGET_PDB = gamma_correction_sample.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target gamma_correction_sample
+
+
+#############################################
+# Link the executable gamma_correction_sample.exe
+
+build gamma_correction_sample.exe: CXX_EXECUTABLE_LINKER__gamma_correction_sample_Debug CMakeFiles\gamma_correction_sample.dir\main\gamma_correction_sample.cpp.obj | Common.lib vcpkg_installed\x64-windows\debug\lib\glew32d.lib vcpkg_installed\x64-windows\debug\lib\glm.lib vcpkg_installed\x64-windows\debug\lib\manual-link\SDL2maind.lib vcpkg_installed\x64-windows\debug\lib\imguid.lib vcpkg_installed\x64-windows\debug\lib\SDL2d.lib vcpkg_installed\x64-windows\debug\lib\assimp-vc143-mtd.lib || Common.lib
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console  /LTCG
+  LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\debug\lib\glew32d.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\debug\lib\glm.lib  vcpkg_installed\x64-windows\debug\lib\manual-link\SDL2maind.lib  shell32.lib  vcpkg_installed\x64-windows\debug\lib\imguid.lib  vcpkg_installed\x64-windows\debug\lib\SDL2d.lib  vcpkg_installed\x64-windows\debug\lib\assimp-vc143-mtd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\gamma_correction_sample.dir
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/gamma_correction_sample.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/vcpkg_installed/x64-windows/debug/bin -OutVariable out"
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\gamma_correction_sample.dir\
+  TARGET_FILE = gamma_correction_sample.exe
+  TARGET_IMPLIB = gamma_correction_sample.lib
+  TARGET_PDB = gamma_correction_sample.pdb
+
+# =============================================================================
 # Object build statements for EXECUTABLE target normal_mapping
 
 
@@ -533,7 +571,7 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 #############################################
 # Phony custom command for CMakeFiles\shader_target
 
-build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target: phony data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\debug_quad.frag data\shaders\3D_scene\debug_quad.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\shadow_mapping.frag data\shaders\3D_scene\shadow_mapping.vert data\shaders\3D_scene\shadow_mapping_depth.frag data\shaders\3D_scene\shadow_mapping_depth.vert data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
+build CMakeFiles\shader_target | ${cmake_ninja_workdir}CMakeFiles\shader_target: phony data\shaders\3D_scene\blur_shader.frag data\shaders\3D_scene\blur_shader.vert data\shaders\3D_scene\cube.frag data\shaders\3D_scene\cube.vert data\shaders\3D_scene\debug_quad.frag data\shaders\3D_scene\debug_quad.vert data\shaders\3D_scene\final_bloom.frag data\shaders\3D_scene\gamma_correction\gamma_correction.frag data\shaders\3D_scene\gamma_correction\gamma_correction.vert data\shaders\3D_scene\light.frag data\shaders\3D_scene\light.vert data\shaders\3D_scene\model.frag data\shaders\3D_scene\model.vert data\shaders\3D_scene\normal_mapping.frag data\shaders\3D_scene\normal_mapping.vert data\shaders\3D_scene\quad.frag data\shaders\3D_scene\quad.vert data\shaders\3D_scene\shader_bloom.frag data\shaders\3D_scene\shader_bloom.vert data\shaders\3D_scene\shader_light_bloom.frag data\shaders\3D_scene\shadow_mapping.frag data\shaders\3D_scene\shadow_mapping.vert data\shaders\3D_scene\shadow_mapping_depth.frag data\shaders\3D_scene\shadow_mapping_depth.vert data\shaders\3D_scene\skybox.frag data\shaders\3D_scene\skybox.vert data\shaders\hello_triangle\triangle.frag data\shaders\hello_triangle\triangle.vert data\shaders\polygon\empty_polygon.vert data\shaders\squares\empty_square.vert data\shaders\squares\full_square.vert data\shaders\star\empty_star.vert data\shaders\star\full_star.vert
 
 
 #############################################
@@ -596,6 +634,24 @@ build data\shaders\3D_scene\debug_quad.vert | ${cmake_ninja_workdir}data\shaders
 build data\shaders\3D_scene\final_bloom.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\final_bloom.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\final_bloom.frag
   COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/final_bloom.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/shaders/3D_scene/final_bloom.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/final_bloom.frag"
   DESC = Generating data/shaders/3D_scene/final_bloom.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\gamma_correction\gamma_correction.frag
+
+build data\shaders\3D_scene\gamma_correction\gamma_correction.frag | ${cmake_ninja_workdir}data\shaders\3D_scene\gamma_correction\gamma_correction.frag: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\gamma_correction\gamma_correction.frag
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/gamma_correction/gamma_correction.frag C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/shaders/3D_scene/gamma_correction/gamma_correction.frag && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/gamma_correction/gamma_correction.frag"
+  DESC = Generating data/shaders/3D_scene/gamma_correction/gamma_correction.frag
+  restat = 1
+
+
+#############################################
+# Custom command for data\shaders\3D_scene\gamma_correction\gamma_correction.vert
+
+build data\shaders\3D_scene\gamma_correction\gamma_correction.vert | ${cmake_ninja_workdir}data\shaders\3D_scene\gamma_correction\gamma_correction.vert: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\shaders\3D_scene\gamma_correction\gamma_correction.vert
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/gamma_correction/gamma_correction.vert C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/shaders/3D_scene/gamma_correction/gamma_correction.vert && "C:\Users\Mat\Desktop\all_apps_ressources\Apps and stuff\Bin\glslangValidator.exe" C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/shaders/3D_scene/gamma_correction/gamma_correction.vert"
+  DESC = Generating data/shaders/3D_scene/gamma_correction/gamma_correction.vert
   restat = 1
 
 
@@ -1077,6 +1133,8 @@ build full_square: phony full_square.exe
 
 build full_star: phony full_star.exe
 
+build gamma_correction_sample: phony gamma_correction_sample.exe
+
 build normal_mapping: phony normal_mapping.exe
 
 build shadow_mapping: phony shadow_mapping.exe
@@ -1089,7 +1147,7 @@ build shadow_mapping: phony shadow_mapping.exe
 #############################################
 # Folder: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug
 
-build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe final_scene_for_somative.exe full_square.exe full_star.exe normal_mapping.exe shadow_mapping.exe
+build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe final_scene_for_somative.exe full_square.exe full_star.exe gamma_correction_sample.exe normal_mapping.exe shadow_mapping.exe
 
 # =============================================================================
 # Built-in targets

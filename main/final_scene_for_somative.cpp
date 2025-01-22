@@ -35,17 +35,14 @@ namespace gpr {
         float skybox_vertices_[108] = {};
 
         //all vertex shaders-------------
-        GLuint vertex_shader_ = 0;
         GLuint model_vertex_shader_ = 0;
         GLuint cube_map_vertex_shader_ = 0;
 
         //all fragment shaders-------------
-        GLuint fragment_shader_ = 0;
         GLuint model_fragment_shader_ = 0;
         GLuint cube_map_fragment_shader_ = 0;
 
         //all programs-------------
-        GLuint program_ = 0;
         GLuint program_model_ = 0;
         GLuint program_cube_map_ = 0;
 
@@ -99,12 +96,12 @@ namespace gpr {
         //load textures
         std::vector<std::string> faces =
                 {
-                        "data/texture/3D/skybox/right.jpg",
-                        "data/texture/3D/skybox/left.jpg",
-                        "data/texture/3D/skybox/top.jpg",
-                        "data/texture/3D/skybox/bottom.jpg",
-                        "data/texture/3D/skybox/front.jpg",
-                        "data/texture/3D/skybox/back.jpg"
+                        "data/texture/3D/cube_map/posx.jpg",
+                        "data/texture/3D/cube_map/negx.jpg",
+                        "data/texture/3D/cube_map/posy.jpg",
+                        "data/texture/3D/cube_map/negy.jpg",
+                        "data/texture/3D/cube_map/posz.jpg",
+                        "data/texture/3D/cube_map/negz.jpg"
                 };
         cube_map_text_ = TextureManager::loadCubemap(faces);
 
@@ -112,15 +109,7 @@ namespace gpr {
         //Load vertex shader cube 1 ---------------------------------------------------------
         auto vertexContent = LoadFile("data/shaders/3D_scene/cube.vert");
         auto *ptr = vertexContent.data();
-        vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertex_shader_, 1, &ptr, nullptr);
-        glCompileShader(vertex_shader_);
-        //Check success status of shader compilation
         GLint success;
-        glGetShaderiv(vertex_shader_, GL_COMPILE_STATUS, &success);
-        if (!success) {
-            std::cerr << "Error while loading vertex shader\n";
-        }
         //Load vertex shader model 1 ---------------------------------------------------------
         vertexContent = LoadFile("data/shaders/3D_scene/model.vert");
         ptr = vertexContent.data();
@@ -144,15 +133,6 @@ namespace gpr {
 
         //Load fragment shaders cube 1 ---------------------------------------------------------
         auto fragmentContent = LoadFile("data/shaders/3D_scene/cube.frag");
-        ptr = fragmentContent.data();
-        fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragment_shader_, 1, &ptr, nullptr);
-        glCompileShader(fragment_shader_);
-        //Check success status of shader compilation
-        glGetShaderiv(fragment_shader_, GL_COMPILE_STATUS, &success);
-        if (!success) {
-            std::cerr << "Error while loading fragment shader\n";
-        }
         //Load fragment shaders model 1 ---------------------------------------------------------
         fragmentContent = LoadFile("data/shaders/3D_scene/model.frag");
         ptr = fragmentContent.data();
@@ -179,12 +159,9 @@ namespace gpr {
         //----------------------------------------------------------- set programs
 
         //Load program/pipeline
-        program_ = glCreateProgram();
         program_model_ = glCreateProgram();
         program_cube_map_ = glCreateProgram();
 
-        glAttachShader(program_, vertex_shader_);
-        glAttachShader(program_, fragment_shader_);
 
         glAttachShader(program_model_, model_vertex_shader_);
         glAttachShader(program_model_, model_fragment_shader_);
@@ -192,15 +169,10 @@ namespace gpr {
         glAttachShader(program_cube_map_, cube_map_vertex_shader_);
         glAttachShader(program_cube_map_, cube_map_fragment_shader_);
 
-        glLinkProgram(program_);
         glLinkProgram(program_model_);
         glLinkProgram(program_cube_map_);
         //Check if shader program was linked correctly
 
-        glGetProgramiv(program_, GL_LINK_STATUS, &success);
-        if (!success) {
-            std::cerr << "Error while linking shader program\n";
-        }
         glGetProgramiv(program_model_, GL_LINK_STATUS, &success);
         if (!success) {
             std::cerr << "Error while linking model shader program\n";
@@ -218,7 +190,7 @@ namespace gpr {
         //----------------------------------------------------------- set pointers
 
         camera_ = new Camera;
-        std::string path_1 = "data/texture/3D/ROCK/LowPolyRockPack.obj";
+        //std::string path_1 = "data/texture/3D/ROCK/LowPolyRockPack.obj";
         std::string path_2 = "data/texture/3D/backpack/backpack.obj";
         rock_model_ = new Model(path_2);
 
@@ -285,17 +257,17 @@ namespace gpr {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    //TODO update END because added cube map
+    //TODO update
     void FinalScene::End() {
         //Unload program/pipeline
-        glDeleteProgram(program_);
         glDeleteProgram(program_model_);
-
-        glDeleteShader(vertex_shader_);
-        glDeleteShader(fragment_shader_);
+        glDeleteProgram(program_cube_map_);
 
         glDeleteShader(model_vertex_shader_);
         glDeleteShader(model_fragment_shader_);
+
+        glDeleteShader(cube_map_vertex_shader_);
+        glDeleteShader(cube_map_fragment_shader_);
 
         free(camera_);
         free(rock_model_);
@@ -319,11 +291,6 @@ namespace gpr {
 
         frustum.CreateFrustumFromCamera(*camera_, aspect, fovY, zNear, zFar);
         projection = glm::perspective(fovY, aspect, zNear, zFar);
-
-        //Draw program -> cubes --------------------------------------------------------------------------
-        glUseProgram(program_);
-
-        SetView(projection, program_);
 
         //draw programme -> 3D model --------------------------------------------------------------------------
         glUseProgram(program_model_);

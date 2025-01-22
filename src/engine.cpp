@@ -32,6 +32,7 @@ namespace gpr
             SDL_Event event;
             while (SDL_PollEvent(&event))
             {
+                ImGui_ImplSDL2_ProcessEvent(&event);
                 switch (event.type)
                 {
                 case SDL_QUIT:
@@ -66,21 +67,25 @@ namespace gpr
                     case SDL_MOUSEBUTTONDOWN:
                         if (event.button.button == SDL_BUTTON_LEFT)
                         {
+                            if (!ImGui::GetIO().WantCaptureMouse) {
+                                SDL_SetRelativeMouseMode(SDL_TRUE);
+                            }
                             SDL_ShowCursor(SDL_DISABLE);
-                            SDL_SetRelativeMouseMode(SDL_TRUE);
                         }
                         break;
                     case SDL_MOUSEBUTTONUP:
                         if (event.button.button == SDL_BUTTON_LEFT)
                         {
+                            if (!ImGui::GetIO().WantCaptureMouse) {
+                                SDL_SetRelativeMouseMode(SDL_FALSE);
+                            }
                             SDL_ShowCursor(SDL_ENABLE);
-                            SDL_SetRelativeMouseMode(SDL_FALSE);
                         }
                         break;
                 default:
                     break;
                 }
-                ImGui_ImplSDL2_ProcessEvent(&event);
+
             }
             scene_->OnEvent(event, dt.count());
             glClearColor(0, 0, 0, 0);
@@ -148,8 +153,8 @@ namespace gpr
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
         // Setup Dear ImGui style
-        //ImGui::StyleColorsDark();
-        ImGui::StyleColorsClassic();
+        ImGui::StyleColorsDark();
+        //ImGui::StyleColorsClassic();
         ImGui_ImplSDL2_InitForOpenGL(window_, glRenderContext_);
         ImGui_ImplOpenGL3_Init("#version 300 es");
 
