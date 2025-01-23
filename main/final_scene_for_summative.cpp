@@ -6,12 +6,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_sdl2.h"
 
 #include "engine.h"
 #include "scene.h"
 #include "camera.h"
 #include "load3D/texture_loader.h"
 #include "file_utility.h"
+#include "utility_tools.h"
 
 #include <sstream>
 #include <iostream>
@@ -29,25 +33,36 @@ namespace gpr {
 
         void OnEvent(const SDL_Event &event, float dt) override;
 
+        void DrawImGui() override;
+
     private:
         float elapsed_time_ = 0.0f;
         unsigned int cube_map_text_ = 0;
         float skybox_vertices_[108] = {};
+        std::array<glm::vec3, 5> light_cube_pos_{};
+        std::array<glm::vec3, 5> light_cube_color_{};
+        bool reverse_enable_ = false;
 
         //all vertex shaders-------------
         GLuint model_vertex_shader_ = 0;
         GLuint cube_map_vertex_shader_ = 0;
         GLuint screen_quad_vertex_shader_ = 0;
+        GLuint gamma_vertex_shader_ = 0;
+        GLuint light_cube_vertex_shader_ = 0;
 
         //all fragment shaders-------------
         GLuint model_fragment_shader_ = 0;
         GLuint cube_map_fragment_shader_ = 0;
         GLuint screen_quad_fragment_shader_ = 0;
+        GLuint gamma_fragment_shader_ = 0;
+        GLuint light_cube_fragment_shader_ = 0;
 
         //all programs-------------
         GLuint program_model_ = 0;
         GLuint program_cube_map_ = 0;
         GLuint program_screen_frame_buffer_ = 0;
+        GLuint program_gamma_ = 0;
+        GLuint program_light_cube_ = 0;
 
         //all frameBuffers-----------------
         GLuint screen_frame_buffer_ = 0;
@@ -61,12 +76,29 @@ namespace gpr {
         Frustum frustum{};
 
         VAO skybox_vao_{};
-        VAO quaad_vao_{};
+        VAO quad_vao_{};
         VBO skybox_vbo_{};
 
 
         void SetView(const glm::mat4 &projection, GLuint &program) const;
+
+        void SetLightCubes();
+
+        void CreateLightCubeAt(glm::vec3 position, glm::vec3 color) const;
     };
+
+    void FinalScene::SetLightCubes() {
+        for (auto &_: light_cube_pos_) {
+            _.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
+            _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
+            _.z = tools::GenerateRandomNumber(-100.0f, 100.0f);
+        }
+        for (auto &_: light_cube_color_) {
+            _.x = tools::GenerateRandomNumber(0.0f, 1.0f);
+            _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
+            _.z = tools::GenerateRandomNumber(0.0f, 1.0f);
+        }
+    }
 
     void FinalScene::OnEvent(const SDL_Event &event, const float dt) {
         // Get keyboard state
@@ -103,6 +135,8 @@ namespace gpr {
     }
 
     void FinalScene::Begin() {
+
+        SetLightCubes();
 
         //load textures
         std::vector<std::string> faces =
@@ -151,6 +185,26 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading vertex shader for screen\n";
         }
+        //Load vertex shader gamma 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/gamma_correction/gamma_correction.vert");
+        ptr = vertexContent.data();
+        gamma_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(gamma_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(gamma_vertex_shader_);
+        glGetShaderiv(gamma_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex shader for gamma\n";
+        }
+        //Load vertex shader light 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/light.vert");
+        ptr = vertexContent.data();
+        light_cube_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(light_cube_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(light_cube_vertex_shader_);
+        glGetShaderiv(light_cube_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex shader for light cube\n";
+        }
 
         //Load fragment shaders cube 1 ---------------------------------------------------------
         auto fragmentContent = LoadFile("data/shaders/3D_scene/cube.frag");
@@ -187,6 +241,28 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading fragment shader for screen\n";
         }
+        //Load fragment shaders gamma 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/gamma_correction/gamma_correction.frag");
+        ptr = fragmentContent.data();
+        gamma_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(gamma_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(gamma_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(gamma_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading fragment shader for gamma\n";
+        }
+        //Load fragment shaders light 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/light.frag");
+        ptr = fragmentContent.data();
+        light_cube_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(light_cube_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(light_cube_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(light_cube_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading fragment shader for light cube\n";
+        }
 
         //----------------------------------------------------------- set programs
 
@@ -194,6 +270,8 @@ namespace gpr {
         program_model_ = glCreateProgram();
         program_cube_map_ = glCreateProgram();
         program_screen_frame_buffer_ = glCreateProgram();
+        program_gamma_ = glCreateProgram();
+        program_light_cube_ = glCreateProgram();
 
 
         glAttachShader(program_model_, model_vertex_shader_);
@@ -205,9 +283,17 @@ namespace gpr {
         glAttachShader(program_screen_frame_buffer_, screen_quad_vertex_shader_);
         glAttachShader(program_screen_frame_buffer_, screen_quad_fragment_shader_);
 
+        glAttachShader(program_gamma_, gamma_vertex_shader_);
+        glAttachShader(program_gamma_, gamma_fragment_shader_);
+
+        glAttachShader(program_light_cube_, light_cube_vertex_shader_);
+        glAttachShader(program_light_cube_, light_cube_fragment_shader_);
+
         glLinkProgram(program_model_);
         glLinkProgram(program_cube_map_);
         glLinkProgram(program_screen_frame_buffer_);
+        glLinkProgram(program_gamma_);
+        glLinkProgram(program_light_cube_);
         //Check if shader program was linked correctly
 
         glGetProgramiv(program_model_, GL_LINK_STATUS, &success);
@@ -222,11 +308,19 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while linking screen shader program\n";
         }
+        glGetProgramiv(program_gamma_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking gamma shader program\n";
+        }
+        glGetProgramiv(program_gamma_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking light cube shader program\n";
+        }
 
         //----------------------------------------------------------- set VAO / VBO
 
         skybox_vao_.Create();
-        quaad_vao_.Create();
+        quad_vao_.Create();
         skybox_vbo_.Create();
 
         //----------------------------------------------------------- set pointers
@@ -317,7 +411,7 @@ namespace gpr {
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER,
                                   render_buffer_for_screen_buffer_);
 
-                                  //check of done correctly + release memory
+        //check of done correctly + release memory
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
             std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << glCheckFramebufferStatus(GL_FRAMEBUFFER)
                       << std::endl;
@@ -326,7 +420,7 @@ namespace gpr {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    //TODO update the end with screen buffer stuff
+    //TODO update the end with screen buffer stuff + gamma correction + lights
     void FinalScene::End() {
         //Unload program/pipeline
         glDeleteProgram(program_model_);
@@ -362,13 +456,21 @@ namespace gpr {
         frustum.CreateFrustumFromCamera(*camera_, aspect, fovY, zNear, zFar);
         projection = glm::perspective(fovY, aspect, zNear, zFar);
 
+        //draw program -> light cubes -------------------------------------------------------------------------
+        glUseProgram(program_light_cube_);
+        for (std::size_t index = 0; index < light_cube_pos_.size(); index++) {
+            SetView(projection, program_light_cube_);
+            CreateLightCubeAt(glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
+                              glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y,light_cube_color_[index].z));
+        }
+
         //draw programme -> 3D model --------------------------------------------------------------------------
         glUseProgram(program_model_);
         glDisable(GL_CULL_FACE);
         glDepthFunc(GL_LEQUAL);
 
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // don't forget to enable shader before setting uniforms
 
@@ -381,7 +483,7 @@ namespace gpr {
                                glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));    // it's a bit too big for our scene, so scale it down
         glUniformMatrix4fv(glGetUniformLocation(program_model_, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        rock_model_->Draw(program_model_);
+        //rock_model_->Draw(program_model_);
 
         //draw programme -> cube map --------------------------------------------------------------------------
         glDisable(GL_CULL_FACE);
@@ -398,12 +500,13 @@ namespace gpr {
                            1, GL_FALSE,
                            glm::value_ptr(projection)
         );
-        // skybox cube
+        //skybox cube
         skybox_vao_.Bind();
 
+        //draw cube map
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_text_);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        //glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
 
         //frame buffer screen
@@ -411,10 +514,40 @@ namespace gpr {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(program_screen_frame_buffer_);
-        quaad_vao_.Bind();
+
+        //set post process
+        glUniform1i(glGetUniformLocation(program_screen_frame_buffer_, "reverse"), reverse_enable_);
+        quad_vao_.Bind();
         glDisable(GL_DEPTH_TEST);
         glBindTexture(GL_TEXTURE_2D, text_for_screen_frame_buffer);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        //ImGui
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui::NewFrame();
+        DrawImGui();
+    }
+
+    void FinalScene::CreateLightCubeAt(const glm::vec3 position, const glm::vec3 color) const {
+        auto model = glm::mat4(1.0f);
+        model = glm::translate(model, position);
+        glUniformMatrix4fv(glGetUniformLocation(program_light_cube_, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniform4f(glGetUniformLocation(program_light_cube_, "color"), color.x, color.y, color.z, 1.0f);
+
+        //drawing
+        VAO light_vao_;
+        light_vao_.Create();
+        light_vao_.Bind();
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
+
+    void FinalScene::DrawImGui() {
+        // Début ImGui
+        ImGui::Begin("Controls");
+        ImGui::Checkbox("Enable Reverse Post-Processing", &reverse_enable_);
+        ImGui::End();
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
     void FinalScene::SetView(const glm::mat4 &projection, GLuint &program) const {
