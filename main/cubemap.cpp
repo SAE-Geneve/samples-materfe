@@ -147,8 +147,8 @@ namespace gpr {
         //----------------------------------------------------------- loads
 
         //load texture
-        texture_[0] = TextureManager::Load("data/texture/2D/box.jpg");
-        texture_[1] = TextureManager::Load("data/texture/2D/ennemy_01.png");
+        texture_[0] = TextureManager::LoadTexture("data/texture/2D/box.jpg");
+        texture_[1] = TextureManager::LoadTexture("data/texture/2D/ennemy_01.png");
 
         std::vector<std::string> faces =
                 {

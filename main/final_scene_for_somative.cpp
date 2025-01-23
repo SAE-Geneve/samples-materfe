@@ -37,20 +37,31 @@ namespace gpr {
         //all vertex shaders-------------
         GLuint model_vertex_shader_ = 0;
         GLuint cube_map_vertex_shader_ = 0;
+        GLuint screen_quad_vertex_shader_ = 0;
 
         //all fragment shaders-------------
         GLuint model_fragment_shader_ = 0;
         GLuint cube_map_fragment_shader_ = 0;
+        GLuint screen_quad_fragment_shader_ = 0;
 
         //all programs-------------
         GLuint program_model_ = 0;
         GLuint program_cube_map_ = 0;
+        GLuint program_screen_frame_buffer_ = 0;
+
+        //all frameBuffers-----------------
+        GLuint screen_frame_buffer_ = 0;
+        GLuint text_for_screen_frame_buffer = 0;
+
+        //all renderBuffers----------------
+        GLuint render_buffer_for_screen_buffer_ = 0;
 
         Camera *camera_ = nullptr;
         Model *rock_model_ = nullptr;
         Frustum frustum{};
 
         VAO skybox_vao_{};
+        VAO quaad_vao_{};
         VBO skybox_vbo_{};
 
 
@@ -130,6 +141,16 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading vertex shader for map\n";
         }
+        //Load vertex shader screen 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/quad.vert");
+        ptr = vertexContent.data();
+        screen_quad_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(screen_quad_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(screen_quad_vertex_shader_);
+        glGetShaderiv(screen_quad_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex shader for screen\n";
+        }
 
         //Load fragment shaders cube 1 ---------------------------------------------------------
         auto fragmentContent = LoadFile("data/shaders/3D_scene/cube.frag");
@@ -155,12 +176,24 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading fragment shader for cube map\n";
         }
+        //Load fragment shaders screen 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/quad.frag");
+        ptr = fragmentContent.data();
+        screen_quad_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(screen_quad_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(screen_quad_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(screen_quad_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading fragment shader for screen\n";
+        }
 
         //----------------------------------------------------------- set programs
 
         //Load program/pipeline
         program_model_ = glCreateProgram();
         program_cube_map_ = glCreateProgram();
+        program_screen_frame_buffer_ = glCreateProgram();
 
 
         glAttachShader(program_model_, model_vertex_shader_);
@@ -169,8 +202,12 @@ namespace gpr {
         glAttachShader(program_cube_map_, cube_map_vertex_shader_);
         glAttachShader(program_cube_map_, cube_map_fragment_shader_);
 
+        glAttachShader(program_screen_frame_buffer_, screen_quad_vertex_shader_);
+        glAttachShader(program_screen_frame_buffer_, screen_quad_fragment_shader_);
+
         glLinkProgram(program_model_);
         glLinkProgram(program_cube_map_);
+        glLinkProgram(program_screen_frame_buffer_);
         //Check if shader program was linked correctly
 
         glGetProgramiv(program_model_, GL_LINK_STATUS, &success);
@@ -181,10 +218,15 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while linking map shader program\n";
         }
+        glGetProgramiv(program_screen_frame_buffer_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking screen shader program\n";
+        }
 
         //----------------------------------------------------------- set VAO / VBO
 
         skybox_vao_.Create();
+        quaad_vao_.Create();
         skybox_vbo_.Create();
 
         //----------------------------------------------------------- set pointers
@@ -253,11 +295,38 @@ namespace gpr {
         glUseProgram(program_cube_map_);
         glUniform1i(glGetUniformLocation(program_cube_map_, "skybox"), 0);
 
+        //create framebuffer
+        glGenFramebuffers(1, &screen_frame_buffer_);
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+
+        //Image setup
+        glGenTextures(1, &text_for_screen_frame_buffer);
+        glBindTexture(GL_TEXTURE_2D, text_for_screen_frame_buffer);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1200, 800, 0,
+                     GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // create a renderbuffer object for depth and stencil attachment
+        glGenRenderbuffers(1, &render_buffer_for_screen_buffer_);
+        glBindRenderbuffer(GL_RENDERBUFFER, render_buffer_for_screen_buffer_);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8,
+                              1200, 800); // use a single renderbuffer object for both a depth AND stencil buffer.
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                               text_for_screen_frame_buffer, 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER,
+                                  render_buffer_for_screen_buffer_);
+
+                                  //check of done correctly + release memory
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+            std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << glCheckFramebufferStatus(GL_FRAMEBUFFER)
+                      << std::endl;
+        }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    //TODO update
+    //TODO update the end with screen buffer stuff
     void FinalScene::End() {
         //Unload program/pipeline
         glDeleteProgram(program_model_);
@@ -274,6 +343,7 @@ namespace gpr {
     }
 
     void FinalScene::Update(float dt) {
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we're not using the stencil buffer now
         glEnable(GL_DEPTH_TEST);
@@ -335,6 +405,16 @@ namespace gpr {
         glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_text_);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
+
+        //frame buffer screen
+        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glUseProgram(program_screen_frame_buffer_);
+        quaad_vao_.Bind();
+        glDisable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, text_for_screen_frame_buffer);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 
     void FinalScene::SetView(const glm::mat4 &projection, GLuint &program) const {
