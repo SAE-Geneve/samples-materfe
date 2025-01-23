@@ -50,7 +50,7 @@ build shader_target: phony CMakeFiles\shader_target data\shaders\3D_scene\blur_s
 #############################################
 # Utility command for data_target
 
-build data_target: phony CMakeFiles\data_target data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\cube_map\negx.jpg data\texture\3D\cube_map\negy.jpg data\texture\3D\cube_map\negz.jpg data\texture\3D\cube_map\posx.jpg data\texture\3D\cube_map\posy.jpg data\texture\3D\cube_map\posz.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
+build data_target: phony CMakeFiles\data_target data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\Tree1\BarkDecidious0143_5_S.jpg data\texture\3D\Tree1\BarkDecidious0194_7_S.jpg data\texture\3D\Tree1\Leaves0120_35_S.png data\texture\3D\Tree1\Leaves0142_4_S.png data\texture\3D\Tree1\Leaves0156_1_S.png data\texture\3D\Tree1\Tree1.mtl data\texture\3D\Tree1\Tree1.obj data\texture\3D\Tree1\render1hdcool.png data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\cube_map\negx.jpg data\texture\3D\cube_map\negy.jpg data\texture\3D\cube_map\negz.jpg data\texture\3D\cube_map\posx.jpg data\texture\3D\cube_map\posy.jpg data\texture\3D\cube_map\posz.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg data\texture\3D\tree_elm\scene.bin data\texture\3D\tree_elm\scene.gltf data\texture\3D\tree_elm\textures\bark_baseColor.jpeg data\texture\3D\tree_elm\textures\bark_for_small_bottom_branch_circle_baseColor.jpeg data\texture\3D\tree_elm\textures\bark_normal.png data\texture\3D\tree_elm\textures\leaf_baseColor.png
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target Common
@@ -317,42 +317,42 @@ build empty_star.exe: CXX_EXECUTABLE_LINKER__empty_star_Debug CMakeFiles\empty_s
   TARGET_PDB = empty_star.pdb
 
 # =============================================================================
-# Object build statements for EXECUTABLE target final_scene_for_somative
+# Object build statements for EXECUTABLE target final_scene_for_summative
 
 
 #############################################
-# Order-only phony target for final_scene_for_somative
+# Order-only phony target for final_scene_for_summative
 
-build cmake_object_order_depends_target_final_scene_for_somative: phony || cmake_object_order_depends_target_Common
+build cmake_object_order_depends_target_final_scene_for_summative: phony || cmake_object_order_depends_target_Common
 
-build CMakeFiles\final_scene_for_somative.dir\main\final_scene_for_somative.cpp.obj: CXX_COMPILER__final_scene_for_somative_unscanned_Debug C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\main\final_scene_for_somative.cpp || cmake_object_order_depends_target_final_scene_for_somative
+build CMakeFiles\final_scene_for_summative.dir\main\final_scene_for_summative.cpp.obj: CXX_COMPILER__final_scene_for_summative_unscanned_Debug C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\main\final_scene_for_summative.cpp || cmake_object_order_depends_target_final_scene_for_summative
   DEFINES = -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /arch:AVX2 /Oi /GL /fp:fast
   INCLUDES = -IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug\vcpkg_installed\x64-windows\include -external:IC:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug\vcpkg_installed\x64-windows\include\SDL2 -external:W0
-  OBJECT_DIR = CMakeFiles\final_scene_for_somative.dir
-  OBJECT_FILE_DIR = CMakeFiles\final_scene_for_somative.dir\main
-  TARGET_COMPILE_PDB = CMakeFiles\final_scene_for_somative.dir\
-  TARGET_PDB = final_scene_for_somative.pdb
+  OBJECT_DIR = CMakeFiles\final_scene_for_summative.dir
+  OBJECT_FILE_DIR = CMakeFiles\final_scene_for_summative.dir\main
+  TARGET_COMPILE_PDB = CMakeFiles\final_scene_for_summative.dir\
+  TARGET_PDB = final_scene_for_summative.pdb
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target final_scene_for_somative
+# Link build statements for EXECUTABLE target final_scene_for_summative
 
 
 #############################################
-# Link the executable final_scene_for_somative.exe
+# Link the executable final_scene_for_summative.exe
 
-build final_scene_for_somative.exe: CXX_EXECUTABLE_LINKER__final_scene_for_somative_Debug CMakeFiles\final_scene_for_somative.dir\main\final_scene_for_somative.cpp.obj | Common.lib vcpkg_installed\x64-windows\debug\lib\glew32d.lib vcpkg_installed\x64-windows\debug\lib\glm.lib vcpkg_installed\x64-windows\debug\lib\manual-link\SDL2maind.lib vcpkg_installed\x64-windows\debug\lib\imguid.lib vcpkg_installed\x64-windows\debug\lib\SDL2d.lib vcpkg_installed\x64-windows\debug\lib\assimp-vc143-mtd.lib || Common.lib
+build final_scene_for_summative.exe: CXX_EXECUTABLE_LINKER__final_scene_for_summative_Debug CMakeFiles\final_scene_for_summative.dir\main\final_scene_for_summative.cpp.obj | Common.lib vcpkg_installed\x64-windows\debug\lib\glew32d.lib vcpkg_installed\x64-windows\debug\lib\glm.lib vcpkg_installed\x64-windows\debug\lib\manual-link\SDL2maind.lib vcpkg_installed\x64-windows\debug\lib\imguid.lib vcpkg_installed\x64-windows\debug\lib\SDL2d.lib vcpkg_installed\x64-windows\debug\lib\assimp-vc143-mtd.lib || Common.lib
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console  /LTCG
   LINK_LIBRARIES = Common.lib  vcpkg_installed\x64-windows\debug\lib\glew32d.lib  opengl32.lib  glu32.lib  vcpkg_installed\x64-windows\debug\lib\glm.lib  vcpkg_installed\x64-windows\debug\lib\manual-link\SDL2maind.lib  shell32.lib  vcpkg_installed\x64-windows\debug\lib\imguid.lib  vcpkg_installed\x64-windows\debug\lib\SDL2d.lib  vcpkg_installed\x64-windows\debug\lib\assimp-vc143-mtd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  OBJECT_DIR = CMakeFiles\final_scene_for_somative.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/final_scene_for_somative.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/vcpkg_installed/x64-windows/debug/bin -OutVariable out"
+  OBJECT_DIR = CMakeFiles\final_scene_for_summative.dir
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/final_scene_for_summative.exe -installedDir C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/vcpkg_installed/x64-windows/debug/bin -OutVariable out"
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\final_scene_for_somative.dir\
-  TARGET_FILE = final_scene_for_somative.exe
-  TARGET_IMPLIB = final_scene_for_somative.lib
-  TARGET_PDB = final_scene_for_somative.pdb
+  TARGET_COMPILE_PDB = CMakeFiles\final_scene_for_summative.dir\
+  TARGET_FILE = final_scene_for_summative.exe
+  TARGET_IMPLIB = final_scene_for_summative.lib
+  TARGET_PDB = final_scene_for_summative.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target full_square
@@ -874,7 +874,7 @@ build data\shaders\star\full_star.vert | ${cmake_ninja_workdir}data\shaders\star
 #############################################
 # Phony custom command for CMakeFiles\data_target
 
-build CMakeFiles\data_target | ${cmake_ninja_workdir}CMakeFiles\data_target: phony data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\cube_map\negx.jpg data\texture\3D\cube_map\negy.jpg data\texture\3D\cube_map\negz.jpg data\texture\3D\cube_map\posx.jpg data\texture\3D\cube_map\posy.jpg data\texture\3D\cube_map\posz.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg
+build CMakeFiles\data_target | ${cmake_ninja_workdir}CMakeFiles\data_target: phony data\texture\2D\box.jpg data\texture\2D\brickwall.jpg data\texture\2D\brickwall_normal.jpg data\texture\2D\ennemy_01.png data\texture\3D\ROCK\LowPolyRockPack.mtl data\texture\3D\ROCK\LowPolyRockPack.obj data\texture\3D\ROCK\diffuse.jpg data\texture\3D\Tree1\BarkDecidious0143_5_S.jpg data\texture\3D\Tree1\BarkDecidious0194_7_S.jpg data\texture\3D\Tree1\Leaves0120_35_S.png data\texture\3D\Tree1\Leaves0142_4_S.png data\texture\3D\Tree1\Leaves0156_1_S.png data\texture\3D\Tree1\Tree1.mtl data\texture\3D\Tree1\Tree1.obj data\texture\3D\Tree1\render1hdcool.png data\texture\3D\backpack\ao.jpg data\texture\3D\backpack\backpack.mtl data\texture\3D\backpack\backpack.obj data\texture\3D\backpack\diffuse.jpg data\texture\3D\backpack\normal.png data\texture\3D\backpack\roughness.jpg data\texture\3D\backpack\specular.jpg data\texture\3D\cube_map\negx.jpg data\texture\3D\cube_map\negy.jpg data\texture\3D\cube_map\negz.jpg data\texture\3D\cube_map\posx.jpg data\texture\3D\cube_map\posy.jpg data\texture\3D\cube_map\posz.jpg data\texture\3D\skybox\back.jpg data\texture\3D\skybox\bottom.jpg data\texture\3D\skybox\front.jpg data\texture\3D\skybox\left.jpg data\texture\3D\skybox\right.jpg data\texture\3D\skybox\top.jpg data\texture\3D\tree_elm\scene.bin data\texture\3D\tree_elm\scene.gltf data\texture\3D\tree_elm\textures\bark_baseColor.jpeg data\texture\3D\tree_elm\textures\bark_for_small_bottom_branch_circle_baseColor.jpeg data\texture\3D\tree_elm\textures\bark_normal.png data\texture\3D\tree_elm\textures\leaf_baseColor.png
 
 
 #############################################
@@ -937,6 +937,78 @@ build data\texture\3D\ROCK\LowPolyRockPack.obj | ${cmake_ninja_workdir}data\text
 build data\texture\3D\ROCK\diffuse.jpg | ${cmake_ninja_workdir}data\texture\3D\ROCK\diffuse.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\ROCK\diffuse.jpg
   COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/ROCK/diffuse.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/ROCK/diffuse.jpg"
   DESC = Generating data/texture/3D/ROCK/diffuse.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\BarkDecidious0143_5_S.jpg
+
+build data\texture\3D\Tree1\BarkDecidious0143_5_S.jpg | ${cmake_ninja_workdir}data\texture\3D\Tree1\BarkDecidious0143_5_S.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\BarkDecidious0143_5_S.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/BarkDecidious0143_5_S.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/BarkDecidious0143_5_S.jpg"
+  DESC = Generating data/texture/3D/Tree1/BarkDecidious0143_5_S.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\BarkDecidious0194_7_S.jpg
+
+build data\texture\3D\Tree1\BarkDecidious0194_7_S.jpg | ${cmake_ninja_workdir}data\texture\3D\Tree1\BarkDecidious0194_7_S.jpg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\BarkDecidious0194_7_S.jpg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/BarkDecidious0194_7_S.jpg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/BarkDecidious0194_7_S.jpg"
+  DESC = Generating data/texture/3D/Tree1/BarkDecidious0194_7_S.jpg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\Leaves0120_35_S.png
+
+build data\texture\3D\Tree1\Leaves0120_35_S.png | ${cmake_ninja_workdir}data\texture\3D\Tree1\Leaves0120_35_S.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\Leaves0120_35_S.png
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/Leaves0120_35_S.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/Leaves0120_35_S.png"
+  DESC = Generating data/texture/3D/Tree1/Leaves0120_35_S.png
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\Leaves0142_4_S.png
+
+build data\texture\3D\Tree1\Leaves0142_4_S.png | ${cmake_ninja_workdir}data\texture\3D\Tree1\Leaves0142_4_S.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\Leaves0142_4_S.png
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/Leaves0142_4_S.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/Leaves0142_4_S.png"
+  DESC = Generating data/texture/3D/Tree1/Leaves0142_4_S.png
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\Leaves0156_1_S.png
+
+build data\texture\3D\Tree1\Leaves0156_1_S.png | ${cmake_ninja_workdir}data\texture\3D\Tree1\Leaves0156_1_S.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\Leaves0156_1_S.png
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/Leaves0156_1_S.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/Leaves0156_1_S.png"
+  DESC = Generating data/texture/3D/Tree1/Leaves0156_1_S.png
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\Tree1.mtl
+
+build data\texture\3D\Tree1\Tree1.mtl | ${cmake_ninja_workdir}data\texture\3D\Tree1\Tree1.mtl: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\Tree1.mtl
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/Tree1.mtl C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/Tree1.mtl"
+  DESC = Generating data/texture/3D/Tree1/Tree1.mtl
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\Tree1.obj
+
+build data\texture\3D\Tree1\Tree1.obj | ${cmake_ninja_workdir}data\texture\3D\Tree1\Tree1.obj: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\Tree1.obj
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/Tree1.obj C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/Tree1.obj"
+  DESC = Generating data/texture/3D/Tree1/Tree1.obj
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\Tree1\render1hdcool.png
+
+build data\texture\3D\Tree1\render1hdcool.png | ${cmake_ninja_workdir}data\texture\3D\Tree1\render1hdcool.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\Tree1\render1hdcool.png
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/Tree1/render1hdcool.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/Tree1/render1hdcool.png"
+  DESC = Generating data/texture/3D/Tree1/render1hdcool.png
   restat = 1
 
 
@@ -1110,6 +1182,60 @@ build data\texture\3D\skybox\top.jpg | ${cmake_ninja_workdir}data\texture\3D\sky
   DESC = Generating data/texture/3D/skybox/top.jpg
   restat = 1
 
+
+#############################################
+# Custom command for data\texture\3D\tree_elm\scene.bin
+
+build data\texture\3D\tree_elm\scene.bin | ${cmake_ninja_workdir}data\texture\3D\tree_elm\scene.bin: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\tree_elm\scene.bin
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/tree_elm/scene.bin C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/tree_elm/scene.bin"
+  DESC = Generating data/texture/3D/tree_elm/scene.bin
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\tree_elm\scene.gltf
+
+build data\texture\3D\tree_elm\scene.gltf | ${cmake_ninja_workdir}data\texture\3D\tree_elm\scene.gltf: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\tree_elm\scene.gltf
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/tree_elm/scene.gltf C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/tree_elm/scene.gltf"
+  DESC = Generating data/texture/3D/tree_elm/scene.gltf
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\tree_elm\textures\bark_baseColor.jpeg
+
+build data\texture\3D\tree_elm\textures\bark_baseColor.jpeg | ${cmake_ninja_workdir}data\texture\3D\tree_elm\textures\bark_baseColor.jpeg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\tree_elm\textures\bark_baseColor.jpeg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/tree_elm/textures/bark_baseColor.jpeg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/tree_elm/textures/bark_baseColor.jpeg"
+  DESC = Generating data/texture/3D/tree_elm/textures/bark_baseColor.jpeg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\tree_elm\textures\bark_for_small_bottom_branch_circle_baseColor.jpeg
+
+build data\texture\3D\tree_elm\textures\bark_for_small_bottom_branch_circle_baseColor.jpeg | ${cmake_ninja_workdir}data\texture\3D\tree_elm\textures\bark_for_small_bottom_branch_circle_baseColor.jpeg: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\tree_elm\textures\bark_for_small_bottom_branch_circle_baseColor.jpeg
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/tree_elm/textures/bark_for_small_bottom_branch_circle_baseColor.jpeg C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/tree_elm/textures/bark_for_small_bottom_branch_circle_baseColor.jpeg"
+  DESC = Generating data/texture/3D/tree_elm/textures/bark_for_small_bottom_branch_circle_baseColor.jpeg
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\tree_elm\textures\bark_normal.png
+
+build data\texture\3D\tree_elm\textures\bark_normal.png | ${cmake_ninja_workdir}data\texture\3D\tree_elm\textures\bark_normal.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\tree_elm\textures\bark_normal.png
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/tree_elm/textures/bark_normal.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/tree_elm/textures/bark_normal.png"
+  DESC = Generating data/texture/3D/tree_elm/textures/bark_normal.png
+  restat = 1
+
+
+#############################################
+# Custom command for data\texture\3D\tree_elm\textures\leaf_baseColor.png
+
+build data\texture\3D\tree_elm\textures\leaf_baseColor.png | ${cmake_ninja_workdir}data\texture\3D\tree_elm\textures\leaf_baseColor.png: CUSTOM_COMMAND C$:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\data\texture\3D\tree_elm\textures\leaf_baseColor.png
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\Mat\special_repo\git-hub_classroom_compute_graphic\samples-materfe\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E copy C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/data/texture/3D/tree_elm/textures/leaf_baseColor.png C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/tree_elm/textures/leaf_baseColor.png"
+  DESC = Generating data/texture/3D/tree_elm/textures/leaf_baseColor.png
+  restat = 1
+
 # =============================================================================
 # Target aliases.
 
@@ -1127,7 +1253,7 @@ build empty_square: phony empty_square.exe
 
 build empty_star: phony empty_star.exe
 
-build final_scene_for_somative: phony final_scene_for_somative.exe
+build final_scene_for_summative: phony final_scene_for_summative.exe
 
 build full_square: phony full_square.exe
 
@@ -1147,7 +1273,7 @@ build shadow_mapping: phony shadow_mapping.exe
 #############################################
 # Folder: C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug
 
-build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe final_scene_for_somative.exe full_square.exe full_star.exe gamma_correction_sample.exe normal_mapping.exe shadow_mapping.exe
+build all: phony Common.lib 3D_scene.exe cubemap.exe double_texture_triangle.exe empty_polygon.exe empty_square.exe empty_star.exe final_scene_for_summative.exe full_square.exe full_star.exe gamma_correction_sample.exe normal_mapping.exe shadow_mapping.exe
 
 # =============================================================================
 # Built-in targets

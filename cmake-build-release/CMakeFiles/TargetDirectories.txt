@@ -7,7 +7,7 @@ C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmak
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/empty_polygon.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/empty_square.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/empty_star.dir
-C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/final_scene_for_somative.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/final_scene_for_summative.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/full_square.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/full_star.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-release/CMakeFiles/gamma_correction_sample.dir

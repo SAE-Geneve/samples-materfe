@@ -327,7 +327,7 @@ namespace gpr {
 
         camera_ = new Camera;
         //std::string path_1 = "data/texture/3D/ROCK/LowPolyRockPack.obj";
-        std::string path_2 = "data/texture/3D/backpack/backpack.obj";
+        std::string path_2 = "data/texture/3D/tree_elm/scene.gltf";
         rock_model_ = new Model(path_2);
 
         //----------------------------------------------------------- frame buffer / render buffer
@@ -483,7 +483,7 @@ namespace gpr {
                                glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));    // it's a bit too big for our scene, so scale it down
         glUniformMatrix4fv(glGetUniformLocation(program_model_, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        //rock_model_->Draw(program_model_);
+        rock_model_->Draw(program_model_);
 
         //draw programme -> cube map --------------------------------------------------------------------------
         glDisable(GL_CULL_FACE);
