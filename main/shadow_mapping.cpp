@@ -245,7 +245,7 @@ namespace gpr {
 
         // load textures
         // -------------
-        wood_texture_ = TextureManager::Load("data/texture/2D/box.jpg");
+        wood_texture_ = TextureManager::LoadTexture("data/texture/2D/box.jpg");
 
         // configure depth map frame buffer
         // -----------------------

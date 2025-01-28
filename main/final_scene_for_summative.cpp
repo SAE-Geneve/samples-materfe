@@ -23,6 +23,9 @@
 #include <numbers>
 
 namespace gpr {
+
+    static constexpr int32_t number_of_trees = 1000;
+
     class FinalScene final : public Scene {
     public:
         void Begin() override;
@@ -38,7 +41,9 @@ namespace gpr {
     private:
         float elapsed_time_ = 0.0f;
         unsigned int cube_map_text_ = 0;
+        glm::mat4 *model_matrices_ = nullptr;
         float skybox_vertices_[108] = {};
+        std::array<glm::vec3, number_of_trees> tree_pos_{};
         std::array<glm::vec3, 5> light_cube_pos_{};
         std::array<glm::vec3, 5> light_cube_color_{};
         bool reverse_enable_ = false;
@@ -49,6 +54,7 @@ namespace gpr {
         GLuint screen_quad_vertex_shader_ = 0;
         GLuint gamma_vertex_shader_ = 0;
         GLuint light_cube_vertex_shader_ = 0;
+        GLuint instancing_vertex_shader_ = 0;
 
         //all fragment shaders-------------
         GLuint model_fragment_shader_ = 0;
@@ -56,6 +62,7 @@ namespace gpr {
         GLuint screen_quad_fragment_shader_ = 0;
         GLuint gamma_fragment_shader_ = 0;
         GLuint light_cube_fragment_shader_ = 0;
+        GLuint instancing_fragment_shader_ = 0;
 
         //all programs-------------
         GLuint program_model_ = 0;
@@ -63,6 +70,7 @@ namespace gpr {
         GLuint program_screen_frame_buffer_ = 0;
         GLuint program_gamma_ = 0;
         GLuint program_light_cube_ = 0;
+        GLuint program_instancing_ = 0;
 
         //all frameBuffers-----------------
         GLuint screen_frame_buffer_ = 0;
@@ -72,7 +80,7 @@ namespace gpr {
         GLuint render_buffer_for_screen_buffer_ = 0;
 
         Camera *camera_ = nullptr;
-        Model *rock_model_ = nullptr;
+        Model *tree_model_ = nullptr;
         Frustum frustum{};
 
         VAO skybox_vao_{};
@@ -98,6 +106,13 @@ namespace gpr {
             _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
             _.z = tools::GenerateRandomNumber(0.0f, 1.0f);
         }
+        for(auto& tree : tree_pos_)
+        {
+            tree.x = tools::GenerateRandomNumber(-1000.0f, 1000.0f);
+            tree.y = 0.0f;
+            tree.z = tools::GenerateRandomNumber(-1000.0f, 1000.0f);
+        }
+        std::cout << "finished setting pos\n";
     }
 
     void FinalScene::OnEvent(const SDL_Event &event, const float dt) {
@@ -150,6 +165,7 @@ namespace gpr {
                 };
         cube_map_text_ = TextureManager::loadCubemap(faces);
 
+        std::cout << "vertex\n";
 
         //Load vertex shader cube 1 ---------------------------------------------------------
         auto vertexContent = LoadFile("data/shaders/3D_scene/cube.vert");
@@ -205,6 +221,18 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading vertex shader for light cube\n";
         }
+        //Load vertex shader instancing 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/rocks_instancing_sample/rocks.vert");
+        ptr = vertexContent.data();
+        instancing_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(instancing_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(instancing_vertex_shader_);
+        glGetShaderiv(instancing_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex shader for instancing\n";
+        }
+
+        std::cout << "fragment\n";
 
         //Load fragment shaders cube 1 ---------------------------------------------------------
         auto fragmentContent = LoadFile("data/shaders/3D_scene/cube.frag");
@@ -263,8 +291,21 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading fragment shader for light cube\n";
         }
+        //Load fragment shaders instancing 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/rocks_instancing_sample/rocks.frag");
+        ptr = fragmentContent.data();
+        instancing_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(instancing_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(instancing_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(instancing_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading fragment shader for inconstant\n";
+        }
 
         //----------------------------------------------------------- set programs
+
+        std::cout << "pipeline\n";
 
         //Load program/pipeline
         program_model_ = glCreateProgram();
@@ -272,6 +313,7 @@ namespace gpr {
         program_screen_frame_buffer_ = glCreateProgram();
         program_gamma_ = glCreateProgram();
         program_light_cube_ = glCreateProgram();
+        program_instancing_ = glCreateProgram();
 
 
         glAttachShader(program_model_, model_vertex_shader_);
@@ -289,11 +331,15 @@ namespace gpr {
         glAttachShader(program_light_cube_, light_cube_vertex_shader_);
         glAttachShader(program_light_cube_, light_cube_fragment_shader_);
 
+        glAttachShader(program_instancing_, instancing_vertex_shader_);
+        glAttachShader(program_instancing_, instancing_fragment_shader_);
+
         glLinkProgram(program_model_);
         glLinkProgram(program_cube_map_);
         glLinkProgram(program_screen_frame_buffer_);
         glLinkProgram(program_gamma_);
         glLinkProgram(program_light_cube_);
+        glLinkProgram(program_instancing_);
         //Check if shader program was linked correctly
 
         glGetProgramiv(program_model_, GL_LINK_STATUS, &success);
@@ -312,9 +358,13 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while linking gamma shader program\n";
         }
-        glGetProgramiv(program_gamma_, GL_LINK_STATUS, &success);
+        glGetProgramiv(program_light_cube_, GL_LINK_STATUS, &success);
         if (!success) {
             std::cerr << "Error while linking light cube shader program\n";
+        }
+        glGetProgramiv(program_instancing_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking instancing shader program\n";
         }
 
         //----------------------------------------------------------- set VAO / VBO
@@ -328,7 +378,58 @@ namespace gpr {
         camera_ = new Camera;
         //std::string path_1 = "data/texture/3D/ROCK/LowPolyRockPack.obj";
         std::string path_2 = "data/texture/3D/tree_elm/scene.gltf";
-        rock_model_ = new Model(path_2);
+        tree_model_ = new Model(path_2);
+
+        model_matrices_ = new glm::mat4[number_of_trees];
+
+        std::cout << "matrix\n";
+
+        for (unsigned int i = 0; i < number_of_trees; i++) {
+            auto model = glm::mat4(1.0f);
+            // 1. translation: displace along circle with 'radius' in range [-offset, offset]
+            model = glm::translate(model, tree_pos_[i]);
+
+            // 2. scale: Scale between 0.05 and 0.25f
+//            auto scale = static_cast<float>((rand() % 20) / 100.0 + 0.05);
+//            model = glm::scale(model, glm::vec3(scale));
+
+//            // 3. rotation: add random rotation around a (semi)randomly picked rotation axis vector
+            auto rotAngle = 90.0f;
+            model = glm::rotate(model, rotAngle, glm::vec3 (0.0f, 1.0f, 0.0f));
+
+            // 4. now add to list of matrices
+            model_matrices_[i] = model;
+        }
+
+        std::cout << "buffer\n";
+
+        VBO buffer_{};
+        buffer_.Create();
+        buffer_.Bind();
+        buffer_.BindData(number_of_trees * sizeof(glm::mat4), &model_matrices_[0], GL_STATIC_DRAW);
+
+        std::cout << "tree model\n";
+
+        for (auto &mesh: tree_model_->meshes_) {
+            VAO temp_ = mesh.vao_;
+            temp_.Bind();
+            // set attribute pointers for matrix (4 times vec4)
+            glEnableVertexAttribArray(3);
+            glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) nullptr);
+            glEnableVertexAttribArray(4);
+            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (sizeof(glm::vec4)));
+            glEnableVertexAttribArray(5);
+            glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (2 * sizeof(glm::vec4)));
+            glEnableVertexAttribArray(6);
+            glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *) (3 * sizeof(glm::vec4)));
+
+            glVertexAttribDivisor(3, 1);
+            glVertexAttribDivisor(4, 1);
+            glVertexAttribDivisor(5, 1);
+            glVertexAttribDivisor(6, 1);
+
+            glBindVertexArray(0);
+        }
 
         //----------------------------------------------------------- frame buffer / render buffer
 
@@ -433,7 +534,7 @@ namespace gpr {
         glDeleteShader(cube_map_fragment_shader_);
 
         free(camera_);
-        free(rock_model_);
+        free(tree_model_);
     }
 
     void FinalScene::Update(float dt) {
@@ -465,25 +566,21 @@ namespace gpr {
         }
 
         //draw programme -> 3D model --------------------------------------------------------------------------
-        glUseProgram(program_model_);
-        glDisable(GL_CULL_FACE);
-        glDepthFunc(GL_LEQUAL);
+        glUseProgram(program_instancing_);
+        SetView(projection, program_instancing_);
 
-        //glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // draw meteorites
+        glUniform1i(glGetUniformLocation(program_instancing_, "texture_diffuse1"), 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D,
+                      tree_model_->textures_loaded_[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
+        for (auto &mesh: tree_model_->meshes_) {
+            mesh.vao_.Bind();
+            glDrawElementsInstanced(GL_TRIANGLES, static_cast<GLsizei>(mesh.indices_.size()),
+                                    GL_UNSIGNED_INT, nullptr, static_cast<GLsizei>(number_of_trees));
+            glBindVertexArray(0);
+        }
 
-        // don't forget to enable shader before setting uniforms
-
-        // view/projection transformations
-        SetView(projection, program_model_);
-
-        // render the loaded model
-        auto model = glm::mat4(1.0f);
-        model = glm::translate(model,
-                               glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));    // it's a bit too big for our scene, so scale it down
-        glUniformMatrix4fv(glGetUniformLocation(program_model_, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        rock_model_->Draw(program_model_);
 
         //draw programme -> cube map --------------------------------------------------------------------------
         glDisable(GL_CULL_FACE);
