@@ -11,6 +11,7 @@ C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmak
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/full_square.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/full_star.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/gamma_correction_sample.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/instancing_sample.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/normal_mapping.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/shadow_mapping.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/CMakeFiles/edit_cache.dir
