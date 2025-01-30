@@ -2,14 +2,19 @@
 precision highp float;
 
 
+in vec3 ourColor;
+in vec2 texCoord;
+
 layout (location = 0) out vec4 outColor;
 
-in vec3 ourColor;
-in vec2 TexCoord;
-
-uniform sampler2D ourTexture;
+uniform sampler2D ourTexture1;
+uniform sampler2D ourTexture2;
 
 void main()
 {
-    outColor = texture(ourTexture, TexCoord);
+    vec4 tex1Color = texture(ourTexture1, texCoord);
+    vec4 tex2Color = texture(ourTexture2, texCoord);
+
+    // Example: Blend the two textures_ (50% each)
+    outColor = mix(tex1Color, tex2Color, 0.5);
 }

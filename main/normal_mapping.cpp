@@ -114,8 +114,8 @@ namespace gpr {
 
         //load texture
         //texture_[0] = TextureManager::Load("data/texture/2D/box.jpg");
-        brickwall_ = TextureManager::Load("data/texture/2D/brickwall.jpg");
-        brickwall_normal_ = TextureManager::Load("data/texture/2D/brickwall_normal.jpg");
+        brickwall_ = TextureManager::LoadTexture("data/texture/2D/brickwall.jpg");
+        brickwall_normal_ = TextureManager::LoadTexture("data/texture/2D/brickwall_normal.jpg");
 
         //Load vertex shader cube 1 ---------------------------------------------------------
         auto vertexContent = LoadFile("data/shaders/3D_scene/cube.vert");

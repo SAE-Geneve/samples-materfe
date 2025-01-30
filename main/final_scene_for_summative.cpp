@@ -23,8 +23,10 @@
 #include <numbers>
 
 namespace gpr {
-
-    static constexpr int32_t number_of_trees = 1000;
+    static constexpr std::int32_t kTreesCount = 1000;
+    static constexpr std::int32_t kLightsCount = 5;
+    static constexpr std::int32_t kShadowWidth = 1024, kShadowHeight = 1024;
+    static constexpr std::int32_t kScreenWidth = 1200, kScreenHeight = 800;
 
     class FinalScene final : public Scene {
     public:
@@ -40,12 +42,14 @@ namespace gpr {
 
     private:
         float elapsed_time_ = 0.0f;
+        float skybox_vertices_[108]{};
         unsigned int cube_map_text_ = 0;
-        glm::mat4 *model_matrices_ = nullptr;
-        float skybox_vertices_[108] = {};
-        std::array<glm::vec3, number_of_trees> tree_pos_{};
-        std::array<glm::vec3, 5> light_cube_pos_{};
-        std::array<glm::vec3, 5> light_cube_color_{};
+        unsigned int wood_texture_ = 0;
+        std::vector<glm::mat4> model_matrices_{};
+        std::array<unsigned int, kLightsCount> all_depth_maps_{};
+        std::array<glm::vec3, kTreesCount> tree_pos_{};
+        std::array<glm::vec3, kLightsCount> light_cube_pos_{};
+        std::array<glm::vec3, kLightsCount> light_cube_color_{};
         bool reverse_enable_ = false;
 
         //all vertex shaders-------------
@@ -55,6 +59,7 @@ namespace gpr {
         GLuint gamma_vertex_shader_ = 0;
         GLuint light_cube_vertex_shader_ = 0;
         GLuint instancing_vertex_shader_ = 0;
+        GLuint depth_map_making_vertex_shader_ = 0;
 
         //all fragment shaders-------------
         GLuint model_fragment_shader_ = 0;
@@ -63,32 +68,36 @@ namespace gpr {
         GLuint gamma_fragment_shader_ = 0;
         GLuint light_cube_fragment_shader_ = 0;
         GLuint instancing_fragment_shader_ = 0;
+        GLuint depth_map_making_fragment_shader_ = 0;
 
-        //all programs-------------
+        //all programs (pipelines) -------------
         GLuint program_model_ = 0;
         GLuint program_cube_map_ = 0;
         GLuint program_screen_frame_buffer_ = 0;
         GLuint program_gamma_ = 0;
         GLuint program_light_cube_ = 0;
         GLuint program_instancing_ = 0;
+        GLuint program_making_depth_map_ = 0;
 
         //all frameBuffers-----------------
         GLuint screen_frame_buffer_ = 0;
         GLuint text_for_screen_frame_buffer = 0;
+        std::array<GLuint, kLightsCount> depth_map_frame_buffer{};
 
         //all renderBuffers----------------
         GLuint render_buffer_for_screen_buffer_ = 0;
 
-        Camera *camera_ = nullptr;
-        Model *tree_model_ = nullptr;
+        std::unique_ptr<Model> tree_model_unique_{};
+        std::unique_ptr<Camera> camera_{};
         Frustum frustum{};
 
         VAO skybox_vao_{};
         VAO quad_vao_{};
+        VAO plane_vao_{};
         VBO skybox_vbo_{};
 
 
-        void SetView(const glm::mat4 &projection, GLuint &program) const;
+        void SetCameraProperties(const glm::mat4 &projection, GLuint &program) const;
 
         void SetLightCubes();
 
@@ -106,8 +115,7 @@ namespace gpr {
             _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
             _.z = tools::GenerateRandomNumber(0.0f, 1.0f);
         }
-        for(auto& tree : tree_pos_)
-        {
+        for (auto &tree: tree_pos_) {
             tree.x = tools::GenerateRandomNumber(-1000.0f, 1000.0f);
             tree.y = 0.0f;
             tree.z = tools::GenerateRandomNumber(-1000.0f, 1000.0f);
@@ -231,6 +239,17 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading vertex shader for instancing\n";
         }
+        //Load vertex shader cube 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/shadow_mapping_depth.vert");
+        ptr = vertexContent.data();
+        depth_map_making_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(depth_map_making_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(depth_map_making_vertex_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(depth_map_making_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex depth making shader\n";
+        }
 
         std::cout << "fragment\n";
 
@@ -302,6 +321,17 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while loading fragment shader for inconstant\n";
         }
+        //Load fragment shaders cube 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/shadow_mapping_depth.frag");
+        ptr = fragmentContent.data();
+        depth_map_making_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(depth_map_making_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(depth_map_making_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(depth_map_making_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading depth making fragment shader\n";
+        }
 
         //----------------------------------------------------------- set programs
 
@@ -314,6 +344,7 @@ namespace gpr {
         program_gamma_ = glCreateProgram();
         program_light_cube_ = glCreateProgram();
         program_instancing_ = glCreateProgram();
+        program_making_depth_map_ = glCreateProgram();
 
 
         glAttachShader(program_model_, model_vertex_shader_);
@@ -334,12 +365,16 @@ namespace gpr {
         glAttachShader(program_instancing_, instancing_vertex_shader_);
         glAttachShader(program_instancing_, instancing_fragment_shader_);
 
+        glAttachShader(program_making_depth_map_, depth_map_making_vertex_shader_);
+        glAttachShader(program_making_depth_map_, depth_map_making_fragment_shader_);
+
         glLinkProgram(program_model_);
         glLinkProgram(program_cube_map_);
         glLinkProgram(program_screen_frame_buffer_);
         glLinkProgram(program_gamma_);
         glLinkProgram(program_light_cube_);
         glLinkProgram(program_instancing_);
+        glLinkProgram(program_making_depth_map_);
         //Check if shader program was linked correctly
 
         glGetProgramiv(program_model_, GL_LINK_STATUS, &success);
@@ -366,25 +401,33 @@ namespace gpr {
         if (!success) {
             std::cerr << "Error while linking instancing shader program\n";
         }
+        glGetProgramiv(program_making_depth_map_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking depth making shader program\n";
+        }
+
 
         //----------------------------------------------------------- set VAO / VBO
 
         skybox_vao_.Create();
         quad_vao_.Create();
+        plane_vao_.Create();
         skybox_vbo_.Create();
 
         //----------------------------------------------------------- set pointers
 
-        camera_ = new Camera;
-        //std::string path_1 = "data/texture/3D/ROCK/LowPolyRockPack.obj";
+        camera_ = std::make_unique<Camera>();
         std::string path_2 = "data/texture/3D/tree_elm/scene.gltf";
-        tree_model_ = new Model(path_2);
+        tree_model_unique_ = std::make_unique<Model>(path_2);
 
-        model_matrices_ = new glm::mat4[number_of_trees];
+        wood_texture_ = TextureManager::LoadTexture("data/texture/2D/box.jpg"); //TODO -> do gamma correction
+
+        //tree_model_ = std::make_unique<Model>(path_2).get();
+        model_matrices_.resize(kTreesCount);
 
         std::cout << "matrix\n";
 
-        for (unsigned int i = 0; i < number_of_trees; i++) {
+        for (int i = 0; i < kTreesCount; i++) {
             auto model = glm::mat4(1.0f);
             // 1. translation: displace along circle with 'radius' in range [-offset, offset]
             model = glm::translate(model, tree_pos_[i]);
@@ -395,7 +438,7 @@ namespace gpr {
 
 //            // 3. rotation: add random rotation around a (semi)randomly picked rotation axis vector
             auto rotAngle = 90.0f;
-            model = glm::rotate(model, rotAngle, glm::vec3 (0.0f, 1.0f, 0.0f));
+            model = glm::rotate(model, rotAngle, glm::vec3(0.0f, 1.0f, 0.0f));
 
             // 4. now add to list of matrices
             model_matrices_[i] = model;
@@ -406,11 +449,11 @@ namespace gpr {
         VBO buffer_{};
         buffer_.Create();
         buffer_.Bind();
-        buffer_.BindData(number_of_trees * sizeof(glm::mat4), &model_matrices_[0], GL_STATIC_DRAW);
+        buffer_.BindData(kTreesCount * sizeof(glm::mat4), &model_matrices_[0], GL_STATIC_DRAW);
 
         std::cout << "tree model\n";
 
-        for (auto &mesh: tree_model_->meshes_) {
+        for (auto &mesh: tree_model_unique_->meshes_) {
             VAO temp_ = mesh.vao_;
             temp_.Bind();
             // set attribute pointers for matrix (4 times vec4)
@@ -431,9 +474,10 @@ namespace gpr {
             glBindVertexArray(0);
         }
 
+
         //----------------------------------------------------------- frame buffer / render buffer
 
-        float skyboxVertices[] = {
+        static constexpr float skyboxVertices[] = {
                 // positions
                 -1.0f, 1.0f, -1.0f,
                 -1.0f, -1.0f, -1.0f,
@@ -490,7 +534,55 @@ namespace gpr {
         glUseProgram(program_cube_map_);
         glUniform1i(glGetUniformLocation(program_cube_map_, "skybox"), 0);
 
-        //create framebuffer
+        //create framebuffer ------------------------------------------------------------------------------------------------------
+        for (std::size_t i = 0; i < depth_map_frame_buffer.size(); i++) {
+            glGenFramebuffers(1, &depth_map_frame_buffer[i]);
+            // create depth texture
+            glGenTextures(1, &all_depth_maps_[i]);
+            glBindTexture(GL_TEXTURE_2D, all_depth_maps_[i]);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, kScreenWidth, kScreenHeight, 0,
+                         GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+            float borderColor[] = {1.0, 1.0, 1.0, 1.0};
+            glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+            // attach depth texture as FBO's depth buffer
+            glBindFramebuffer(GL_FRAMEBUFFER, depth_map_frame_buffer[i]);
+
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, all_depth_maps_[i], 0);
+            glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        }
+
+        static constexpr float planeVertices[] = {
+                // positions            // normals         // texcoords
+                25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 0.0f,
+                -25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                -25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f,
+
+                25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 0.0f,
+                -25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f,
+                25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 25.0f
+        };
+        // plane VAO
+        plane_vao_.Bind();
+        VBO plane_vbo_{};
+        plane_vbo_.Create();
+        plane_vbo_.Bind();
+        plane_vbo_.BindData(sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) nullptr);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
+        glBindVertexArray(0);
+
+        //----------------------------------------
         glGenFramebuffers(1, &screen_frame_buffer_);
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
 
@@ -521,7 +613,7 @@ namespace gpr {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    //TODO update the end with screen buffer stuff + gamma correction + lights
+    //TODO update the end with screen buffer stuff + gamma correction + lights + depth shaders
     void FinalScene::End() {
         //Unload program/pipeline
         glDeleteProgram(program_model_);
@@ -533,8 +625,9 @@ namespace gpr {
         glDeleteShader(cube_map_vertex_shader_);
         glDeleteShader(cube_map_fragment_shader_);
 
-        free(camera_);
-        free(tree_model_);
+        skybox_vao_.Delete();
+        skybox_vbo_.Delete();
+        quad_vao_.Delete();
     }
 
     void FinalScene::Update(float dt) {
@@ -557,27 +650,75 @@ namespace gpr {
         frustum.CreateFrustumFromCamera(*camera_, aspect, fovY, zNear, zFar);
         projection = glm::perspective(fovY, aspect, zNear, zFar);
 
+        // 1. render depth of scene to texture (from light's perspective)
+        // --------------------------------------------------------------
+        glm::mat4 lightProjection, lightView;
+        glm::mat4 lightSpaceMatrix;
+        float near_plane = 1.0f, far_plane = 7.5f;
+        //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
+        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+        lightView = glm::lookAt(light_cube_pos_[0], glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+        lightSpaceMatrix = lightProjection * lightView;
+        // render scene from light's point of view
+
+        //set uniform
+
+        for (std::size_t i = 0; i < depth_map_frame_buffer.size(); i++) {
+            lightView = glm::lookAt(light_cube_pos_[i], glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+            lightSpaceMatrix = lightProjection * lightView;
+
+            glUseProgram(program_making_depth_map_);
+            int lightSpaceLocP = glGetUniformLocation(program_making_depth_map_, "lightSpaceMatrix");
+            glUniformMatrix4fv(lightSpaceLocP, 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+
+            //set framebuffer
+            glViewport(0, 0, kShadowWidth, kShadowHeight);
+            glBindFramebuffer(GL_FRAMEBUFFER, depth_map_frame_buffer[i]);
+            glClear(GL_DEPTH_BUFFER_BIT);
+
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, wood_texture_);
+            auto model = glm::mat4(1.0f);
+            int loc = glGetUniformLocation(program_making_depth_map_, "model");
+            glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(model));
+
+            plane_vao_.Bind();
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//        // reset viewport
+        glViewport(0, 0, kScreenWidth, kScreenHeight);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         //draw program -> light cubes -------------------------------------------------------------------------
         glUseProgram(program_light_cube_);
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
         for (std::size_t index = 0; index < light_cube_pos_.size(); index++) {
-            SetView(projection, program_light_cube_);
-            CreateLightCubeAt(glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
-                              glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y,light_cube_color_[index].z));
+            SetCameraProperties(projection, program_light_cube_);
+            CreateLightCubeAt(
+                    glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
+                    glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y, light_cube_color_[index].z));
         }
 
         //draw programme -> 3D model --------------------------------------------------------------------------
+        //swap to CCW because tree's triangles are done the oposite way
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
+
         glUseProgram(program_instancing_);
-        SetView(projection, program_instancing_);
+        SetCameraProperties(projection, program_instancing_);
 
         // draw meteorites
         glUniform1i(glGetUniformLocation(program_instancing_, "texture_diffuse1"), 0);
         glActiveTexture(GL_TEXTURE0);
+
         glBindTexture(GL_TEXTURE_2D,
-                      tree_model_->textures_loaded_[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
-        for (auto &mesh: tree_model_->meshes_) {
+                      tree_model_unique_->textures_loaded_[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
+        for (auto &mesh: tree_model_unique_->meshes_) {
             mesh.vao_.Bind();
             glDrawElementsInstanced(GL_TRIANGLES, static_cast<GLsizei>(mesh.indices_.size()),
-                                    GL_UNSIGNED_INT, nullptr, static_cast<GLsizei>(number_of_trees));
+                                    GL_UNSIGNED_INT, nullptr, static_cast<GLsizei>(kTreesCount));
             glBindVertexArray(0);
         }
 
@@ -603,7 +744,7 @@ namespace gpr {
         //draw cube map
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_text_);
-        //glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
 
         //frame buffer screen
@@ -632,9 +773,6 @@ namespace gpr {
         glUniform4f(glGetUniformLocation(program_light_cube_, "color"), color.x, color.y, color.z, 1.0f);
 
         //drawing
-        VAO light_vao_;
-        light_vao_.Create();
-        light_vao_.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 
@@ -647,7 +785,7 @@ namespace gpr {
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
-    void FinalScene::SetView(const glm::mat4 &projection, GLuint &program) const {
+    void FinalScene::SetCameraProperties(const glm::mat4 &projection, GLuint &program) const {
         int viewLocP = glGetUniformLocation(program, "view");
         glUniformMatrix4fv(viewLocP, 1, GL_FALSE, glm::value_ptr(camera_->view()));
 

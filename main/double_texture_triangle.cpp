@@ -28,9 +28,9 @@ namespace gpr
 
     void Triangle::Begin()
     {
-        texture[0] = TextureManager::Load("data/texture/box.jpg");
+        texture[0] = TextureManager::LoadTexture("data/texture/box.jpg");
         //texture[1] = texture_manager.Load("data/texture/brickwall.jpg");
-        texture[1] = TextureManager::Load("data/texture/ennemy_01.png");
+        texture[1] = TextureManager::LoadTexture("data/texture/ennemy_01.png");
 
         //Load shaders
         const auto vertexContent = LoadFile("data/shaders/hello_triangle/triangle.vert");

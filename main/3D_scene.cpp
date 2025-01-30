@@ -128,8 +128,8 @@ namespace gpr {
         //----------------------------------------------------------- loads
 
         //load texture
-        texture[0] = TextureManager::Load("data/texture/2D/box.jpg");
-        texture[1] = TextureManager::Load("data/texture/2D/ennemy_01.png");
+        texture[0] = TextureManager::LoadTexture("data/texture/2D/box.jpg");
+        texture[1] = TextureManager::LoadTexture("data/texture/2D/ennemy_01.png");
 
         //Load vertex shader cube 1 ---------------------------------------------------------
         auto vertexContent = LoadFile("data/shaders/3D_scene/cube.vert");
