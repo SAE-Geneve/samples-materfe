@@ -24,7 +24,7 @@
 
 namespace gpr {
     static constexpr std::int32_t kTreesCount = 1000;
-    static constexpr std::int32_t kLightsCount = 5;
+    static constexpr std::int32_t kLightsCount = 3;
     static constexpr std::int32_t kShadowWidth = 1024, kShadowHeight = 1024;
     static constexpr std::int32_t kScreenWidth = 1200, kScreenHeight = 800;
 
@@ -44,7 +44,6 @@ namespace gpr {
         float elapsed_time_ = 0.0f;
         float skybox_vertices_[108]{};
         unsigned int cube_map_text_ = 0;
-        unsigned int wood_texture_ = 0;
         std::vector<glm::mat4> model_matrices_{};
         std::array<unsigned int, kLightsCount> all_depth_maps_{};
         std::array<glm::vec3, kTreesCount> tree_pos_{};
@@ -118,9 +117,9 @@ namespace gpr {
             _.z = tools::GenerateRandomNumber(0.0f, 1.0f);
         }
         for (auto &tree: tree_pos_) {
-            tree.x = tools::GenerateRandomNumber(-1000.0f, 1000.0f);
+            tree.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
             tree.y = 0.0f;
-            tree.z = tools::GenerateRandomNumber(-1000.0f, 1000.0f);
+            tree.z = tools::GenerateRandomNumber(-100.0f, 100.0f);
         }
         std::cout << "finished setting pos\n";
     }
@@ -422,14 +421,14 @@ namespace gpr {
         std::string path_2 = "data/texture/3D/tree_elm/scene.gltf";
         tree_model_unique_ = std::make_unique<Model>(path_2);
 
-        wood_texture_ = TextureManager::LoadTexture("data/texture/2D/box.jpg"); //TODO -> do gamma correction
+
 
         //tree_model_ = std::make_unique<Model>(path_2).get();
         model_matrices_.resize(kTreesCount);
 
         std::cout << "matrix\n";
 
-        for (int i = 0; i < kTreesCount; i++) {
+        for (std::int32_t i = 0; i < kTreesCount; i++) {
             auto model = glm::mat4(1.0f);
             // 1. translation: displace along circle with 'radius' in range [-offset, offset]
             model = glm::translate(model, tree_pos_[i]);
@@ -537,7 +536,7 @@ namespace gpr {
         glUniform1i(glGetUniformLocation(program_cube_map_, "skybox"), 0);
 
         //create framebuffer ------------------------------------------------------------------------------------------------------
-        for (std::size_t i = 0; i < kLightsCount; i++) {
+        for (std::int32_t i = 0; i < kLightsCount; i++) {
             glGenFramebuffers(1, &depth_map_frame_buffer[i]);
             // create depth texture
             glGenTextures(1, &all_depth_maps_[i]);
@@ -654,7 +653,7 @@ namespace gpr {
 
         // 1. render depth of scene to texture (from light's perspective)
         // --------------------------------------------------------------
-        glm::mat4 lightProjection, lightView;
+        glm::mat4 lightProjection, lightView; //TODO when going on render doc -> not good angle
         glm::mat4 lightSpaceMatrix;
         float near_plane = 1.0f, far_plane = 7.5f;
         //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
@@ -676,7 +675,6 @@ namespace gpr {
 
             glActiveTexture(GL_TEXTURE0);
             //glBindTexture(GL_TEXTURE_2D, wood_texture_);
-            //TODO need to render scene
             RenderScene(projection);
             auto model = glm::mat4(1.0f);
             int loc = glGetUniformLocation(program_making_depth_map_, "model");
@@ -738,8 +736,7 @@ namespace gpr {
         DrawImGui();
     }
 
-    void FinalScene::RenderScene(
-            const glm::mat4 &projection) {//draw program -> light cubes -------------------------------------------------------------------------
+    void FinalScene::RenderScene(const glm::mat4 &projection) {//draw program -> light cubes -------------------------------------------------------------------------
         glUseProgram(program_light_cube_);
         for (size_t index = 0; index < light_cube_pos_.size(); index++) {
             SetCameraProperties(projection, program_light_cube_);
