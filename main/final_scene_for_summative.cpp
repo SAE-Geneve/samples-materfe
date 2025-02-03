@@ -102,6 +102,8 @@ namespace gpr {
         void SetLightCubes();
 
         void CreateLightCubeAt(glm::vec3 position, glm::vec3 color) const;
+
+        void RenderScene(const glm::mat4 &projection);
     };
 
     void FinalScene::SetLightCubes() {
@@ -535,7 +537,7 @@ namespace gpr {
         glUniform1i(glGetUniformLocation(program_cube_map_, "skybox"), 0);
 
         //create framebuffer ------------------------------------------------------------------------------------------------------
-        for (std::size_t i = 0; i < depth_map_frame_buffer.size(); i++) {
+        for (std::size_t i = 0; i < kLightsCount; i++) {
             glGenFramebuffers(1, &depth_map_frame_buffer[i]);
             // create depth texture
             glGenTextures(1, &all_depth_maps_[i]);
@@ -657,13 +659,9 @@ namespace gpr {
         float near_plane = 1.0f, far_plane = 7.5f;
         //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
         lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-        lightView = glm::lookAt(light_cube_pos_[0], glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-        lightSpaceMatrix = lightProjection * lightView;
-        // render scene from light's point of view
 
         //set uniform
-
-        for (std::size_t i = 0; i < depth_map_frame_buffer.size(); i++) {
+        for (std::size_t i = 0; i < kLightsCount; i++) {
             lightView = glm::lookAt(light_cube_pos_[i], glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
             lightSpaceMatrix = lightProjection * lightView;
 
@@ -677,7 +675,9 @@ namespace gpr {
             glClear(GL_DEPTH_BUFFER_BIT);
 
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, wood_texture_);
+            //glBindTexture(GL_TEXTURE_2D, wood_texture_);
+            //TODO need to render scene
+            RenderScene(projection);
             auto model = glm::mat4(1.0f);
             int loc = glGetUniformLocation(program_making_depth_map_, "model");
             glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(model));
@@ -690,38 +690,10 @@ namespace gpr {
         glViewport(0, 0, kScreenWidth, kScreenHeight);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //draw program -> light cubes -------------------------------------------------------------------------
-        glUseProgram(program_light_cube_);
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
-        for (std::size_t index = 0; index < light_cube_pos_.size(); index++) {
-            SetCameraProperties(projection, program_light_cube_);
-            CreateLightCubeAt(
-                    glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
-                    glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y, light_cube_color_[index].z));
-        }
 
-        //draw programme -> 3D model --------------------------------------------------------------------------
-        //swap to CCW because tree's triangles are done the oposite way
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-        glFrontFace(GL_CCW);
-
-        glUseProgram(program_instancing_);
-        SetCameraProperties(projection, program_instancing_);
-
-        // draw meteorites
-        glUniform1i(glGetUniformLocation(program_instancing_, "texture_diffuse1"), 0);
-        glActiveTexture(GL_TEXTURE0);
-
-        glBindTexture(GL_TEXTURE_2D,
-                      tree_model_unique_->textures_loaded_[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
-        for (auto &mesh: tree_model_unique_->meshes_) {
-            mesh.vao_.Bind();
-            glDrawElementsInstanced(GL_TRIANGLES, static_cast<GLsizei>(mesh.indices_.size()),
-                                    GL_UNSIGNED_INT, nullptr, static_cast<GLsizei>(kTreesCount));
-            glBindVertexArray(0);
-        }
-
+        //Render -> light and model instancing -----------------------------------------------------------
+        RenderScene(projection);
 
         //draw programme -> cube map --------------------------------------------------------------------------
         glDisable(GL_CULL_FACE);
@@ -764,6 +736,39 @@ namespace gpr {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
         DrawImGui();
+    }
+
+    void FinalScene::RenderScene(
+            const glm::mat4 &projection) {//draw program -> light cubes -------------------------------------------------------------------------
+        glUseProgram(program_light_cube_);
+        for (size_t index = 0; index < light_cube_pos_.size(); index++) {
+            SetCameraProperties(projection, program_light_cube_);
+            CreateLightCubeAt(
+                    glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
+                    glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y, light_cube_color_[index].z));
+        }
+
+        //draw programme -> 3D model --------------------------------------------------------------------------
+//swap to CCW because tree's triangles are done the oposite way
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
+
+        glUseProgram(program_instancing_);
+        SetCameraProperties(projection, program_instancing_);
+
+        // draw meteorites
+        glUniform1i(glGetUniformLocation(program_instancing_, "texture_diffuse1"), 0);
+        glActiveTexture(GL_TEXTURE0);
+
+        glBindTexture(GL_TEXTURE_2D,
+                      tree_model_unique_->textures_loaded_[0].id); // note: we also made the textures_loaded vector public (instead of private) from the model class.
+        for (auto &mesh: tree_model_unique_->meshes_) {
+            mesh.vao_.Bind();
+            glDrawElementsInstanced(GL_TRIANGLES, static_cast<GLsizei>(mesh.indices_.size()),
+                                    GL_UNSIGNED_INT, nullptr, static_cast<GLsizei>(kTreesCount));
+            glBindVertexArray(0);
+        }
     }
 
     void FinalScene::CreateLightCubeAt(const glm::vec3 position, const glm::vec3 color) const {
