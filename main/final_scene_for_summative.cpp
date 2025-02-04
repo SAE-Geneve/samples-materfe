@@ -24,7 +24,7 @@
 
 namespace gpr {
     static constexpr std::int32_t kTreesCount = 1000;
-    static constexpr std::int32_t kLightsCount = 3;
+    static constexpr std::int32_t kLightsCount = 1;
     static constexpr std::int32_t kShadowWidth = 1024, kShadowHeight = 1024;
     static constexpr std::int32_t kScreenWidth = 1200, kScreenHeight = 800;
 
@@ -50,6 +50,8 @@ namespace gpr {
         std::array<glm::vec3, kLightsCount> light_cube_pos_{};
         std::array<glm::vec3, kLightsCount> light_cube_color_{};
         bool reverse_enable_ = false;
+        bool bloom = true;
+        float exposure = 1.0f;
 
         //all vertex shaders-------------
         GLuint model_vertex_shader_ = 0;
@@ -57,6 +59,8 @@ namespace gpr {
         GLuint screen_quad_vertex_shader_ = 0;
         GLuint gamma_vertex_shader_ = 0;
         GLuint light_cube_vertex_shader_ = 0;
+        GLuint light_cube_blur_vertex_shader_ = 0;
+        GLuint bloom_vertex_shader_ = 0;
         GLuint instancing_vertex_shader_ = 0;
         GLuint depth_map_making_vertex_shader_ = 0;
 
@@ -66,6 +70,8 @@ namespace gpr {
         GLuint screen_quad_fragment_shader_ = 0;
         GLuint gamma_fragment_shader_ = 0;
         GLuint light_cube_fragment_shader_ = 0;
+        GLuint light_cube_blur_fragment_shader_ = 0;
+        GLuint bloom_fragment_shader_ = 0;
         GLuint instancing_fragment_shader_ = 0;
         GLuint depth_map_making_fragment_shader_ = 0;
 
@@ -75,6 +81,8 @@ namespace gpr {
         GLuint program_screen_frame_buffer_ = 0;
         GLuint program_gamma_ = 0;
         GLuint program_light_cube_ = 0;
+        GLuint program_light_cube_blur_ = 0;
+        GLuint program_bloom_ = 0;
         GLuint program_instancing_ = 0;
         GLuint program_making_depth_map_ = 0;
 
@@ -82,6 +90,10 @@ namespace gpr {
         GLuint screen_frame_buffer_ = 0;
         GLuint text_for_screen_frame_buffer = 0;
         std::array<GLuint, kLightsCount> depth_map_frame_buffer{};
+        unsigned int hdr_fbo_ = 0;
+        unsigned int color_buffers_[2]{};
+        unsigned int ping_pong_fbo_[2]{};
+        unsigned int ping_pong_color_buffers_[2]{};
 
         //all renderBuffers----------------
         GLuint render_buffer_for_screen_buffer_ = 0;
@@ -100,21 +112,25 @@ namespace gpr {
 
         void SetLightCubes();
 
-        void CreateLightCubeAt(glm::vec3 position, glm::vec3 color) const;
+        static void CreateLightCube();
 
         void RenderScene(const glm::mat4 &projection);
     };
 
     void FinalScene::SetLightCubes() {
-        for (auto &_: light_cube_pos_) {
-            _.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
-            _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
-            _.z = tools::GenerateRandomNumber(-100.0f, 100.0f);
-        }
+//        for (auto &_: light_cube_pos_) {
+//            _.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
+//            _.y = tools::GenerateRandomNumber(10.0f, 15.0f);
+//            _.z = tools::GenerateRandomNumber(-100.0f, 100.0f);
+//        }
+
+        light_cube_pos_[0].x = 1.0f;
+        light_cube_pos_[0].y = 1.0f;
+        light_cube_pos_[0].z = 1.0f;
         for (auto &_: light_cube_color_) {
-            _.x = tools::GenerateRandomNumber(0.0f, 1.0f);
-            _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
-            _.z = tools::GenerateRandomNumber(0.0f, 1.0f);
+            _.x = tools::GenerateRandomNumber(0.1f, 1.0f);
+            _.y = tools::GenerateRandomNumber(0.1f, 1.0f);
+            _.z = tools::GenerateRandomNumber(0.1f, 1.0f);
         }
         for (auto &tree: tree_pos_) {
             tree.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
@@ -221,7 +237,7 @@ namespace gpr {
             std::cerr << "Error while loading vertex shader for gamma\n";
         }
         //Load vertex shader light 1 ---------------------------------------------------------
-        vertexContent = LoadFile("data/shaders/3D_scene/light.vert");
+        vertexContent = LoadFile("data/shaders/3D_scene/shader_bloom.vert");
         ptr = vertexContent.data();
         light_cube_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(light_cube_vertex_shader_, 1, &ptr, nullptr);
@@ -229,6 +245,26 @@ namespace gpr {
         glGetShaderiv(light_cube_vertex_shader_, GL_COMPILE_STATUS, &success);
         if (!success) {
             std::cerr << "Error while loading vertex shader for light cube\n";
+        }
+        //Load vertex shader light blur 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/blur_shader.vert");
+        ptr = vertexContent.data();
+        light_cube_blur_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(light_cube_blur_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(light_cube_blur_vertex_shader_);
+        glGetShaderiv(light_cube_blur_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex shader for blur light cube\n";
+        }
+        //Load vertex shader bloom 1 ---------------------------------------------------------
+        vertexContent = LoadFile("data/shaders/3D_scene/blur_shader.vert");
+        ptr = vertexContent.data();
+        bloom_vertex_shader_ = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(bloom_vertex_shader_, 1, &ptr, nullptr);
+        glCompileShader(bloom_vertex_shader_);
+        glGetShaderiv(bloom_vertex_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading vertex shader for bloom\n";
         }
         //Load vertex shader instancing 1 ---------------------------------------------------------
         vertexContent = LoadFile("data/shaders/3D_scene/rocks_instancing_sample/rocks.vert");
@@ -301,7 +337,7 @@ namespace gpr {
             std::cerr << "Error while loading fragment shader for gamma\n";
         }
         //Load fragment shaders light 1 ---------------------------------------------------------
-        fragmentContent = LoadFile("data/shaders/3D_scene/light.frag");
+        fragmentContent = LoadFile("data/shaders/3D_scene/shader_light_bloom.frag");
         ptr = fragmentContent.data();
         light_cube_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(light_cube_fragment_shader_, 1, &ptr, nullptr);
@@ -310,6 +346,28 @@ namespace gpr {
         glGetShaderiv(light_cube_fragment_shader_, GL_COMPILE_STATUS, &success);
         if (!success) {
             std::cerr << "Error while loading fragment shader for light cube\n";
+        }
+        //Load fragment shaders light blur 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/blur_shader.frag");
+        ptr = fragmentContent.data();
+        light_cube_blur_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(light_cube_blur_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(light_cube_blur_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(light_cube_blur_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading fragment shader for light cube blur\n";
+        }
+        //Load fragment shaders bloom 1 ---------------------------------------------------------
+        fragmentContent = LoadFile("data/shaders/3D_scene/final_bloom.frag");
+        ptr = fragmentContent.data();
+        bloom_fragment_shader_ = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(bloom_fragment_shader_, 1, &ptr, nullptr);
+        glCompileShader(bloom_fragment_shader_);
+        //Check success status of shader compilation
+        glGetShaderiv(bloom_fragment_shader_, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while loading fragment shader for bloom\n";
         }
         //Load fragment shaders instancing 1 ---------------------------------------------------------
         fragmentContent = LoadFile("data/shaders/3D_scene/rocks_instancing_sample/rocks.frag");
@@ -344,6 +402,8 @@ namespace gpr {
         program_screen_frame_buffer_ = glCreateProgram();
         program_gamma_ = glCreateProgram();
         program_light_cube_ = glCreateProgram();
+        program_light_cube_blur_ = glCreateProgram();
+        program_bloom_ = glCreateProgram();
         program_instancing_ = glCreateProgram();
         program_making_depth_map_ = glCreateProgram();
 
@@ -363,6 +423,12 @@ namespace gpr {
         glAttachShader(program_light_cube_, light_cube_vertex_shader_);
         glAttachShader(program_light_cube_, light_cube_fragment_shader_);
 
+        glAttachShader(program_light_cube_blur_, light_cube_blur_vertex_shader_);
+        glAttachShader(program_light_cube_blur_, light_cube_blur_fragment_shader_);
+
+        glAttachShader(program_bloom_, bloom_vertex_shader_);
+        glAttachShader(program_bloom_, bloom_fragment_shader_);
+
         glAttachShader(program_instancing_, instancing_vertex_shader_);
         glAttachShader(program_instancing_, instancing_fragment_shader_);
 
@@ -374,6 +440,8 @@ namespace gpr {
         glLinkProgram(program_screen_frame_buffer_);
         glLinkProgram(program_gamma_);
         glLinkProgram(program_light_cube_);
+        glLinkProgram(program_light_cube_blur_);
+        glLinkProgram(program_bloom_);
         glLinkProgram(program_instancing_);
         glLinkProgram(program_making_depth_map_);
         //Check if shader program was linked correctly
@@ -397,6 +465,14 @@ namespace gpr {
         glGetProgramiv(program_light_cube_, GL_LINK_STATUS, &success);
         if (!success) {
             std::cerr << "Error while linking light cube shader program\n";
+        }
+        glGetProgramiv(program_light_cube_blur_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking light cube blur shader program\n";
+        }
+        glGetProgramiv(program_bloom_, GL_LINK_STATUS, &success);
+        if (!success) {
+            std::cerr << "Error while linking bloom shader program\n";
         }
         glGetProgramiv(program_instancing_, GL_LINK_STATUS, &success);
         if (!success) {
@@ -611,6 +687,73 @@ namespace gpr {
                       << std::endl;
         }
 
+        // configure global opengl state
+        // -----------------------------
+        glEnable(GL_DEPTH_TEST);
+
+        // configure (floating point) framebuffers
+        // ---------------------------------------
+
+        glGenFramebuffers(1, &hdr_fbo_);
+        glBindFramebuffer(GL_FRAMEBUFFER, hdr_fbo_);
+        // create 2 floating point color buffers (1 for normal rendering, other for brightness threshold values)
+
+        glGenTextures(2, color_buffers_);
+        for (unsigned int i = 0; i < 2; i++) {
+            glBindTexture(GL_TEXTURE_2D, color_buffers_[i]);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, kScreenWidth, kScreenHeight, 0, GL_RGBA, GL_FLOAT, nullptr);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
+                            GL_CLAMP_TO_EDGE);  // we clamp to the edge as the blur filter would otherwise sample repeated texture values!
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            // attach texture to framebuffer
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, color_buffers_[i], 0);
+            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+                std::cout << "Framebuffer not complete!" << std::endl;
+        }
+        // create and attach depth buffer (renderbuffer)
+        unsigned int rboDepth;
+        glGenRenderbuffers(1, &rboDepth);
+        glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, kScreenWidth, kScreenHeight);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
+        // tell OpenGL which color attachments we'll use (of this framebuffer) for rendering
+        unsigned int attachments[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
+        glDrawBuffers(2, attachments);
+        // finally check if framebuffer is complete
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            std::cout << "Framebuffer not complete!" << std::endl;
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // ping-pong-framebuffer for blurring
+
+
+        glGenFramebuffers(2, ping_pong_fbo_);
+        glGenTextures(2, ping_pong_color_buffers_);
+        for (unsigned int i = 0; i < 2; i++) {
+            glBindFramebuffer(GL_FRAMEBUFFER, ping_pong_fbo_[i]);
+            glBindTexture(GL_TEXTURE_2D, ping_pong_color_buffers_[i]);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, kScreenWidth, kScreenHeight, 0, GL_RGBA, GL_FLOAT, nullptr);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
+                            GL_CLAMP_TO_EDGE); // we clamp to the edge as the blur filter would otherwise sample repeated texture values!
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ping_pong_color_buffers_[i], 0);
+            // also check if framebuffers are complete (no need for depth buffer)
+            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+                std::cout << "Framebuffer not complete!" << std::endl;
+        }
+
+        // shader configuration
+        // --------------------
+        glUseProgram(program_light_cube_blur_);
+        glUniform1i(glGetUniformLocation(program_light_cube_blur_, "image"), 0);
+        glUseProgram(program_bloom_);
+        glUniform1i(glGetUniformLocation(program_bloom_, "scene"), 0);
+        glUniform1i(glGetUniformLocation(program_bloom_, "bloomBlur"), 1);
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
@@ -629,6 +772,98 @@ namespace gpr {
         skybox_vao_.Delete();
         skybox_vbo_.Delete();
         quad_vao_.Delete();
+    }
+
+    void renderQuad() {
+
+        static constexpr float quadVertices[] = {
+                // positions        // texture Coords
+                -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+                -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+                1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+        };
+        VAO cube_vao_{};
+        VBO cube_vbo_{};
+        cube_vao_.Create();
+        cube_vbo_.Create();
+        cube_vao_.Bind();
+        cube_vbo_.Bind();
+        cube_vbo_.BindData(sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) nullptr);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+
+        cube_vao_.Bind();
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glBindVertexArray(0);
+    }
+
+    void renderCube() {
+        static constexpr float vertices[] = {
+                // back face
+                -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+                1.0f, 1.0f, -1.0f, 1.0f, 1.0f, // top-right
+                1.0f, -1.0f, -1.0f, 1.0f, 0.0f, // bottom-right
+                1.0f, 1.0f, -1.0f, 1.0f, 1.0f, // top-right
+                -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+                -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, // top-left
+                // front face
+                -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+                1.0f, -1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
+                1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // top-right
+                1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // top-right
+                -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // top-left
+                -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+                // left face
+                -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // top-right
+                -1.0f, 1.0f, -1.0f, 1.0f, 1.0f, // top-left
+                -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, // bottom-left
+                -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, // bottom-left
+                -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // bottom-right
+                -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // top-right
+                // right face
+                1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // top-left
+                1.0f, -1.0f, -1.0f, 0.0f, 1.0f, // bottom-right
+                1.0f, 1.0f, -1.0f, 1.0f, 1.0f, // top-right
+                1.0f, -1.0f, -1.0f, 0.0f, 1.0f, // bottom-right
+                1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // top-left
+                1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+                // bottom face
+                -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, // top-right
+                1.0f, -1.0f, -1.0f, 1.0f, 1.0f, // top-left
+                1.0f, -1.0f, 1.0f, 1.0f, 0.0f, // bottom-left
+                1.0f, -1.0f, 1.0f, 1.0f, 0.0f, // bottom-left
+                -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, // bottom-right
+                -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, // top-right
+                // top face
+                -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, // top-left
+                1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
+                1.0f, 1.0f, -1.0f, 1.0f, 1.0f, // top-right
+                1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // bottom-right
+                -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, // top-left
+                -1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // bottom-left
+        };
+
+        VAO cube_vao_{};
+        VBO cube_vbo_{};
+        cube_vao_.Create();
+        cube_vbo_.Create();
+        cube_vao_.Bind();
+        cube_vbo_.Bind();
+        cube_vbo_.BindData(sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) nullptr);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+        // render Cube
+        cube_vao_.Bind();
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
     }
 
     void FinalScene::Update(float dt) {
@@ -651,52 +886,110 @@ namespace gpr {
         frustum.CreateFrustumFromCamera(*camera_, aspect, fovY, zNear, zFar);
         projection = glm::perspective(fovY, aspect, zNear, zFar);
 
-        // 1. render depth of scene to texture (from light's perspective)
-        // --------------------------------------------------------------
-        glm::mat4 lightProjection, lightView; //TODO when going on render doc -> not good angle
-        glm::mat4 lightSpaceMatrix;
-        float near_plane = 1.0f, far_plane = 7.5f;
-        //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
-        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-
-        //set uniform
-        for (std::size_t i = 0; i < kLightsCount; i++) {
-            lightView = glm::lookAt(light_cube_pos_[i], glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-            lightSpaceMatrix = lightProjection * lightView;
-
-            glUseProgram(program_making_depth_map_);
-            int lightSpaceLocP = glGetUniformLocation(program_making_depth_map_, "lightSpaceMatrix");
-            glUniformMatrix4fv(lightSpaceLocP, 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-
-            //set framebuffer
-            glViewport(0, 0, kShadowWidth, kShadowHeight);
-            glBindFramebuffer(GL_FRAMEBUFFER, depth_map_frame_buffer[i]);
-            glClear(GL_DEPTH_BUFFER_BIT);
-
-            glActiveTexture(GL_TEXTURE0);
-            //glBindTexture(GL_TEXTURE_2D, wood_texture_);
-            RenderScene(projection);
-            auto model = glm::mat4(1.0f);
-            int loc = glGetUniformLocation(program_making_depth_map_, "model");
-            glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(model));
-
-            plane_vao_.Bind();
-            glDrawArrays(GL_TRIANGLES, 0, 6);
-        }
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//        // reset viewport
-        glViewport(0, 0, kScreenWidth, kScreenHeight);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//        // 1. render depth of scene to texture (from light's perspective)
+//        // --------------------------------------------------------------
+//        glm::mat4 lightProjection, lightView; //TODO when going on render doc -> not good angle, fix shadows
+//        glm::mat4 lightSpaceMatrix;
+//        float near_plane = 1.0f, far_plane = 7.5f;
+//        //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
+//        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+//
+//        //set uniform
+//        for (std::size_t i = 0; i < kLightsCount; i++) {
+//            lightView = glm::lookAt(light_cube_pos_[i], glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+//            lightSpaceMatrix = lightProjection * lightView;
+//
+//            glUseProgram(program_making_depth_map_);
+//            int lightSpaceLocP = glGetUniformLocation(program_making_depth_map_, "lightSpaceMatrix");
+//            glUniformMatrix4fv(lightSpaceLocP, 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+//
+//            //set framebuffer
+//            glViewport(0, 0, kShadowWidth, kShadowHeight);
+//            glBindFramebuffer(GL_FRAMEBUFFER, depth_map_frame_buffer[i]);
+//            glClear(GL_DEPTH_BUFFER_BIT);
+//
+//            glActiveTexture(GL_TEXTURE0);
+//            //glBindTexture(GL_TEXTURE_2D, wood_texture_);
+//            RenderScene(projection);
+////            auto model = glm::mat4(1.0f);
+////            int loc = glGetUniformLocation(program_making_depth_map_, "model");
+////            glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(model));
+////
+////            plane_vao_.Bind();
+////            glDrawArrays(GL_TRIANGLES, 0, 6);
+//        }
+//        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+////        // reset viewport
+//        glViewport(0, 0, kScreenWidth, kScreenHeight);
+//        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
 
         //Render -> light and model instancing -----------------------------------------------------------
         RenderScene(projection);
 
+
+        //Blooming light ----------------------------------------------------------------------------------
+
+        //3 steps :
+
+        //make light cube ----------------------------------------
+        // finally show all the light sources as bright cubes
+        glBindFramebuffer(GL_FRAMEBUFFER, hdr_fbo_);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glUseProgram(program_light_cube_);
+        SetCameraProperties(projection, program_light_cube_);
+
+        for (unsigned int i = 0; i < kLightsCount; i++) {
+            auto model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(light_cube_pos_[i]));
+            model = glm::scale(model, glm::vec3(0.25f));
+            int viewLocP = glGetUniformLocation(program_light_cube_, "model");
+            glUniformMatrix4fv(viewLocP,
+                               1, GL_FALSE,
+                               glm::value_ptr(model)
+            );
+            viewLocP = glGetUniformLocation(program_light_cube_, "lightColor");
+            glUniform3f(viewLocP, light_cube_color_[i].x, light_cube_color_[i].y, light_cube_color_[i].z);
+            CreateLightCube();
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // 2. blur bright fragments with two-pass Gaussian Blur
+        // --------------------------------------------------
+        bool horizontal = true, first_iteration = true;
+        unsigned int amount = 10;
+        glUseProgram(program_light_cube_blur_);
+        for (unsigned int i = 0; i < amount; i++) {
+            glBindFramebuffer(GL_FRAMEBUFFER, ping_pong_fbo_[horizontal]);
+            glUniform1i(glGetUniformLocation(program_light_cube_blur_, "horizontal"), horizontal);
+            glBindTexture(GL_TEXTURE_2D, first_iteration ? color_buffers_[1]
+                                                         : ping_pong_color_buffers_[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
+            renderQuad();
+            horizontal = !horizontal;
+            if (first_iteration)
+                first_iteration = false;
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+
+        // 3. now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+        // --------------------------------------------------------------------------------------------------------------------------
+        glUseProgram(program_bloom_);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, color_buffers_[0]);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, ping_pong_color_buffers_[!horizontal]);
+        glUniform1i(glGetUniformLocation(program_bloom_, "bloom"), bloom);
+        glUniform1f(glGetUniformLocation(program_bloom_, "exposure"), exposure);
+        //renderQuad();
+        //CreateLightCube();
+        renderCube();
+
         //draw programme -> cube map --------------------------------------------------------------------------
         glDisable(GL_CULL_FACE);
         glDepthFunc(GL_LEQUAL);
         glUseProgram(program_cube_map_);
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
         auto view = glm::mat4(glm::mat3(camera_->view())); // remove translation from the view matrix
         int viewLocP = glGetUniformLocation(program_cube_map_, "view");
         glUniformMatrix4fv(viewLocP,
@@ -719,8 +1012,8 @@ namespace gpr {
 
         //frame buffer screen
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+//        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+//        glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(program_screen_frame_buffer_);
 
         //set post process
@@ -736,14 +1029,15 @@ namespace gpr {
         DrawImGui();
     }
 
-    void FinalScene::RenderScene(const glm::mat4 &projection) {//draw program -> light cubes -------------------------------------------------------------------------
-        glUseProgram(program_light_cube_);
-        for (size_t index = 0; index < light_cube_pos_.size(); index++) {
-            SetCameraProperties(projection, program_light_cube_);
-            CreateLightCubeAt(
-                    glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
-                    glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y, light_cube_color_[index].z));
-        }
+    void FinalScene::RenderScene(
+            const glm::mat4 &projection) {//draw program -> light cubes -------------------------------------------------------------------------
+//        glUseProgram(program_light_cube_);
+//        for (std::size_t index = 0; index < light_cube_pos_.size(); index++) {
+//            SetCameraProperties(projection, program_light_cube_);
+//            CreateLightCubeAt(
+//                    glm::vec3(light_cube_pos_[index].x, light_cube_pos_[index].y, light_cube_pos_[index].z),
+//                    glm::vec3(light_cube_color_[index].x, light_cube_color_[index].y, light_cube_color_[index].z));
+//        }
 
         //draw programme -> 3D model --------------------------------------------------------------------------
 //swap to CCW because tree's triangles are done the oposite way
@@ -768,20 +1062,80 @@ namespace gpr {
         }
     }
 
-    void FinalScene::CreateLightCubeAt(const glm::vec3 position, const glm::vec3 color) const {
-        auto model = glm::mat4(1.0f);
-        model = glm::translate(model, position);
-        glUniformMatrix4fv(glGetUniformLocation(program_light_cube_, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        glUniform4f(glGetUniformLocation(program_light_cube_, "color"), color.x, color.y, color.z, 1.0f);
+    void FinalScene::CreateLightCube() {
+        static constexpr float vertices[] = {
+                // back face
+                -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+                1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, // top-right
+                1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f, // bottom-right
+                1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, // top-right
+                -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+                -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, // top-left
+                // front face
+                -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+                1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, // bottom-right
+                1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
+                1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
+                -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // top-left
+                -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+                // left face
+                -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+                -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-left
+                -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
+                -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
+                -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-right
+                -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+                // right face
+                1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-left
+                1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+                1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right
+                1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+                1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-left
+                1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-left
+                // bottom face
+                -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
+                1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f, // top-left
+                1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom-left
+                1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom-left
+                -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, // bottom-right
+                -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
+                // top face
+                -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
+                1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom-right
+                1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // top-right
+                1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom-right
+                -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
+                -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f  // bottom-left
+        };
 
-        //drawing
+        VAO cube_vao_{};
+        VBO cube_vbo_{};
+        cube_vao_.Create();
+        cube_vbo_.Create();
+        cube_vao_.Bind();
+        cube_vbo_.Bind();
+        cube_vbo_.BindData(sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) nullptr);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+        // render Cube
+        cube_vao_.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
     }
 
     void FinalScene::DrawImGui() {
         // Début ImGui
         ImGui::Begin("Controls");
         ImGui::Checkbox("Enable Reverse Post-Processing", &reverse_enable_);
+        ImGui::Checkbox("Enable Bloom", &bloom);
+        ImGui::DragFloat("Exposure Level", &exposure);
         ImGui::End();
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

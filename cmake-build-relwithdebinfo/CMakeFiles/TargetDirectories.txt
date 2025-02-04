@@ -2,6 +2,7 @@ C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmak
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/data_target.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/Common.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/3D_scene.dir
+C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/bloom.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/cubemap.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/double_texture_triangle.dir
 C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/empty_polygon.dir
