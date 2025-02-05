@@ -9,6 +9,7 @@
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl2.h"
+#include <stb_image.h>
 
 #include "engine.h"
 #include "scene.h"
@@ -97,6 +98,7 @@ namespace gpr {
         GLuint text_for_screen_frame_buffer = 0;
         std::array<GLuint, kLightsCount> depth_map_frame_buffer{};
         unsigned int hdr_fbo_ = 0;
+        //TODO swap that to std::array
         unsigned int color_buffers_[2]{};
         unsigned int ping_pong_fbo_[2]{};
         unsigned int ping_pong_color_buffers_[2]{};
@@ -105,6 +107,7 @@ namespace gpr {
         GLuint render_buffer_for_screen_buffer_ = 0;
 
         std::unique_ptr<Model> tree_model_unique_{};
+        std::unique_ptr<Model> rock_model_unique_{};
         std::unique_ptr<Camera> camera_{};
         Frustum frustum{};
 
@@ -123,6 +126,8 @@ namespace gpr {
         void RenderScene(const glm::mat4 &projection);
 
         static void RenderQuad();
+
+        void RenderGroundPlane(const glm::mat4 &projection);
     };
 
     void FinalScene::SetLightCubes() {
@@ -142,7 +147,7 @@ namespace gpr {
         }
         for (auto &tree: tree_pos_) {
             tree.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
-            tree.y = 0.0f;
+            tree.y = -1.0f;
             tree.z = tools::GenerateRandomNumber(-100.0f, 100.0f);
         }
         std::cout << "finished setting pos\n";
@@ -192,8 +197,7 @@ namespace gpr {
                 "data/texture/3D/rocky_terrain/textures/rocky_terrain_02_nor_gl_4k.jpg");
 
         //load textures
-        //TODO make static constexpr
-        std::vector<std::string> faces =
+        static constexpr std::array<std::string_view, 6> faces =
                 {
                         "data/texture/3D/cube_map/posx.jpg",
                         "data/texture/3D/cube_map/negx.jpg",
@@ -540,8 +544,12 @@ namespace gpr {
         //----------------------------------------------------------- set pointers
 
         camera_ = std::make_unique<Camera>();
-        std::string path_2 = "data/texture/3D/tree_elm/scene.gltf";
-        tree_model_unique_ = std::make_unique<Model>(path_2);
+        std::string path_1 = "data/texture/3D/tree_elm/scene.gltf";
+        std::string path_2 = "data/texture/3D/nordic_rocks/xisgcic_tier_2.gltf"; //TODO use with normal maps
+        stbi_set_flip_vertically_on_load(true);
+        tree_model_unique_ = std::make_unique<Model>(path_1);
+        stbi_set_flip_vertically_on_load(false);
+        rock_model_unique_ = std::make_unique<Model>(path_2);
 
 
 
@@ -561,7 +569,9 @@ namespace gpr {
 
 //            // 3. rotation: add random rotation around a (semi)randomly picked rotation axis vector
             auto rotAngle = 90.0f;
-            model = glm::rotate(model, rotAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+            model = glm::rotate(model, glm::radians(rotAngle), glm::vec3(-1.0f, 0.0f, 0.0f));
+            rotAngle = tools::GenerateRandomNumber(0.0f, 360.0f);
+            model = glm::rotate(model, glm::radians(rotAngle), glm::vec3(0.0f, 0.0f, 1.0f));
 
             // 4. now add to list of matrices
             model_matrices_[i] = model;
@@ -986,45 +996,45 @@ namespace gpr {
 
         //make light cube ----------------------------------------
         // finally show all the light sources as bright cubes
-//        glBindFramebuffer(GL_FRAMEBUFFER, hdr_fbo_);
-//        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//        glUseProgram(program_light_cube_);
-//        SetCameraProperties(projection, program_light_cube_);
-//
-//        for (unsigned int i = 0; i < kLightsCount; i++) {
-//            auto model = glm::mat4(1.0f);
-//            model = glm::translate(model, glm::vec3(light_cube_pos_[i]));
-//            model = glm::scale(model, glm::vec3(0.25f));
-//            int viewLocP = glGetUniformLocation(program_light_cube_, "model");
-//            glUniformMatrix4fv(viewLocP,
-//                               1, GL_FALSE,
-//                               glm::value_ptr(model)
-//            );
-//            viewLocP = glGetUniformLocation(program_light_cube_, "lightColor");
-//            glUniform3f(viewLocP, light_cube_color_[i].x, light_cube_color_[i].y, light_cube_color_[i].z);
-//            CreateLightCube();
-//        }
-//        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//
-//        // 2. blur bright fragments with two-pass Gaussian Blur
-//        // --------------------------------------------------
-//        bool horizontal = true, first_iteration = true;
-//        unsigned int amount = 10;
-//        glUseProgram(program_light_cube_blur_);
-//        for (unsigned int i = 0; i < amount; i++) {
-//            glBindFramebuffer(GL_FRAMEBUFFER, ping_pong_fbo_[horizontal]);
-//            glUniform1i(glGetUniformLocation(program_light_cube_blur_, "horizontal"), horizontal);
-//            glBindTexture(GL_TEXTURE_2D, first_iteration ? color_buffers_[1]
-//                                                         : ping_pong_color_buffers_[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
-//            renderQuad();
-//            horizontal = !horizontal;
-//            if (first_iteration)
-//                first_iteration = false;
-//        }
-//        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
-//
-//        // 3. now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
-//        // --------------------------------------------------------------------------------------------------------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, hdr_fbo_);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glUseProgram(program_light_cube_);
+        SetCameraProperties(projection, program_light_cube_);
+
+        for (unsigned int i = 0; i < kLightsCount; i++) {
+            auto model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(light_cube_pos_[i]));
+            model = glm::scale(model, glm::vec3(0.25f));
+            int viewLocP = glGetUniformLocation(program_light_cube_, "model");
+            glUniformMatrix4fv(viewLocP,
+                               1, GL_FALSE,
+                               glm::value_ptr(model)
+            );
+            viewLocP = glGetUniformLocation(program_light_cube_, "lightColor");
+            glUniform3f(viewLocP, light_cube_color_[i].x, light_cube_color_[i].y, light_cube_color_[i].z);
+            CreateLightCube();
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // 2. blur bright fragments with two-pass Gaussian Blur
+        // --------------------------------------------------
+        bool horizontal = true, first_iteration = true;
+        unsigned int amount = 10;
+        glUseProgram(program_light_cube_blur_);
+        for (unsigned int i = 0; i < amount; i++) {
+            glBindFramebuffer(GL_FRAMEBUFFER, ping_pong_fbo_[horizontal]);
+            glUniform1i(glGetUniformLocation(program_light_cube_blur_, "horizontal"), horizontal);
+            glBindTexture(GL_TEXTURE_2D, first_iteration ? color_buffers_[1]
+                                                         : ping_pong_color_buffers_[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
+            renderQuad();
+            horizontal = !horizontal;
+            if (first_iteration)
+                first_iteration = false;
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+
+        // 3. now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+        // --------------------------------------------------------------------------------------------------------------------------
 //        glUseProgram(program_bloom_);
 //        glActiveTexture(GL_TEXTURE0);
 //        glBindTexture(GL_TEXTURE_2D, color_buffers_[0]);
@@ -1210,8 +1220,26 @@ namespace gpr {
             glBindVertexArray(0);
         }
 
+        glDisable(GL_CULL_FACE);
+        glFrontFace(GL_CW);
+        glUseProgram(program_model_);
+        SetCameraProperties(projection, program_model_);
+
+        auto model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 5.0f));
+        model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(program_model_, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniform1i(glGetUniformLocation(program_model_, "texture_diffuse1"), 0);
+        glActiveTexture(GL_TEXTURE0);
+
+        rock_model_unique_->Draw(program_model_);
+
         //draw plane -> normal + bin long + gamma---------------------------------------------------------------
 
+        RenderGroundPlane(projection);
+    }
+
+    void FinalScene::RenderGroundPlane(const glm::mat4 &projection) {
         glDisable(GL_CULL_FACE);
         glUseProgram(program_normal_mapping_);
 
@@ -1220,7 +1248,9 @@ namespace gpr {
 
         auto model = glm::mat4(1.0f);
         // rotate the quad to show normal mapping from multiple directions
-        model = glm::translate(model, glm::vec3(1.0f, 2.0f, 5.0f));
+        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(100.0, 100.0, 100.0));
+        model = glm::rotate(model, static_cast<float>(glm::radians(90.0)), glm::vec3(1.0, 0.0, 0.0));
 
         int modelLocP = glGetUniformLocation(program_normal_mapping_, "model");
         glUniformMatrix4fv(modelLocP, 1, GL_FALSE, glm::value_ptr(model));
@@ -1238,15 +1268,6 @@ namespace gpr {
         glBindTexture(GL_TEXTURE_2D, ground_text_normal_);
 
         RenderQuad();
-
-//        // render light source (simply re-renders a smaller plane at the light's position for debugging/visualization)
-//        model = glm::mat4(1.0f);
-//        glm::vec3 lightPose(0.5f, 1.0f, 0.3f);
-//        model = glm::translate(model, lightPose);
-//        model = glm::scale(model, glm::vec3(0.1f));
-//        modelLocP = glGetUniformLocation(program_normal_mapping_, "model");
-//        glUniformMatrix4fv(modelLocP, 1, GL_FALSE, glm::value_ptr(model));
-//        RenderQuad();
     }
 
     void FinalScene::CreateLightCube() {

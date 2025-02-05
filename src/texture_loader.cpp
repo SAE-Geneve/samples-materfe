@@ -6,6 +6,7 @@
 #include "stb_image.h"
 #include "load3D/texture_loader.h"
 #include <iostream>
+#include <array>
 
 
 unsigned int TextureManager::LoadTexture(char const * path, bool gammaCorrection)
@@ -54,7 +55,7 @@ unsigned int TextureManager::LoadTexture(char const * path, bool gammaCorrection
 
     return textureID;
 }
-unsigned int TextureManager::loadCubemap(std::vector<std::string> faces)
+unsigned int TextureManager::loadCubemap(std::array<std::string_view, 6> faces)
 {
     unsigned int textureID;
     glGenTextures(1, &textureID);
@@ -63,7 +64,7 @@ unsigned int TextureManager::loadCubemap(std::vector<std::string> faces)
     int width, height, nrChannels;
     for (unsigned int i = 0; i < faces.size(); i++)
     {
-        unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        unsigned char *data = stbi_load(faces[i].data(), &width, &height, &nrChannels, 0);
         if (data)
         {
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -126,7 +127,7 @@ static unsigned int TextureFromFile(const char *path, const std::string &directo
 }
 
 void Model::loadModel(const std::string &path) {
-    stbi_set_flip_vertically_on_load(true);
+
     // read file via ASSIMP
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals |

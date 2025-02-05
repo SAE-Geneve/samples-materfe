@@ -18,7 +18,7 @@
 
 namespace TextureManager {
     unsigned int LoadTexture(const char* path, bool gamma = false);
-    unsigned int loadCubemap(std::vector<std::string> faces);
+    unsigned int loadCubemap(std::array<std::string_view, 6> faces);
 }
 
 unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma = false);
