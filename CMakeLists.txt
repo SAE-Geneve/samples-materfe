@@ -96,6 +96,7 @@ add_dependencies(Common shader_target data_target)
 if(MSVC)
     target_compile_definitions(Common PUBLIC "_USE_MATH_DEFINES" WIN32_LEAN_AND_MEAN)
     target_compile_options(Common PUBLIC /arch:AVX2 /Oi /GL /fp:fast)
+    #add WX and W3
     target_link_options(Common PUBLIC /LTCG)
 else()
 
