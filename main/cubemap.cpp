@@ -150,7 +150,7 @@ namespace gpr {
         texture_[0] = TextureManager::LoadTexture("data/texture/2D/box.jpg");
         texture_[1] = TextureManager::LoadTexture("data/texture/2D/ennemy_01.png");
 
-        std::vector<std::string> faces =
+        static constexpr std::array<std::string_view, 6> faces =
                 {
                         "data/texture/3D/skybox/right.jpg",
                         "data/texture/3D/skybox/left.jpg",

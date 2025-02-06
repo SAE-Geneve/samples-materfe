@@ -1,0 +1,104 @@
+name: ci
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+
+      # Recommendations:
+      #   * support at least 2 operating systems
+      #   * support at least 2 compilers
+      #   * make sure all supported configurations for your project are built
+      #
+      # Disable/enable builds in this list to meet the above recommendations
+      # and your own projects needs
+      
+
+      matrix:
+        os:
+          - ubuntu-24.04
+          - macos-14 # arm64
+          - windows-2022
+        compiler:
+          # you can specify the version after `-` like "llvm-18".
+          - llvm
+          - gcc
+        generator:
+          - "Ninja Multi-Config"
+        build_type:
+          - Release
+          - Debug
+
+        include:
+          # Set up preferred package generators, for given build configurations
+          - build_type: Release
+            package_generator: TBZ2
+
+          # Windows msvc builds
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Debug
+
+          - os: windows-2022
+            compiler: msvc
+            generator: "Visual Studio 17 2022"
+            build_type: Release
+            package_generator: ZIP
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Cache
+        uses: ./.github/actions/setup_cache
+        with:
+          compiler: ${{ matrix.compiler }}
+          build_type: ${{ matrix.build_type }}
+          generator: ${{ matrix.generator }}
+
+      - name: Project Name
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: '.github/constants.env'
+
+      - name: Setup Cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: ${{ matrix.compiler }}
+          vcvarsall: ${{ contains(matrix.os, 'windows' )}}
+
+          cmake: true
+          ninja: true
+          vcpkg: true
+          ccache: true
+          clangtidy: true
+          cppcheck: true
+
+      - name: Configure CMake
+        run: |
+          cmake -S . -B ./build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -DGIT_SHA:STRING=${{ github.sha }}
+
+      - name: Build
+        # Execute the build.  You can specify a specific target with "--target <NAME>"
+        run: |
+          cmake --build ./build --config ${{matrix.build_type}}
+
+      - name: CPack
+        if: matrix.package_generator != ''
+        working-directory: ./build
+        run: |
+          cpack -C ${{matrix.build_type}} -G ${{matrix.package_generator}}
+
+      - name: Upload as artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ matrix.package_generator != '' }}
+        with:
+          name: ${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}
+          path: |
+            build/*-*${{ matrix.build_type }}*-*.*
+
