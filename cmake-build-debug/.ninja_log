@@ -189,8 +189,8 @@
 276	2198	7605425601544659	CMakeFiles/final_scene_for_summative.dir/main/final_scene_for_summative.cpp.obj	b48eefe1fefced0c
 272	1963	7605425601515851	CMakeFiles/double_texture_triangle.dir/main/double_texture_triangle.cpp.obj	56bf21fcaa859cd3
 170	2338	7605426112806209	gamma_correction_sample.exe	49ecbc5f50f17e10
-1193	2153	7602950809897204	shadow_mapping.exe	d37ee2c021d72752
-143	3131	7598438664302709	cubemap.exe	19e39bf2803c1fb4
+21	965	7605426527591875	shadow_mapping.exe	d37ee2c021d72752
+12	928	7605426527501843	cubemap.exe	19e39bf2803c1fb4
 181	2335	7605426112907216	instancing_sample.exe	93fefa7cd523244
 139	2343	7605426112482827	final_scene_for_summative.exe	a5730a1b3cfd98b7
 103	2350	7605426112138830	double_texture_triangle.exe	7dad5ba656484443
@@ -238,5 +238,3 @@
 163	239	7605425601125118	data/texture/3D/rocky_terrain/textures/rocky_terrain_02_diff_4k.jpg	308ef67f6c2b89c3
 170	254	7605425601269648	data/texture/3D/rocky_terrain/textures/rocky_terrain_02_nor_gl_4k.jpg	54b6257571c9df71
 170	254	7605425601269648	C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-debug/data/texture/3D/rocky_terrain/textures/rocky_terrain_02_nor_gl_4k.jpg	54b6257571c9df71
-12	928	7605426527501843	cubemap.exe	19e39bf2803c1fb4
-21	965	7605426527591875	shadow_mapping.exe	d37ee2c021d72752
