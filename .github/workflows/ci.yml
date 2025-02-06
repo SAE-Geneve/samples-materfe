@@ -79,6 +79,9 @@ jobs:
           clangtidy: true
           cppcheck: true
 
+      - name: Config Vcpkg
+        uses: lukka/run-vcpkg@v11
+
       - name: Configure CMake
         run: |
           cmake -S . -B ./build -G "${{matrix.generator}}" -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -DGIT_SHA:STRING=${{ github.sha }}
