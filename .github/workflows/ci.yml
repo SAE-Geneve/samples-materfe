@@ -81,6 +81,9 @@ jobs:
 
       - name: Config Vcpkg
         uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: '${{ github.sha }}'
+          runVcpkgInstall: true
 
       - name: Configure CMake
         run: |
