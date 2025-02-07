@@ -1,7 +1,8 @@
 ﻿#version 300 es
 precision highp float;
 
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
+layout (location = 1) out vec4 Bright;
 
 //all in
 in vec3 FragPos;
@@ -43,16 +44,5 @@ void main()
     finalColor = pow(finalColor, vec3(1.0 / gamma));
 
     FragColor = vec4(finalColor, 1.0);
+    Bright = vec4(0.0);
 }
-
-//void main() {
-//    // obtain normal from normal map in range [0,1]
-//    vec3 normal = texture(normalMap, TexCoords).rgb;
-//    // transform normal vector to range [-1,1]
-//    normal = normalize(normal * 2.0 - 1.0);  // this normal is in tangent space
-//
-//    // get diffuse color
-//    vec3 color = texture(diffuseMap, TexCoords).rgb;
-//    vec3 ambient = 0.9 * color;
-//    FragColor = vec4(ambient, 1.0);
-//}

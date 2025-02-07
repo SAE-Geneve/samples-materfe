@@ -1,7 +1,7 @@
 ﻿#version 300 es
 precision highp float;
 
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
 
 in vec2 TexCoords;
 
@@ -14,9 +14,12 @@ void main()
 {
     const float gamma = 2.2;
     vec3 hdrColor = texture(scene, TexCoords).rgb;
+    //FragColor = vec4(hdrColor, 1.0);
     vec3 bloomColor = texture(bloomBlur, TexCoords).rgb;
     if(bloom)
-    hdrColor += bloomColor; // additive blending
+    {
+        hdrColor += bloomColor; // additive blending
+    }
     // tone mapping
     vec3 result = vec3(1.0) - exp(-hdrColor * exposure);
     // also gamma correct while we're at it
