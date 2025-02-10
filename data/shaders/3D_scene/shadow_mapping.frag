@@ -1,7 +1,8 @@
 ﻿#version 300 es
 precision highp float;
 
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
+
 
 in vec3 FragPos;
 in vec3 Normal;
@@ -36,7 +37,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     {
         for (int y = -1; y <= 1; ++y)
         {
-            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * vec2(texelSize)).r;
+            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * float(texelSize)).r;
             shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
         }
     }

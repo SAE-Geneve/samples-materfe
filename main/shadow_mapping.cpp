@@ -448,9 +448,9 @@ namespace gpr {
 
         // render Depth map to quad for visual debugging
         // ---------------------------------------------
-        glUseProgram(program_debug_depth_quad_);
-        glUniform1f(glGetUniformLocation(program_debug_depth_quad_, "near_plane"), near_plane);
-        glUniform1f(glGetUniformLocation(program_debug_depth_quad_, "far_plane"), far_plane);
+//        glUseProgram(program_debug_depth_quad_);
+//        glUniform1f(glGetUniformLocation(program_debug_depth_quad_, "near_plane"), near_plane);
+//        glUniform1f(glGetUniformLocation(program_debug_depth_quad_, "far_plane"), far_plane);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, depth_map_);
