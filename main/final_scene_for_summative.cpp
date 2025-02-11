@@ -10,6 +10,10 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl2.h"
 #include <stb_image.h>
+#ifdef TRACY_ENABLE
+#include <tracy/Tracy.hpp>
+#include <tracy/TracyC.h>
+#endif
 
 #include "engine.h"
 #include "scene.h"
@@ -26,7 +30,7 @@
 namespace gpr {
     static constexpr std::int32_t kTreesCount = 1000;
     static constexpr std::int32_t kLightsCount = 1;
-    static constexpr std::int32_t kKernelSize = 32;
+    static constexpr std::int32_t kKernelSize = 64;
     static constexpr std::int32_t kShadowWidth = 1024, kShadowHeight = 1024;
     static constexpr std::int32_t kScreenWidth = 1200, kScreenHeight = 800;
 
@@ -162,6 +166,9 @@ namespace gpr {
     };
 
     void FinalScene::SetPositionsAndColors() {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         for (auto &_: light_cube_pos_) {
             _.x = tools::GenerateRandomNumber(-50.0f, 50.0f);
             _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
@@ -216,6 +223,11 @@ namespace gpr {
     }
 
     void FinalScene::Begin() {
+#ifdef TRACY_ENABLE
+        TracyCZoneN(begin, "Begin", true)
+#endif
+
+
 
         SetPositionsAndColors();
 
@@ -550,8 +562,8 @@ namespace gpr {
         // also create framebuffer to hold SSAO processing stage
         // -----------------------------------------------------
 
-        glGenFramebuffers(1, &ssao_fbo_);
         glGenFramebuffers(1, &ssao_blur_fbo_);
+        glGenFramebuffers(1, &ssao_fbo_);
         glBindFramebuffer(GL_FRAMEBUFFER, ssao_fbo_);
 
         // SSAO color buffer
@@ -580,7 +592,7 @@ namespace gpr {
         // ----------------------
         std::uniform_real_distribution<GLfloat> random_floats(0.0, 1.0); // generates random floats between 0.0 and 1.0
         std::default_random_engine generator;
-        ssao_kernel_.resize(kKernelSize);
+        //ssao_kernel_.resize(kKernelSize);
         for (std::int32_t i = 0; i < kKernelSize; ++i) {
             glm::vec3 sample(random_floats(generator) * 2.0 - 1.0, random_floats(generator) * 2.0 - 1.0,
                              random_floats(generator));
@@ -625,9 +637,15 @@ namespace gpr {
         glUniform1i(glGetUniformLocation(program_ssao_, "texNoise"), 2);
         glUseProgram(program_ssao_blur_);
         glUniform1i(glGetUniformLocation(program_ssao_blur_, "ssaoInput"), 0);
+#ifdef TRACY_ENABLE
+        TracyCZoneEnd(begin)
+#endif
     }
 
     void FinalScene::SetAllPipelines() {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         //Load vertex shader cube 1 ---------------------------------------------------------
         auto vertexContent = LoadFile("data/shaders/3D_scene/cube.vert");
         auto *ptr = vertexContent.data();
@@ -965,7 +983,6 @@ namespace gpr {
         std::cout << "pipeline\n";
 
         //Load program/pipeline
-        program_model_ = glCreateProgram();
         program_cube_map_ = glCreateProgram();
         program_screen_frame_buffer_ = glCreateProgram();
         program_gamma_ = glCreateProgram();
@@ -981,9 +998,10 @@ namespace gpr {
         program_ssao_ = glCreateProgram();
         program_ssao_blur_ = glCreateProgram();
 
-
+        program_model_ = glCreateProgram();
         glAttachShader(program_model_, model_vertex_shader_);
         glAttachShader(program_model_, model_fragment_shader_);
+        glLinkProgram(program_model_);
 
         glAttachShader(program_cube_map_, cube_map_vertex_shader_);
         glAttachShader(program_cube_map_, cube_map_fragment_shader_);
@@ -1027,7 +1045,7 @@ namespace gpr {
         glAttachShader(program_ssao_blur_, ssao_blur_vertex_shader_);
         glAttachShader(program_ssao_blur_, ssao_blur_fragment_shader_);
 
-        glLinkProgram(program_model_);
+
         glLinkProgram(program_cube_map_);
         glLinkProgram(program_screen_frame_buffer_);
         glLinkProgram(program_gamma_);
@@ -1189,6 +1207,9 @@ namespace gpr {
     }
 
     void renderQuad() {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
 
         static constexpr float quadVertices[] = {
                 // positions        // texture Coords
@@ -1215,6 +1236,9 @@ namespace gpr {
     }
 
     void FinalScene::Update(float dt) {
+#ifdef TRACY_ENABLE
+        TracyCZoneN(const update, "udate", true)
+#endif
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we're not using the stencil buffer now
@@ -1295,9 +1319,15 @@ namespace gpr {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
         DrawImGui();
+#ifdef TRACY_ENABLE
+        TracyCZoneEnd(update)
+#endif
     }
 
     void FinalScene::ShadowPass() {//set framebuffer
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         glUseProgram(program_making_depth_map_);
 
         glm::mat4 light_projection(1.0f), light_view(1.0f);
@@ -1371,6 +1401,9 @@ namespace gpr {
 
     void FinalScene::SsaoPass(
             const glm::mat4 &projection) {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         // 1. geometry pass: render scene's geometry/color data into gbuffer
 // -----------------------------------------------------------------
         glBindFramebuffer(GL_FRAMEBUFFER, g_buffer_);
@@ -1481,6 +1514,9 @@ namespace gpr {
     }
 
     void FinalScene::BloomPass(const glm::mat4 &projection) {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         //3 steps :
 
         //make light cube ----------------------------------------
@@ -1537,6 +1573,9 @@ namespace gpr {
     }
 
     void FinalScene::RenderQuad() {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         // positions
         glm::vec3 pos1(-1.0f, 1.0f, 0.0f);
         glm::vec3 pos2(-1.0f, -1.0f, 0.0f);
@@ -1634,6 +1673,9 @@ namespace gpr {
     }
 
     void FinalScene::RenderSceneForDepth(GLuint &pipeline) {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         //draw programme -> 3D model --------------------------------------------------------------------------
         //swap to CCW because tree's triangles are done the oposite way
         glEnable(GL_CULL_FACE);
@@ -1676,6 +1718,9 @@ namespace gpr {
 
     void FinalScene::RenderScene(
             const glm::mat4 &projection) {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         //draw programme -> 3D model --------------------------------------------------------------------------
         //swap to CCW because tree's triangles are done the oposite way
         glEnable(GL_CULL_FACE);
@@ -1720,6 +1765,9 @@ namespace gpr {
     }
 
     void FinalScene::RenderGroundPlane(const glm::mat4 &projection) {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         glDisable(GL_CULL_FACE);
         glUseProgram(program_normal_mapping_);
 
@@ -1834,6 +1882,9 @@ namespace gpr {
     }
 
     void FinalScene::SetCameraProperties(const glm::mat4 &projection, GLuint &program) const {
+#ifdef TRACY_ENABLE
+        ZoneScoped;
+#endif
         int view_loc = glGetUniformLocation(program, "view");
         glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(camera_->view()));
 

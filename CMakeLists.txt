@@ -11,6 +11,10 @@ find_package(SDL2 CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 find_package(Stb REQUIRED)
 
+#profiler
+if(ENABLE_PROFILING)
+    find_package(Tracy CONFIG REQUIRED)
+endif(ENABLE_PROFILING)
 
 file(GLOB_RECURSE SHADER_FILES
         "data/*.vert"
@@ -92,6 +96,10 @@ target_link_libraries(Common PUBLIC GLEW::GLEW glm::glm SDL2::SDL2 SDL2::SDL2mai
 target_link_libraries(Common PUBLIC assimp::assimp)
 set_target_properties(Common PROPERTIES UNITY_BUILD ON)
 add_dependencies(Common shader_target data_target)
+if(ENABLE_PROFILING)
+    target_link_libraries(Common PUBLIC Tracy::TracyClient)
+    target_compile_definitions(Common PUBLIC TRACY_ENABLE=1)
+endif(ENABLE_PROFILING)
 
 if(MSVC)
     target_compile_definitions(Common PUBLIC "_USE_MATH_DEFINES" WIN32_LEAN_AND_MEAN)
@@ -107,5 +115,7 @@ foreach(MAIN_FILE ${MAIN_FILES})
     get_filename_component(MAIN_NAME ${MAIN_FILE} NAME_WE)
     
     add_executable(${MAIN_NAME} ${MAIN_FILE})
-    target_link_libraries(${MAIN_NAME} PUBLIC Common) 
+    target_link_libraries(${MAIN_NAME} PUBLIC Common)
 endforeach()
+
+option(ENABLE_PROFILING "Enable Tracy Profiling" OFF)

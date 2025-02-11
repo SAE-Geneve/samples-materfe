@@ -109,8 +109,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-9q7vrc"
-      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-9q7vrc"
+      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-77o6ci"
+      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-77o6ci"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -123,11 +123,11 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-9q7vrc'
+        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-77o6ci'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_e0226
-        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_e0226.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_e0226.dir\\ /FS -c "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
-        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_e0226.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_e0226.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_e0226.exe /implib:cmTC_e0226.lib /pdb:cmTC_e0226.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_1e136
+        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_1e136.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_1e136.dir\\ /FS -c "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_1e136.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_1e136.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_1e136.exe /implib:cmTC_1e136.lib /pdb:cmTC_1e136.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -167,8 +167,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-mq7jz0"
-      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-mq7jz0"
+      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-q1h59b"
+      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-q1h59b"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -182,11 +182,11 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-mq7jz0'
+        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-q1h59b'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_6a01a
-        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_6a01a.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_6a01a.dir\\ /FS -c "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
-        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_6a01a.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_6a01a.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_6a01a.exe /implib:cmTC_6a01a.lib /pdb:cmTC_6a01a.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_34cae
+        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_34cae.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_34cae.dir\\ /FS -c "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_34cae.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_34cae.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_34cae.exe /implib:cmTC_34cae.lib /pdb:cmTC_34cae.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -217,4 +217,123 @@ events:
       Running the CXX compiler's linker: "C:/PROGRA~1/MICROS~4/2022/COMMUN~1/VC/Tools/MSVC/1442~1.344/bin/Hostx64/x64/link.exe" "-v"
       Microsoft (R) Incremental Linker Version 14.42.34436.0
       Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "cmake-build-relwithdebinfo/vcpkg_installed/x64-windows/share/Tracy/TracyConfig.cmake:28 (find_dependency)"
+      - "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:16 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-c5czgy"
+      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-c5czgy"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/vcpkg_installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/vcpkg/vcpkg"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-c5czgy'
+        
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_6d655
+        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_6d655.dir\\src.c.obj /FdCMakeFiles\\cmTC_6d655.dir\\ /FS -c C:\\Users\\Mat\\special_repo\\git-hub_classroom_compute_graphic\\samples-materfe\\cmake-build-relwithdebinfo\\CMakeFiles\\CMakeScratch\\TryCompile-c5czgy\\src.c
+        FAILED: CMakeFiles/cmTC_6d655.dir/src.c.obj 
+        C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_6d655.dir\\src.c.obj /FdCMakeFiles\\cmTC_6d655.dir\\ /FS -c C:\\Users\\Mat\\special_repo\\git-hub_classroom_compute_graphic\\samples-materfe\\cmake-build-relwithdebinfo\\CMakeFiles\\CMakeScratch\\TryCompile-c5czgy\\src.c
+        C:\\Users\\Mat\\special_repo\\git-hub_classroom_compute_graphic\\samples-materfe\\cmake-build-relwithdebinfo\\CMakeFiles\\CMakeScratch\\TryCompile-c5czgy\\src.c(1): fatal error C1083: Impossible d'ouvrir le fichier include : 'pthread.h' : No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "cmake-build-relwithdebinfo/vcpkg_installed/x64-windows/share/Tracy/TracyConfig.cmake:28 (find_dependency)"
+      - "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:16 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-i5e7qw"
+      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-i5e7qw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/vcpkg_installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/vcpkg/vcpkg"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-i5e7qw'
+        
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_714f3
+        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=pthread_create /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_714f3.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_714f3.dir\\ /FS -c C:\\Users\\Mat\\special_repo\\git-hub_classroom_compute_graphic\\samples-materfe\\cmake-build-relwithdebinfo\\CMakeFiles\\CMakeScratch\\TryCompile-i5e7qw\\CheckFunctionExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_714f3.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_714f3.dir\\CheckFunctionExists.c.obj  /out:cmTC_714f3.exe /implib:cmTC_714f3.lib /pdb:cmTC_714f3.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_714f3.exe 
+        C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_714f3.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_714f3.dir\\CheckFunctionExists.c.obj  /out:cmTC_714f3.exe /implib:cmTC_714f3.lib /pdb:cmTC_714f3.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_714f3.dir\\CheckFunctionExists.c.obj /out:cmTC_714f3.exe /implib:cmTC_714f3.lib /pdb:cmTC_714f3.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_714f3.dir/intermediate.manifest CMakeFiles\\cmTC_714f3.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: impossible d'ouvrir le fichier 'pthreads.lib'\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "cmake-build-relwithdebinfo/vcpkg_installed/x64-windows/share/Tracy/TracyConfig.cmake:28 (find_dependency)"
+      - "C:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:16 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-0uwpud"
+      binary: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-0uwpud"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/vcpkg_installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/vcpkg/vcpkg"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/Mat/special_repo/git-hub_classroom_compute_graphic/samples-materfe/cmake-build-relwithdebinfo/CMakeFiles/CMakeScratch/TryCompile-0uwpud'
+        
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -v cmTC_b5b56
+        [1/2] C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=pthread_create /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_b5b56.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_b5b56.dir\\ /FS -c C:\\Users\\Mat\\special_repo\\git-hub_classroom_compute_graphic\\samples-materfe\\cmake-build-relwithdebinfo\\CMakeFiles\\CMakeScratch\\TryCompile-0uwpud\\CheckFunctionExists.c
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_b5b56.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_b5b56.dir\\CheckFunctionExists.c.obj  /out:cmTC_b5b56.exe /implib:cmTC_b5b56.lib /pdb:cmTC_b5b56.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_b5b56.exe 
+        C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.1\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_b5b56.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_b5b56.dir\\CheckFunctionExists.c.obj  /out:cmTC_b5b56.exe /implib:cmTC_b5b56.lib /pdb:cmTC_b5b56.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~4\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_b5b56.dir\\CheckFunctionExists.c.obj /out:cmTC_b5b56.exe /implib:cmTC_b5b56.lib /pdb:cmTC_b5b56.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_b5b56.dir/intermediate.manifest CMakeFiles\\cmTC_b5b56.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: impossible d'ouvrir le fichier 'pthread.lib'\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
 ...

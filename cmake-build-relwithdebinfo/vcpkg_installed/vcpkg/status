@@ -210,3 +210,21 @@ Abi: bcd1f2db0b9f8b175a7d9d1a40a1d8c81a14e87f5c8fc1034a70ad69b30cb85a
 Description: The Open Asset import library
 Status: install ok installed
 
+Package: tracy
+Version: 0.11.1
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b9232d118637e436ddafb432ea0c0296ee7d0df3118b4a0fbc8aca6cee96fe3d
+Description: A real time, nanosecond resolution, remote telemetry, hybrid frame and sampling profiler for games and other applications.
+Default-Features: crash-handler
+Status: install ok installed
+
+Package: tracy
+Feature: crash-handler
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable crash handler
+Status: install ok installed
+
