@@ -26,11 +26,12 @@
 namespace gpr {
     static constexpr std::int32_t kTreesCount = 1000;
     static constexpr std::int32_t kLightsCount = 1;
+    static constexpr std::int32_t kKernelSize = 32;
     static constexpr std::int32_t kShadowWidth = 1024, kShadowHeight = 1024;
     static constexpr std::int32_t kScreenWidth = 1200, kScreenHeight = 800;
 
-    static constexpr float Lerp(float a, float b, float f) {
-        return a + f * (b - a);
+    static constexpr float Lerp(float f) {
+        return 0.1f + f * (1.0f - 0.1f);
     }
 
     class FinalScene final : public Scene {
@@ -47,7 +48,7 @@ namespace gpr {
 
     private:
         bool reverse_enable_ = false;
-        bool reverse_gamma_enable_ = false;
+        bool reverse_gamma_enable_ = true;
         bool bloom = true;
         float exposure = 1.0f;
         float elapsed_time_ = 0.0f;
@@ -116,18 +117,15 @@ namespace gpr {
         //all frameBuffers-----------------
         GLuint screen_frame_buffer_ = 0;
         GLuint depth_buffer = 0;
-        unsigned int gBuffer_ = 0;
-        unsigned int ssaoFBO_ = 0, ssaoBlurFBO_ = 0;
-        unsigned int gPosition_ = 0, gNormal_ = 0, gAlbedo_ = 0;
-        unsigned int noiseTexture_ = 0;
-        unsigned int ssaoColorBuffer_ = 0, ssaoColorBufferBlur_ = 0;
+        unsigned int g_buffer_ = 0;
+        unsigned int ssao_fbo_ = 0, ssao_blur_fbo_ = 0;
+        unsigned int g_position_ = 0, g_normal_ = 0, g_albedo_ = 0;
+        unsigned int noise_texture_ = 0;
+        unsigned int ssao_color_buffer_ = 0, ssao_color_buffer_blur_ = 0;
         std::array<GLuint, 2> text_for_screen_frame_buffer{};
         unsigned int ping_pong_fbo_[2]{};
         unsigned int ping_pong_color_buffers_[2]{};
-        std::vector<glm::vec3> ssaoKernel_{};
-
-        //all renderBuffers----------------
-        GLuint render_buffer_for_screen_buffer_ = 0;
+        std::vector<glm::vec3> ssao_kernel_{};
 
         std::unique_ptr<Model> tree_model_unique_{};
         std::unique_ptr<Model> rock_model_unique_{};
@@ -142,7 +140,7 @@ namespace gpr {
 
         void SetCameraProperties(const glm::mat4 &projection, GLuint &program) const;
 
-        void SetLightCubes();
+        void SetPositionsAndColors();
 
         static void CreateLightCube();
 
@@ -155,18 +153,21 @@ namespace gpr {
         void RenderGroundPlane(const glm::mat4 &projection);
 
         void SetAllPipelines();
+
+        void BloomPass(const glm::mat4 &projection);
+
+        void SsaoPass(const glm::mat4 &projection);
+
+        void ShadowPass();
     };
 
-    void FinalScene::SetLightCubes() {
-//        for (auto &_: light_cube_pos_) {
-//            _.x = tools::GenerateRandomNumber(-100.0f, 100.0f);
-//            _.y = tools::GenerateRandomNumber(10.0f, 15.0f);
-//            _.z = tools::GenerateRandomNumber(-100.0f, 100.0f);
-//        }
+    void FinalScene::SetPositionsAndColors() {
+        for (auto &_: light_cube_pos_) {
+            _.x = tools::GenerateRandomNumber(-50.0f, 50.0f);
+            _.y = tools::GenerateRandomNumber(0.0f, 1.0f);
+            _.z = tools::GenerateRandomNumber(-50.0f, 50.0f);
+        }
 
-        light_cube_pos_[0].x = 1.0f;
-        light_cube_pos_[0].y = 1.0f;
-        light_cube_pos_[0].z = 1.0f;
         for (auto &_: light_cube_color_) {
             _.x = tools::GenerateRandomNumber(0.1f, 10.0f);
             _.y = tools::GenerateRandomNumber(0.1f, 10.0f);
@@ -216,7 +217,7 @@ namespace gpr {
 
     void FinalScene::Begin() {
 
-        SetLightCubes();
+        SetPositionsAndColors();
 
         ground_text_ = TextureManager::LoadTexture(
                 "data/texture/3D/rocky_terrain/textures/rocky_terrain_02_diff_4k.jpg", true);
@@ -253,7 +254,7 @@ namespace gpr {
 
         camera_ = std::make_unique<Camera>();
         std::string path_1 = "data/texture/3D/tree_elm/scene.gltf";
-        std::string path_2 = "data/texture/3D/nordic_rocks/xisgcic_tier_2.gltf"; //TODO use with normal maps
+        std::string path_2 = "data/texture/3D/nordic_rocks/xisgcic_tier_2.gltf";
 
         stbi_set_flip_vertically_on_load(true);
         tree_model_unique_ = std::make_unique<Model>(path_1);
@@ -274,10 +275,10 @@ namespace gpr {
 //            model = glm::scale(model, glm::vec3(scale));
 
 //            // 3. rotation: add random rotation around a (semi)randomly picked rotation axis vector
-            auto rotAngle = 90.0f;
-            model = glm::rotate(model, glm::radians(rotAngle), glm::vec3(-1.0f, 0.0f, 0.0f));
-            rotAngle = tools::GenerateRandomNumber(0.0f, 360.0f);
-            model = glm::rotate(model, glm::radians(rotAngle), glm::vec3(0.0f, 0.0f, 1.0f));
+            auto rot_angle = 90.0f;
+            model = glm::rotate(model, glm::radians(rot_angle), glm::vec3(-1.0f, 0.0f, 0.0f));
+            rot_angle = tools::GenerateRandomNumber(0.0f, 360.0f);
+            model = glm::rotate(model, glm::radians(rot_angle), glm::vec3(0.0f, 0.0f, 1.0f));
 
             // 4. now add to list of matrices
             model_matrices_[i] = model;
@@ -316,7 +317,7 @@ namespace gpr {
 
         //----------------------------------------------------------- frame buffer / render buffer
 
-        static constexpr float skyboxVertices[] = {
+        static constexpr float skybox_vertices[] = {
                 // positions
                 -1.0f, 1.0f, -1.0f,
                 -1.0f, -1.0f, -1.0f,
@@ -361,7 +362,7 @@ namespace gpr {
                 1.0f, -1.0f, 1.0f
         };
 
-        std::ranges::copy(skyboxVertices, skybox_vertices_);
+        std::ranges::copy(skybox_vertices, skybox_vertices_);
 
         //skybox VAO
         skybox_vao_.Bind();
@@ -385,8 +386,8 @@ namespace gpr {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-        float borderColor[] = {1.0, 1.0, 1.0, 1.0};
-        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+        float border_color[] = {1.0, 1.0, 1.0, 1.0};
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border_color);
 
         // attach depth texture as FBO's depth buffer
         glBindFramebuffer(GL_FRAMEBUFFER, depth_buffer);
@@ -401,7 +402,7 @@ namespace gpr {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
-        static constexpr float planeVertices[] = {
+        static constexpr float plane_vertices[] = {
                 // positions            // normals         // texcoords
                 25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 0.0f,
                 -25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
@@ -416,7 +417,7 @@ namespace gpr {
         VBO plane_vbo_{};
         plane_vbo_.Create();
         plane_vbo_.Bind();
-        plane_vbo_.BindData(sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
+        plane_vbo_.BindData(sizeof(plane_vertices), plane_vertices, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) nullptr);
         glEnableVertexAttribArray(1);
@@ -445,11 +446,11 @@ namespace gpr {
                 std::cout << "Framebuffer not complete!" << std::endl;
         }
         // create and attach depth buffer (renderbuffer)
-        unsigned int rboDepthScreen;
-        glGenRenderbuffers(1, &rboDepthScreen);
-        glBindRenderbuffer(GL_RENDERBUFFER, rboDepthScreen);
+        unsigned int rbo_depth_screen;
+        glGenRenderbuffers(1, &rbo_depth_screen);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo_depth_screen);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, kScreenWidth, kScreenHeight);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepthScreen);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo_depth_screen);
         // tell OpenGL which color attachments we'll use (of this framebuffer) for rendering
         unsigned int attachments[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
         glDrawBuffers(2, attachments);
@@ -506,41 +507,41 @@ namespace gpr {
         // configure g-buffer framebuffer
         // ------------------------------------------------------------------------------------------------
 
-        glGenFramebuffers(1, &gBuffer_);
-        glBindFramebuffer(GL_FRAMEBUFFER, gBuffer_);
+        glGenFramebuffers(1, &g_buffer_);
+        glBindFramebuffer(GL_FRAMEBUFFER, g_buffer_);
 
         // position color buffer
-        glGenTextures(1, &gPosition_);
-        glBindTexture(GL_TEXTURE_2D, gPosition_);
+        glGenTextures(1, &g_position_);
+        glBindTexture(GL_TEXTURE_2D, g_position_);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, kScreenWidth, kScreenHeight, 0, GL_RGBA, GL_FLOAT, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPosition_, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, g_position_, 0);
         // normal color buffer
-        glGenTextures(1, &gNormal_);
-        glBindTexture(GL_TEXTURE_2D, gNormal_);
+        glGenTextures(1, &g_normal_);
+        glBindTexture(GL_TEXTURE_2D, g_normal_);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, kScreenWidth, kScreenHeight, 0, GL_RGBA, GL_FLOAT, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal_, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, g_normal_, 0);
         // color + specular color buffer
-        glGenTextures(1, &gAlbedo_);
-        glBindTexture(GL_TEXTURE_2D, gAlbedo_);
+        glGenTextures(1, &g_albedo_);
+        glBindTexture(GL_TEXTURE_2D, g_albedo_);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, kScreenWidth, kScreenHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gAlbedo_, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, g_albedo_, 0);
         // tell OpenGL which color attachments we'll use (of this framebuffer) for rendering
         unsigned int new_attachments[3] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2};
         glDrawBuffers(3, new_attachments);
         // create and attach depth buffer (renderbuffer)
-        unsigned int rboDepth;
-        glGenRenderbuffers(1, &rboDepth);
-        glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
+        unsigned int rbo_depth;
+        glGenRenderbuffers(1, &rbo_depth);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo_depth);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, kScreenWidth, kScreenHeight);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo_depth);
         // finally check if framebuffer is complete
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "Framebuffer not complete!" << std::endl;
@@ -549,60 +550,63 @@ namespace gpr {
         // also create framebuffer to hold SSAO processing stage
         // -----------------------------------------------------
 
-        glGenFramebuffers(1, &ssaoFBO_);
-        glGenFramebuffers(1, &ssaoBlurFBO_);
-        glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO_);
+        glGenFramebuffers(1, &ssao_fbo_);
+        glGenFramebuffers(1, &ssao_blur_fbo_);
+        glBindFramebuffer(GL_FRAMEBUFFER, ssao_fbo_);
 
         // SSAO color buffer
-        glGenTextures(1, &ssaoColorBuffer_);
-        glBindTexture(GL_TEXTURE_2D, ssaoColorBuffer_);
+        glGenTextures(1, &ssao_color_buffer_);
+        glBindTexture(GL_TEXTURE_2D, ssao_color_buffer_);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, kScreenWidth, kScreenHeight, 0, GL_RED, GL_FLOAT, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBuffer_, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssao_color_buffer_, 0);
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "SSAO Framebuffer not complete!" << std::endl;
 
         // and blur stage
-        glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO_);
-        glGenTextures(1, &ssaoColorBufferBlur_);
-        glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur_);
+        glBindFramebuffer(GL_FRAMEBUFFER, ssao_blur_fbo_);
+        glGenTextures(1, &ssao_color_buffer_blur_);
+        glBindTexture(GL_TEXTURE_2D, ssao_color_buffer_blur_);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, kScreenWidth, kScreenHeight, 0, GL_RED, GL_FLOAT, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBufferBlur_, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssao_color_buffer_blur_, 0);
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cout << "SSAO Blur Framebuffer not complete!" << std::endl;
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         // generate sample kernel
         // ----------------------
-        std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
+        std::uniform_real_distribution<GLfloat> random_floats(0.0, 1.0); // generates random floats between 0.0 and 1.0
         std::default_random_engine generator;
-        for (unsigned int i = 0; i < 64; ++i) {
-            glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0,
-                             randomFloats(generator));
+        ssao_kernel_.resize(kKernelSize);
+        for (std::int32_t i = 0; i < kKernelSize; ++i) {
+            glm::vec3 sample(random_floats(generator) * 2.0 - 1.0, random_floats(generator) * 2.0 - 1.0,
+                             random_floats(generator));
             sample = glm::normalize(sample);
-            sample *= randomFloats(generator);
-            float scale = float(i) / 64.0f;
+            sample *= random_floats(generator);
+            float scale = static_cast<float>(i) / static_cast<float>(kKernelSize);
 
             // scale samples s.t. they're more aligned to center of kernel
-            scale = Lerp(0.1f, 1.0f, scale * scale);
+            scale = Lerp(scale * scale);
             sample *= scale;
-            ssaoKernel_.push_back(sample);
+            ssao_kernel_.push_back(sample);
         }
+
+        std::cout << "stuck\n";
 
         // generate noise texture
         // ----------------------
-        std::vector<glm::vec3> ssaoNoise;
+        std::vector<glm::vec3> ssao_noise;
         for (unsigned int i = 0; i < 16; i++) {
-            glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0,
+            glm::vec3 noise(random_floats(generator) * 2.0 - 1.0, random_floats(generator) * 2.0 - 1.0,
                             0.0f); // rotate around z-axis (in tangent space)
-            ssaoNoise.push_back(noise);
+            ssao_noise.push_back(noise);
         }
-        glGenTextures(1, &noiseTexture_);
-        glBindTexture(GL_TEXTURE_2D, noiseTexture_);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+        glGenTextures(1, &noise_texture_);
+        glBindTexture(GL_TEXTURE_2D, noise_texture_);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssao_noise[0]);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -1102,21 +1106,86 @@ namespace gpr {
         }
     }
 
-    //TODO update the end with screen buffer stuff + gamma correction + lights + depth shaders
     void FinalScene::End() {
         //Unload program/pipeline
-        glDeleteProgram(program_model_);
+        glDeleteProgram(program_lighting_pass_);
         glDeleteProgram(program_cube_map_);
+        glDeleteProgram(program_normal_mapping_);
+        glDeleteProgram(program_ssao_);
+        glDeleteProgram(program_model_);
+        glDeleteProgram(program_geometry_pass_);
+        glDeleteProgram(program_bloom_);
+        glDeleteProgram(program_light_cube_blur_);
+        glDeleteProgram(program_light_cube_);
+        glDeleteProgram(program_ssao_blur_);
+        glDeleteProgram(program_making_depth_map_);
+        glDeleteProgram(program_instancing_);
+        glDeleteProgram(program_screen_frame_buffer_);
+        glDeleteProgram(program_shadow_);
+        glDeleteProgram(program_gamma_);
 
-        glDeleteShader(model_vertex_shader_);
-        glDeleteShader(model_fragment_shader_);
-
+        //delete all shaders (vertex)
         glDeleteShader(cube_map_vertex_shader_);
-        glDeleteShader(cube_map_fragment_shader_);
+        glDeleteShader(model_vertex_shader_);
+        glDeleteShader(ssao_blur_vertex_shader_);
+        glDeleteShader(ssao_vertex_shader_);
+        glDeleteShader(lighting_pass_vertex_shader_);
+        glDeleteShader(geometry_pass_vertex_shader_);
+        glDeleteShader(shadow_vertex_shader_);
+        glDeleteShader(normal_mapping_vertex_shader_);
+        glDeleteShader(bloom_vertex_shader_);
+        glDeleteShader(light_cube_blur_vertex_shader_);
+        glDeleteShader(depth_map_making_vertex_shader_);
+        glDeleteShader(instancing_vertex_shader_);
+        glDeleteShader(light_cube_vertex_shader_);
+        glDeleteShader(gamma_vertex_shader_);
+        glDeleteShader(screen_quad_vertex_shader_);
 
+        //delete all shaders (fragment)
+        glDeleteShader(cube_map_fragment_shader_);
+        glDeleteShader(model_fragment_shader_);
+        glDeleteShader(ssao_blur_fragment_shader_);
+        glDeleteShader(ssao_fragment_shader_);
+        glDeleteShader(lighting_pass_fragment_shader_);
+        glDeleteShader(geometry_pass_fragment_shader_);
+        glDeleteShader(shadow_fragment_shader_);
+        glDeleteShader(normal_mapping_fragment_shader_);
+        glDeleteShader(bloom_fragment_shader_);
+        glDeleteShader(light_cube_blur_fragment_shader_);
+        glDeleteShader(depth_map_making_fragment_shader_);
+        glDeleteShader(instancing_fragment_shader_);
+        glDeleteShader(light_cube_fragment_shader_);
+        glDeleteShader(gamma_fragment_shader_);
+        glDeleteShader(screen_quad_fragment_shader_);
+
+        //delete (framebuffers)
+        glDeleteFramebuffers(1, &screen_frame_buffer_);
+        glDeleteFramebuffers(1, &depth_buffer);
+        glDeleteFramebuffers(1, &g_buffer_);
+        glDeleteFramebuffers(1, &ping_pong_fbo_[0]);
+        glDeleteFramebuffers(1, &ping_pong_fbo_[1]);
+        glDeleteFramebuffers(1, &ssao_fbo_);
+        glDeleteFramebuffers(1, &ssao_blur_fbo_);
+
+        //delete (color buffers)
+        glDeleteBuffers(1, &ssao_color_buffer_);
+        glDeleteBuffers(1, &ssao_color_buffer_blur_);
+        glDeleteBuffers(1, &ping_pong_color_buffers_[0]);
+        glDeleteBuffers(1, &ping_pong_color_buffers_[1]);
+
+        //delete (textures)
+        glDeleteTextures(1, &g_position_);
+        glDeleteTextures(1, &g_normal_);
+        glDeleteTextures(1, &g_albedo_);
+        glDeleteTextures(1, &noise_texture_);
+        glDeleteTextures(1, &text_for_screen_frame_buffer[0]);
+        glDeleteTextures(1, &text_for_screen_frame_buffer[1]);
+
+        //delete (vao/vbo)
         skybox_vao_.Delete();
         skybox_vbo_.Delete();
         quad_vao_.Delete();
+        plane_vao_.Delete();
     }
 
     void renderQuad() {
@@ -1158,30 +1227,90 @@ namespace gpr {
         glm::mat4 projection;
 
         const float aspect = 1200.0f / 800.0f; //see in the engine.Begin() -> window size
-        const float zNear = 0.1f;
-        const float zFar = 100.0f;
-        const float fovY = std::numbers::pi_v<float> / 2;
+        const float z_near = 0.1f;
+        const float z_far = 100.0f;
+        const float fov_y = std::numbers::pi_v<float> / 2;
 
-        frustum.CreateFrustumFromCamera(*camera_, aspect, fovY, zNear, zFar);
-        projection = glm::perspective(fovY, aspect, zNear, zFar);
+        frustum.CreateFrustumFromCamera(*camera_, aspect, fov_y, z_near, z_far);
+        projection = glm::perspective(fov_y, aspect, z_near, z_far);
 
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
 
         //Render -> Depth map from light perspective ------------------------------------------
-        //set framebuffer
+        ShadowPass();
+
+        //Render -> scene -----------------------------------------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+        RenderScene(projection);
+
+        //SSAO
+        SsaoPass(projection);
+
+
+        //draw programme -> cube map --------------------------------------------------------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+        glDisable(GL_CULL_FACE);
+        glDepthFunc(GL_LEQUAL);
+        glUseProgram(program_cube_map_);
+        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+        auto view = glm::mat4(glm::mat3(camera_->view())); // remove translation from the view matrix
+        int view_loc_p = glGetUniformLocation(program_cube_map_, "view");
+        glUniformMatrix4fv(view_loc_p,
+                           1, GL_FALSE,
+                           glm::value_ptr(view)
+        );
+        int projection_loc_p = glGetUniformLocation(program_cube_map_, "projection");
+        glUniformMatrix4fv(projection_loc_p,
+                           1, GL_FALSE,
+                           glm::value_ptr(projection)
+        );
+        //skybox cube
+        skybox_vao_.Bind();
+
+        //draw cube map
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_text_);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+
+
+        //Blooming light ----------------------------------------------------------------------------------
+        BloomPass(projection);
+
+        //frame buffer screen ----------------------------------------------------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+//        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+//        glClear(GL_COLOR_BUFFER_BIT);
+        glUseProgram(program_screen_frame_buffer_);
+
+        //set post process
+        glUniform1i(glGetUniformLocation(program_screen_frame_buffer_, "reverse"), reverse_enable_);
+        glUniform1i(glGetUniformLocation(program_screen_frame_buffer_, "reverseGammaEffect"), reverse_gamma_enable_);
+        quad_vao_.Bind();
+        glDisable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, text_for_screen_frame_buffer[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        //ImGui
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui::NewFrame();
+        DrawImGui();
+    }
+
+    void FinalScene::ShadowPass() {//set framebuffer
         glUseProgram(program_making_depth_map_);
 
-        glm::mat4 lightProjection(1.0f), lightView(1.0f);
-        glm::mat4 lightSpaceMatrix(1.0f);
+        glm::mat4 light_projection(1.0f), light_view(1.0f);
+        glm::mat4 light_space_matrix(1.0f);
         float near_plane = 0.1f, far_plane = 50.0f;
         //lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene
-        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-        lightView = glm::lookAt(light_cube_pos_[0], glm::vec3(5.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        lightSpaceMatrix = lightProjection * lightView;
+        light_projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+        light_view = glm::lookAt(light_cube_pos_[0], glm::vec3(5.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        light_space_matrix = light_projection * light_view;
         // render scene from light's point of view
 
-        int lightSpaceLocP = glGetUniformLocation(program_making_depth_map_, "lightSpaceMatrix");
-        glUniformMatrix4fv(lightSpaceLocP, 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+        int light_space_loc_p = glGetUniformLocation(program_making_depth_map_, "lightSpaceMatrix");
+        glUniformMatrix4fv(light_space_loc_p, 1, GL_FALSE, glm::value_ptr(light_space_matrix));
 
         glViewport(0, 0, kShadowWidth, kShadowHeight);
         glBindFramebuffer(GL_FRAMEBUFFER, depth_buffer);
@@ -1195,8 +1324,8 @@ namespace gpr {
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // 2. render scene as normal using the generated depth/shadow map ->
-        // depth map does not link to uniform for some magic reason
-        // --------------------------------------------------------------
+// depth map does not link to uniform for some magic reason
+// --------------------------------------------------------------
 //        glUseProgram(program_shadow_);
 //        SetCameraProperties(projection, program_shadow_);
 //
@@ -1235,16 +1364,16 @@ namespace gpr {
 //        RenderQuad();
 
         //RenderScene(program_);
-        //glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
-        //RenderSceneForDepth(program_shadow_);
+//glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
+//RenderSceneForDepth(program_shadow_);
 
-        //Render -> light and model instancing -----------------------------------------------------------
-        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
-        RenderScene(projection);
+    }
 
+    void FinalScene::SsaoPass(
+            const glm::mat4 &projection) {
         // 1. geometry pass: render scene's geometry/color data into gbuffer
-        // -----------------------------------------------------------------
-        glBindFramebuffer(GL_FRAMEBUFFER, gBuffer_);
+// -----------------------------------------------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, g_buffer_);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(program_geometry_pass_);
         SetCameraProperties(projection, program_geometry_pass_);
@@ -1289,42 +1418,43 @@ namespace gpr {
 
 
         // 2. generate SSAO texture
-        // ------------------------
-        glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO_);
+// ------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, ssao_fbo_);
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(program_ssao_);
         // Send kernel + rotation
-        for (unsigned int i = 0; i < 64; ++i) {
+        for (unsigned int i = 0; i < kKernelSize; ++i) {
             std::string path = "samples[" + std::to_string(i) + "]";
-            glUniform3f(glGetUniformLocation(program_ssao_, path.c_str()), ssaoKernel_[i].x, ssaoKernel_[i].y,
-                        ssaoKernel_[i].z);
+            glUniform3f(glGetUniformLocation(program_ssao_, path.c_str()), ssao_kernel_[i].x, ssao_kernel_[i].y,
+                        ssao_kernel_[i].z);
         }
         glUniformMatrix4fv(glGetUniformLocation(program_ssao_, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gPosition_);
+        glBindTexture(GL_TEXTURE_2D, g_position_);
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, gNormal_);
+        glBindTexture(GL_TEXTURE_2D, g_normal_);
         glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, noiseTexture_);
+        glBindTexture(GL_TEXTURE_2D, noise_texture_);
         renderQuad();
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
         // 3. blur SSAO texture to remove noise
-        // ------------------------------------
-        glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO_);
+// ------------------------------------
+        glBindFramebuffer(GL_FRAMEBUFFER, ssao_blur_fbo_);
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(program_ssao_blur_);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, ssaoColorBuffer_);
+        glBindTexture(GL_TEXTURE_2D, ssao_color_buffer_);
         renderQuad();
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
         // 4. lighting pass: traditional deferred Blinn-Phong lighting with added screen-space ambient occlusion
-        // -----------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(program_lighting_pass_);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         // send light relevant uniforms
         glm::vec3 lightPosView = glm::vec3(camera_->view() * glm::vec4(light_cube_pos_[0], 1.0));
 
@@ -1340,71 +1470,43 @@ namespace gpr {
         glUniform1f(glGetUniformLocation(program_lighting_pass_, "light.Linear"), linear);
         glUniform1f(glGetUniformLocation(program_lighting_pass_, "light.Quadratic"), quadratic);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gPosition_);
+        glBindTexture(GL_TEXTURE_2D, g_position_);
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, gNormal_);
+        glBindTexture(GL_TEXTURE_2D, g_normal_);
         glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, gAlbedo_);
+        glBindTexture(GL_TEXTURE_2D, g_albedo_);
         glActiveTexture(GL_TEXTURE3); // add extra SSAO texture to lighting pass
-        glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur_);
+        glBindTexture(GL_TEXTURE_2D, ssao_color_buffer_blur_);
         renderQuad();
+    }
 
-
-        //draw programme -> cube map --------------------------------------------------------------------------
-        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
-        glDisable(GL_CULL_FACE);
-        glDepthFunc(GL_LEQUAL);
-        glUseProgram(program_cube_map_);
-        glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
-        auto view = glm::mat4(glm::mat3(camera_->view())); // remove translation from the view matrix
-        int viewLocP = glGetUniformLocation(program_cube_map_, "view");
-        glUniformMatrix4fv(viewLocP,
-                           1, GL_FALSE,
-                           glm::value_ptr(view)
-        );
-        int projectionLocP = glGetUniformLocation(program_cube_map_, "projection");
-        glUniformMatrix4fv(projectionLocP,
-                           1, GL_FALSE,
-                           glm::value_ptr(projection)
-        );
-        //skybox cube
-        skybox_vao_.Bind();
-
-        //draw cube map
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_text_);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
-
-
-        //Blooming light ----------------------------------------------------------------------------------
-
+    void FinalScene::BloomPass(const glm::mat4 &projection) {
         //3 steps :
 
         //make light cube ----------------------------------------
-        // finally show all the light sources as bright cubes
+// finally show all the light sources as bright cubes
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(program_light_cube_);
         SetCameraProperties(projection, program_light_cube_);
 
         for (unsigned int i = 0; i < kLightsCount; i++) {
-            model = glm::mat4(1.0f);
+            auto model = glm::mat4(1.0f);
             model = glm::translate(model, glm::vec3(light_cube_pos_[i]));
             model = glm::scale(model, glm::vec3(0.25f));
-            int viewLocPTemp = glGetUniformLocation(program_light_cube_, "model");
-            glUniformMatrix4fv(viewLocPTemp,
+            int view_loc_p_temp = glGetUniformLocation(program_light_cube_, "model");
+            glUniformMatrix4fv(view_loc_p_temp,
                                1, GL_FALSE,
                                glm::value_ptr(model)
             );
-            viewLocPTemp = glGetUniformLocation(program_light_cube_, "lightColor");
-            glUniform3f(viewLocPTemp, light_cube_color_[i].x, light_cube_color_[i].y, light_cube_color_[i].z);
+            view_loc_p_temp = glGetUniformLocation(program_light_cube_, "lightColor");
+            glUniform3f(view_loc_p_temp, light_cube_color_[i].x, light_cube_color_[i].y, light_cube_color_[i].z);
             CreateLightCube();
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         // 2. blur bright fragments with two-pass Gaussian Blur
-        // --------------------------------------------------
+// --------------------------------------------------
         bool horizontal = true, first_iteration = true;
         unsigned int amount = 10;
         glUseProgram(program_light_cube_blur_);
@@ -1415,14 +1517,15 @@ namespace gpr {
                                                          : ping_pong_color_buffers_[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
             renderQuad();
             horizontal = !horizontal;
-            if (first_iteration)
+            if (first_iteration) {
                 first_iteration = false;
+            }
         }
         glBindFramebuffer(GL_FRAMEBUFFER, screen_frame_buffer_);
 
         // 3. now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
-        // --------------------------------------------------------------------------------------------------------------------------
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+// --------------------------------------------------------------------------------------------------------------------------
+//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(program_bloom_);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, text_for_screen_frame_buffer[0]);
@@ -1431,25 +1534,6 @@ namespace gpr {
         glUniform1i(glGetUniformLocation(program_bloom_, "bloom"), bloom);
         glUniform1f(glGetUniformLocation(program_bloom_, "exposure"), exposure);
         renderQuad();
-
-        //frame buffer screen ----------------------------------------------------------------------
-        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-//        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-//        glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(program_screen_frame_buffer_);
-
-        //set post process
-        glUniform1i(glGetUniformLocation(program_screen_frame_buffer_, "reverse"), reverse_enable_);
-        glUniform1i(glGetUniformLocation(program_screen_frame_buffer_, "reverseGammaEffect"), reverse_gamma_enable_);
-        quad_vao_.Bind();
-        glDisable(GL_DEPTH_TEST);
-        glBindTexture(GL_TEXTURE_2D, text_for_screen_frame_buffer[0]);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        //ImGui
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui::NewFrame();
-        DrawImGui();
     }
 
     void FinalScene::RenderQuad() {
@@ -1473,39 +1557,39 @@ namespace gpr {
         // ----------
         glm::vec3 edge1 = pos2 - pos1;
         glm::vec3 edge2 = pos3 - pos1;
-        glm::vec2 deltaUV1 = uv2 - uv1;
-        glm::vec2 deltaUV2 = uv3 - uv1;
+        glm::vec2 delta_uv1 = uv2 - uv1;
+        glm::vec2 delta_uv2 = uv3 - uv1;
 
-        float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+        float f = 1.0f / (delta_uv1.x * delta_uv2.y - delta_uv2.x * delta_uv1.y);
 
-        tangent1.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
-        tangent1.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
-        tangent1.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+        tangent1.x = f * (delta_uv2.y * edge1.x - delta_uv1.y * edge2.x);
+        tangent1.y = f * (delta_uv2.y * edge1.y - delta_uv1.y * edge2.y);
+        tangent1.z = f * (delta_uv2.y * edge1.z - delta_uv1.y * edge2.z);
 
-        bitangent1.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
-        bitangent1.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
-        bitangent1.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
+        bitangent1.x = f * (-delta_uv2.x * edge1.x + delta_uv1.x * edge2.x);
+        bitangent1.y = f * (-delta_uv2.x * edge1.y + delta_uv1.x * edge2.y);
+        bitangent1.z = f * (-delta_uv2.x * edge1.z + delta_uv1.x * edge2.z);
 
         // triangle 2
         // ----------
         edge1 = pos3 - pos1;
         edge2 = pos4 - pos1;
-        deltaUV1 = uv3 - uv1;
-        deltaUV2 = uv4 - uv1;
+        delta_uv1 = uv3 - uv1;
+        delta_uv2 = uv4 - uv1;
 
-        f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+        f = 1.0f / (delta_uv1.x * delta_uv2.y - delta_uv2.x * delta_uv1.y);
 
-        tangent2.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
-        tangent2.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
-        tangent2.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
-
-
-        bitangent2.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
-        bitangent2.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
-        bitangent2.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
+        tangent2.x = f * (delta_uv2.y * edge1.x - delta_uv1.y * edge2.x);
+        tangent2.y = f * (delta_uv2.y * edge1.y - delta_uv1.y * edge2.y);
+        tangent2.z = f * (delta_uv2.y * edge1.z - delta_uv1.y * edge2.z);
 
 
-        float quadVertices[] = {
+        bitangent2.x = f * (-delta_uv2.x * edge1.x + delta_uv1.x * edge2.x);
+        bitangent2.y = f * (-delta_uv2.x * edge1.y + delta_uv1.x * edge2.y);
+        bitangent2.z = f * (-delta_uv2.x * edge1.z + delta_uv1.x * edge2.z);
+
+
+        float quad_vertices[] = {
                 // positions                            // normal                     // texcoords          // tangent                          // bitangent
                 pos1.x, pos1.y, pos1.z, nm.x, nm.y, nm.z, uv1.x, uv1.y, tangent1.x, tangent1.y, tangent1.z,
                 bitangent1.x, bitangent1.y, bitangent1.z,
@@ -1528,7 +1612,7 @@ namespace gpr {
         new_plane_vao.Bind();
         plane_vbo_.Create();
         plane_vbo_.Bind();
-        plane_vbo_.BindData(sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+        plane_vbo_.BindData(sizeof(quad_vertices), &quad_vertices, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 14 * sizeof(float),
                               (void *) nullptr);
@@ -1648,14 +1732,14 @@ namespace gpr {
         model = glm::scale(model, glm::vec3(100.0, 100.0, 100.0));
         model = glm::rotate(model, static_cast<float>(glm::radians(90.0)), glm::vec3(1.0, 0.0, 0.0));
 
-        int modelLocP = glGetUniformLocation(program_normal_mapping_, "model");
-        glUniformMatrix4fv(modelLocP, 1, GL_FALSE, glm::value_ptr(model));
+        int model_loc = glGetUniformLocation(program_normal_mapping_, "model");
+        glUniformMatrix4fv(model_loc, 1, GL_FALSE, glm::value_ptr(model));
 
-        int camLocP = glGetUniformLocation(program_normal_mapping_, "viewPos");
-        glUniform3f(camLocP, camera_->position_.x, camera_->position_.y, camera_->position_.z);
+        int cam_loc = glGetUniformLocation(program_normal_mapping_, "viewPos");
+        glUniform3f(cam_loc, camera_->position_.x, camera_->position_.y, camera_->position_.z);
 
-        int lightLocP = glGetUniformLocation(program_normal_mapping_, "lightPos");
-        glUniform3f(lightLocP, light_cube_pos_[0].x, light_cube_pos_[0].y, light_cube_pos_[0].z);
+        int light_loc = glGetUniformLocation(program_normal_mapping_, "lightPos");
+        glUniform3f(light_loc, light_cube_pos_[0].x, light_cube_pos_[0].y, light_cube_pos_[0].z);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, ground_text_);
@@ -1712,13 +1796,13 @@ namespace gpr {
                 -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f  // bottom-left
         };
 
-        VAO cube_vao_{};
-        VBO cube_vbo_{};
-        cube_vao_.Create();
-        cube_vbo_.Create();
-        cube_vao_.Bind();
-        cube_vbo_.Bind();
-        cube_vbo_.BindData(sizeof(vertices), vertices, GL_STATIC_DRAW);
+        VAO cube_vao{};
+        VBO cube_vbo{};
+        cube_vao.Create();
+        cube_vbo.Create();
+        cube_vao.Bind();
+        cube_vbo.Bind();
+        cube_vbo.BindData(sizeof(vertices), vertices, GL_STATIC_DRAW);
 
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) nullptr);
@@ -1729,7 +1813,7 @@ namespace gpr {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
         // render Cube
-        cube_vao_.Bind();
+        cube_vao.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
     }
@@ -1750,12 +1834,12 @@ namespace gpr {
     }
 
     void FinalScene::SetCameraProperties(const glm::mat4 &projection, GLuint &program) const {
-        int viewLocP = glGetUniformLocation(program, "view");
-        glUniformMatrix4fv(viewLocP, 1, GL_FALSE, glm::value_ptr(camera_->view()));
+        int view_loc = glGetUniformLocation(program, "view");
+        glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(camera_->view()));
 
 
-        int projectionLocP = glGetUniformLocation(program, "projection");
-        glUniformMatrix4fv(projectionLocP, 1, GL_FALSE, glm::value_ptr(projection));
+        int projection_loc = glGetUniformLocation(program, "projection");
+        glUniformMatrix4fv(projection_loc, 1, GL_FALSE, glm::value_ptr(projection));
     }
 }
 

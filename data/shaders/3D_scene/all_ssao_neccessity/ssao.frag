@@ -9,10 +9,10 @@ uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform sampler2D texNoise;
 
-uniform vec3 samples[64];
+uniform vec3 samples[32];
 
 // parameters (you'd probably want to use them as uniforms to more easily tweak the effect)
-int kernelSize = 64;
+int kernelSize = 32;
 float radius = 0.5;
 float bias = 0.025;
 
@@ -53,6 +53,7 @@ void main()
         occlusion += (sampleDepth >= samplePos.z + bias ? 1.0 : 0.0) * rangeCheck;
     }
     occlusion = 1.0 - (occlusion / float(kernelSize));
+    float power = 2.0;
 
-    FragColor = occlusion;
+    FragColor = pow(occlusion, power);
 }
